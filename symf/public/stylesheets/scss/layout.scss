@@ -1,0 +1,22 @@
+body { 
+  background-color: $global-gray;
+}
+
+.menu-container {
+  background-color: $black;
+  color: $white;
+  .menu {
+    font-family: 'xolonium-bold';
+    color: inherit;
+    li {
+      color: inherit;
+      border: 2px solid transparent;
+      a {
+        color: inherit;
+        display: block;
+        width: 100%;
+        @include activ-button();
+      }
+    }
+  }
+}
