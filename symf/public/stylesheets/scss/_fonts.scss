@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'xolonium-reg';
+  src:  url('../fonts/xolonium/ttf/Xolonium-Regular.ttf') format('truetype'),
+        url('../fonts/xolonium/woff/Xolonium-Regular.woff') format('woff'),
+        url('../fonts/xolonium/woff2/Xolonium-Regular.woff2') format('woff2');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'xolonium-bold';
+  src:  url('../fonts/xolonium/ttf/Xolonium-Bold.ttf') format('truetype'),
+        url('../fonts/xolonium/woff/Xolonium-Bold.woff') format('woff'),
+        url('../fonts/xolonium/woff2/Xolonium-Bold.woff2') format('woff2');
+  font-weight: bold;
+}
