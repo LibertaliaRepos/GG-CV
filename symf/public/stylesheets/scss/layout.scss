@@ -1,3 +1,32 @@
+#layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  
+  #left-side {
+    flex: 3;
+  }
+  #right-side {
+    flex: 15;
+  }
+}
+
+
+
+
+
 .menu {
   font-family: 'xolonium-bold';
 }
+
+h1 {
+  font-family: 'jellee-roman';
+}
+
+h2 {
+  font-family: 'xolonium-reg';
+}
+
+@import 'left-side';
+@import 'right-side';

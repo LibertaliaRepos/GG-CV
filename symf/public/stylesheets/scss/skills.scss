@@ -1,19 +1,67 @@
-#content {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
+#skills {
+  padding: 1%;
+  background-image: url(../../img/_design/network-2.jpg);
+  background-size: cover;
   
-  #toAnchor {
-    border-right: 2px solid $light-blue;
-    background-color: $black;
-    box-sizing: border-box;
+  > section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
     
-    .menu {
+    margin-bottom: 20px;
+    
+    .explain {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 50%;
       
+      padding: 5px;
+      border: solid $orange;
+      border-width: 0 0 5px 5px;
+      border-radius: 5px 10px 5px 20px;
+      background-color: $light-gray;
+      box-shadow: 0 0 10px $dark-blue;
+      h2 {
+        border: solid $green;
+        border-width: 0 3px 3px 0;
+        border-radius: 0 0 40px 0;
+        padding: 0 4% 0 0;
+      }
     }
-  }
-  
-  #skills {
+    
+    &:nth-child(odd) {
+//      border-width: 5px 5px 0 0;
+//      border-radius: 5px 20px 5px 10px;
+//      border-color: $green;
+      
+      .explain {
+        order: 1;
+        border-width: 5px 5px 0 0;
+        border-radius: 5px 20px 5px 10px;
+        border-color: $green;
+        
+        h2 {
+          border: solid $orange;
+          border-width: 0 0 3px 3px;
+          border-radius: 0 0 0 40px;
+          padding: 0 0 0 4%;
+        }
+      }
+      img {
+        order: 0;
+        
+        
+      }
+    }
+    img {
+      max-width: 20%;
+      align-self: center;
+      box-shadow: 0 0 20px $dark-blue;
+      background-color: $light-gray;
+    }
   }
 }

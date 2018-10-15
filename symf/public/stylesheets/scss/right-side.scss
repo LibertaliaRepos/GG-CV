@@ -1,0 +1,7 @@
+#right-side {
+  @import 'top-menu';
+  
+  #content {
+    @import 'skills';
+  }
+}

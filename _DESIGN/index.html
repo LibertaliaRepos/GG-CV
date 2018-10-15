@@ -7,70 +7,98 @@
     <title>Foundation for Sites</title>
     <link rel="stylesheet" href="../symf/public/stylesheets/css/app.css">
   </head>
-  <body class="grid-container full grid-x">
+  <body id="layout" class="">
     
-    <nav id="top-menu" class="cell">
-      
-      <a class="logo" href="#">
-        <img class="" src="../symf/public/img/gilles-logo/logo.svg" alt="" />
+    
+    <div id="left-side" class="">
+      <a id="left-logo" class="logo" href="#">
+        <img class="" src="../symf/public/img/_design/gilles-logo/logo.svg" alt="" />
       </a>
-      
-      <div id="top-header">
-        <h1>Gilles Gandner - Développeur web</h1>
-        <ul class="menu">
-          <li class=""><a href="#">Accueil</a></li>
-          <li class=""><a href="#">Item 1</a></li>
-          <li class=""><a href="#">Item 2</a></li>
-          <li class=""><a href="#">Item 3</a></li>
-        </ul>
-        
-        <p id="ephemeris">
-          <span>Le Dimanche 14 Octobre à 18h56</span>
-        </p>
-        
-      </div>
-      
-      <a class="logo" href="#">
-        <img class="logo-right" src="../symf/public/img/gilles-logo/oreille.svg" alt="" />
-      </a>
-    
-      
-    </nav>
-    
-    
-    
-    <article id="content">
       <nav id="toAnchor">
           <ul class="vertical menu">
-            <li><a href="#html-css">HTML / CSS3</a></li>
-            <li><a href="#javascript">Javascript</a></li>
+            <li><a href="#html-css"><span>HTML / CSS3 / Javascript</span></a></li>
+            <li><a href="#javascript"><span>Javascript</span></a></li>
+            <li><a href="#html-css"><span>HTML / CSS3 / Javascript 2</span></a></li>
+            <li><a href="#javascript"><span>HTML / CSS3 / Javascript 3</span></a></li>
           </ul>
       </nav>
+    </div>
+    
+    <div id="right-side" class="">
       
-      <div id="skills">
-      
-        <h1>Compétances</h1>
-        <section>
-          <h2 id="html-css">HTML5 / CSS3</h2>
+      <nav id="top-menu" class="cell">
 
-          <p>
-            Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+        <div id="top-header">
+          <h1>Gilles Gandner - Développeur web</h1>
+          <ul class="menu">
+            <li class=""><a href="#">Accueil</a></li>
+            <li class=""><a href="#">Item 1</a></li>
+            <li class=""><a href="#">Item 2</a></li>
+            <li class=""><a href="#">Item 3</a></li>
+          </ul>
+
+          <p id="ephemeris">
+            <span>Le Dimanche 14 Octobre à 18h56</span>
           </p>
 
-          <img src="../symf/public/img/_design/html-css.svg" alt="" />
-        </section>
+        </div>
 
-        <section>
-          <h2 id="javascript">Javascript</h2>
+        <a class="logo" href="#">
+          <img class="logo-right" src="../symf/public/img/_design/gilles-logo/oreille.svg" alt="" />
+        </a>
+      </nav>
+      
+      <article id="content">
 
-          <p>
-            Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
-          </p>
+        <div id="skills">
 
-          <img src="../symf/public/img/_design/html-css.svg" alt="" />
-        </section>
-      </div>
-    </article>
+          <h1>Compétances</h1>
+          <section>
+            <div class="explain">
+              <h2 id="html-css">HTML5 / CSS3 / Javascript</h2>
+
+              <p>
+                Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+              </p>
+            </div>
+            <img src="../symf/public/img/html-css-js.svg" alt="" />
+          </section>
+
+          <section>
+            <div class="explain">
+              <h2 id="javascript">Javascript</h2>
+
+              <p>
+                Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+              </p>
+            </div>
+            <img src="../symf/public/img/html-css.svg" alt="" />
+          </section>
+          
+          <section>
+            <div class="explain">
+              <h2 id="html-css">HTML5 / CSS3 / Javascript</h2>
+
+              <p>
+                Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+              </p>
+            </div>
+            <img src="../symf/public/img/html-css-js.svg" alt="" />
+          </section>
+          
+          <section>
+            <div class="explain">
+              <h2 id="html-css">HTML5 / CSS3 / Javascript</h2>
+
+              <p>
+                Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+              </p>
+            </div>
+            <img src="../symf/public/img/html-css-js.svg" alt="" />
+          </section>
+        </div>
+      </article>
+    </div>
     
     <script src="../symf/public/stylesheets/node_modules/jquery/dist/jquery.js"></script>
     <script src="../symf/public/stylesheets/node_modules/what-input/dist/what-input.js"></script>
