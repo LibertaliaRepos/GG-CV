@@ -28,10 +28,7 @@ function skillImageDim() {
     var blockHeight = h2Height + textHeight + 10;
     
     $(img).css('max-height', blockHeight + 'px');
-  });
-  
-  console.log(skill_elems);
-  
+  });  
 }
 
 $(document).ready(skillImageDim());

@@ -4,12 +4,17 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   
+  
+  
   #left-side {
     flex: 3;
   }
   #right-side {
     flex: 15;
   }
+  
+  @import 'left-side';
+  @import 'right-side';
 }
 
 
@@ -28,5 +33,4 @@ h2 {
   font-family: 'xolonium-reg';
 }
 
-@import 'left-side';
-@import 'right-side';
+
