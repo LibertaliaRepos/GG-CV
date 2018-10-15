@@ -13,3 +13,11 @@
         url('../fonts/xolonium/woff2/Xolonium-Bold.woff2') format('woff2');
   font-weight: bold;
 }
+
+@font-face {
+  font-family: 'jellee-roman';
+  src: url('../fonts/Jellee/Jellee-Roman.ttf') format('truetype'),
+       url('../fonts/Jellee/jellee-roman-webfont.woff') format('woff'),
+       url('../fonts/Jellee/jellee-roman-webfont.woff2') format('woff2');
+  font-weight: normal;
+}

@@ -1,0 +1,19 @@
+#content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  
+  #toAnchor {
+    border-right: 2px solid $light-blue;
+    background-color: $black;
+    box-sizing: border-box;
+    
+    .menu {
+      
+    }
+  }
+  
+  #skills {
+  }
+}

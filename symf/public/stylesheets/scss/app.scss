@@ -3,6 +3,7 @@
 @import 'settings';
 @import 'foundation';
 @import 'motion-ui';
+@import 'fonts';
 
 @include foundation-global-styles;
 // @include foundation-grid;
@@ -50,3 +51,8 @@
 
 @include motion-ui-transitions;
 @include motion-ui-animations;
+
+@import 'my-mixins';
+@import 'layout';
+@import 'top-menu';
+@import 'skills';
