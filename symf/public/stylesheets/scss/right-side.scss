@@ -4,6 +4,8 @@
   #content {
     background-image: url(../../img/_design/network-2.jpg);
     background-size: contain;
+    height: 77vh;
+    overflow-y: scroll;
     
     @import 'skills';
   }
