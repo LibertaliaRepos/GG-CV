@@ -1,0 +1,97 @@
+#projects {
+  > section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    
+    margin-bottom: 20px;
+    
+    @include explanation('explain', false);
+    
+    .explain {
+      position: static;
+    }
+    
+  .illustration-right {
+      max-width: 30%;
+      align-self: center;
+      box-shadow: 0 0 20px $dark-blue;
+      background-color: rgba($light-gray, 0.5);
+      border: 5px solid transparent;
+      
+      &:hover {
+        border: 5px solid $orange;
+          cursor: zoom-in;
+        .orbit-bullets {
+          button:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      
+      &.orbit {
+        padding: 1px;
+        
+        .orbit-previous, .orbit-next {
+          top : 96%;
+          border: 1px solid transparent;
+          &:hover {
+            border: 1px solid $white;
+            cursor: pointer;
+          }
+        }
+        .orbit-exit {display: none;}
+        
+        &[data-zoomed=true] {
+          position: absolute;
+          top: 15%;
+          left: 35%;
+          height: 75vh;
+          z-index: 9;
+          max-width: calc(32%);
+          background-color: rgba($black,0.7);
+          max-width: none;
+          cursor: default;
+          border: 5px solid transparent;
+          .orbit-exit {
+              @extend .orbit-previous;
+              display: block;
+              top: 14px;
+              left: 95%;
+            }
+          .orbit-wrapper {
+            height: 100%;
+            .orbit-container {
+              height: inherit !important;
+              .orbit-slide {
+                height: inherit;
+                .orbit-figure {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  height: inherit;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+  #openedOrbitBack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    background-color: rgba(0,0,0,0.5);
+
+    transition: width 0.3s ease, height 0.3s ease;
+    &[data-status=opened] {
+      width: 100vw;
+      height: 100vh;
+    }
+  }
+}
