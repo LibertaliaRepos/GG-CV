@@ -14,3 +14,46 @@
     background-position: 80% center;
   }
 }
+
+@mixin explanation($class, $cross) {
+  .#{$class} {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 50%;
+
+    padding: 5px;
+    border: solid $orange;
+    border-width: 0 0 5px 5px;
+    border-radius: 5px 10px 5px 20px;
+    background-color: $light-gray;
+    box-shadow: 0 0 10px $dark-blue;
+    h2 {
+      border: solid $green;
+      border-width: 0 3px 3px 0;
+      border-radius: 0 0 40px 0;
+      padding: 0 4% 0 0;
+    }
+  }
+  &:nth-child(odd) {
+
+    .#{$class} {
+      border-width: 5px 5px 0 0;
+      border-radius: 5px 20px 5px 10px;
+      border-color: $green;
+
+      h2 {
+        border: solid $orange;
+        border-width: 0 0 3px 3px;
+        border-radius: 0 0 0 40px;
+        padding: 0 0 0 4%;
+      }
+      @if $cross == true {
+        order: 1;
+        .illustration-right {order: 0;}
+      }
+    }
+  }
+}
