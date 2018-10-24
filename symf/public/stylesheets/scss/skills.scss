@@ -8,7 +8,7 @@
     
     margin-bottom: 20px;
     
-    @include explanation('explain', true);
+    @include explanation('.explain', true);
     
     .illustration-right {
       max-width: 20%;
