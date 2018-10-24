@@ -15,8 +15,8 @@
   }
 }
 
-@mixin explanation($class, $cross) {
-  .#{$class} {
+@mixin explanation($selector, $cross: false) {
+  #{$selector} {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -39,7 +39,7 @@
   }
   &:nth-child(odd) {
 
-    .#{$class} {
+    #{$selector} {
       border-width: 5px 5px 0 0;
       border-radius: 5px 20px 5px 10px;
       border-color: $green;
