@@ -61,10 +61,18 @@
       #nameLab, #phoneLab { width: 35%; }
       #societyLab { width: 60%; }
       #msgLab { width: 100%; }
+      #subjectLab { 
+        width: 85%; 
+        margin-bottom: 1rem;
+        input {
+          margin-bottom: 0;
+        }
+      }
       
       // FRAOLA BUTTON ===>>> char counter
       
       div.fr-box {
+        width: 100%;
         div.fr-toolbar {
           #myCharCounter span {
             text-align: center;
