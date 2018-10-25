@@ -45,13 +45,14 @@ var contactForm = {
   },
   
   editorTest: function(e) {
-    e.preventDefault();
+    
     var label = $('#msgLab');
     var alert = $('<p></p>');
     $(alert).attr('id', 'editorHelper')
     var MSGcontent = $('[contenteditable=true]').text();
     
     if (MSGcontent.length < 10 && $('#editorHelper').length == 0) {
+      e.preventDefault();
       $(alert).addClass('help-text alert');
       $(alert).html('Votre message doit contenir plus de dix caractères !!');
       $(alert).addClass('callout alert');
