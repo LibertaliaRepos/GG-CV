@@ -51,9 +51,8 @@
           </ul>
 
           <p id="ephemeris">
-            <span>Le Dimanche 14 Octobre à 18h56</span>
+            <span>Le <span data-day>Dimanche 14 Octobre</span> à <span data-time>18h56</span></span>
           </p>
-
         </div>
 
         <a class="logo" href="#">
@@ -79,19 +78,26 @@
               <label id="nameLab">
                 Nom 
                 <span class="help-text">(facultatif)</span>: 
-                <input type="text" name="NAME"/>
+                <input type="text" name="NAME" />
               </label>
               <label id="phoneLab">
                 Téléphone 
                 <span class="help-text">(facultatif)</span>: 
-                <input type="text" name="PHONE"/>
+                <input type="text" name="PHONE" />
               </label>
               <label id="societyLab">
                 Sociétée 
                 <span class="help-text">(facultatif)</span>: 
-                <input type="text" name="SOCIETY"/>
+                <input type="text" name="SOCIETY" />
               </label>
-
+              
+              <label id="subjectLab">
+                Sujet
+                <span class="help-text">(obligatoire)</span>:
+                <input type="text" name="SUBJECT" required minLength="10" maxLength="250" />
+                <span class="help-text">Doit contenir entre 10 et 250 caractères</span>
+              </label>
+              
               <label id="msgLab" for="contactMSG" aria-describedby="">Message
                 <span class="help-text">(obligatoire)</span>
                 
@@ -112,8 +118,7 @@
     <script src="../symf/public/stylesheets/node_modules/jquery/dist/jquery.js"></script>
     <script src="../symf/public/stylesheets/node_modules/what-input/dist/what-input.js"></script>
     <script src="../symf/public/stylesheets/node_modules/foundation-sites/dist/js/foundation.js"></script>
-    <script src="../symf/public/stylesheets/js/app.js"></script>
-<!--    <script src="../symf/public/stylesheets/js/contact-validation.js"></script>-->
+    
     
     
     <!-- Include external JS libs. -->
@@ -151,6 +156,8 @@
         ) 
       });
     </script>
+    <script src="../symf/public/stylesheets/js/app.js"></script>
     <script src="../symf/public/stylesheets/js/contact-validation.js"></script>
+    <script src="../symf/public/stylesheets/js/dateMenu.js"></script>
   </body>
 </html>
