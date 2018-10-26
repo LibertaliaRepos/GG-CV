@@ -1,12 +1,60 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html class="no-js" lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} - GG-CV.loc{% endblock %}</title>
+    {% block stylesheets %}
+      <link rel="stylesheet" href="{{ asset('stylesheets/css/app.css') }}">
+    {% endblock %}
+  </head>
+  <body id="layout">
+    {% block body %}
+      <div id="left-side" class="">
+        <a id="left-logo" class="logo" href="#">
+          <img class="" src="{{ asset('img/_design/gilles-logo/logo.svg') }}" alt="" />
+        </a>
+        
+        {% block leftMenu %}
+        {% endblock %}
+      </div>
+      
+      <div id="right-side">
+        <nav id="top-menu" class="cell">
+
+          <div id="top-header">
+            <h1>Gilles Gandner - Développeur web</h1>
+            <ul class="menu">
+              <li class=""><a href="index.html">Accueil</a></li>
+              <li class=""><a href="projects.html">Projects</a></li>
+              <li class=""><a href="contact.html">Contact</a></li>
+              <li class=""><a href="#">Item 3</a></li>
+            </ul>
+
+            <p id="ephemeris">
+              <span>Le <span data-day>Dimanche 14 Octobre</span> à <span data-time>18h56</span></span>
+            </p>
+
+          </div>
+
+          <a class="logo" href="#">
+            <img class="logo-right" src="{{ asset('img/_design/gilles-logo/oreille.svg') }}" alt="" />
+          </a>
+        </nav>
+      
+      
+        {% block contentBody %}
+        {% endblock %}
+      </div>
+    {% endblock %}
+
+
+    {% block javascripts %}
+      <script src="{{ asset('stylesheets/node_modules/jquery/dist/jquery.js') }}"></script>
+      <script src="{{ asset('stylesheets/node_modules/what-input/dist/what-input.js') }}"></script>
+      <script src="{{ asset('stylesheets/node_modules/foundation-sites/dist/js/foundation.js') }}"></script>
+      <script src="{{ asset('stylesheets/js/app.js') }}"></script>
+    {% endblock %}
+  </body>
 </html>
