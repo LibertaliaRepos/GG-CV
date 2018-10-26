@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Accueil {{ parent() }} {% endblock %}
+
+
+{% block leftMenu %}
+  {{ render(controller('App\\Controller\\leftMenuController::indexLeftMenu')) }}
+{% endblock %}
+
+{% block contentBody %}
+  <article id="content">
+    <div id="skills">
+      <h1>Compétances</h1>
+      
+        {% for skill in skills %}
+          <section>
+            <div class="explain">
+              <h2 id="{{ skill.anchor }}">{{ skill.title }}</h2>
+              <p>{{ skill.explanation }}</p>
+            </div>
+            <img class="illustration-right" src="{{ asset('img/html-css-js.svg') }}" alt="" />
+          </section>
+        {% endfor %}
+      
+    </div>
+  </article>
+{% endblock %}
