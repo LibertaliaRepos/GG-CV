@@ -8,15 +8,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181026134337 extends AbstractMigration
+final class Version20181028165950 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_5E3DE4776751117D ON skill (anchor)');
-        $this->addSql('CREATE UNIQUE INDEX project_anchor_IDX ON project (anchor)');
+        $this->addSql('ALTER TABLE Society RENAME INDEX uniq_d6461f2e7a1254a TO UNIQ_C2D9586EE7A1254A');
     }
 
     public function down(Schema $schema) : void
@@ -24,7 +23,6 @@ final class Version20181026134337 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP INDEX project_anchor_IDX ON project');
-        $this->addSql('DROP INDEX UNIQ_5E3DE4776751117D ON skill');
+        $this->addSql('ALTER TABLE Society RENAME INDEX uniq_c2d9586ee7a1254a TO UNIQ_D6461F2E7A1254A');
     }
 }
