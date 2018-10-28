@@ -1,7 +1,17 @@
 <nav id="toAnchor">
     <ul class="vertical menu">
-      {% for skill in skills %}
-        <li><a href="#{{ skill.anchor }}"><span>{{ skill.title }}</span></a></li>
-      {% endfor %}
+      {% if skills is defined %}
+        
+        {% for skill in skills %}
+          <li><a href="#{{ skill.anchor }}"><span>{{ skill.title }}</span></a></li>
+        {% endfor %}
+        
+      {% elseif projects is defined %}
+        
+        {% for project in projects %}
+          <li><a href="#{{ project.anchor }}"><span>{{ project.title }}</span></a></li>
+        {% endfor %}
+        
+      {% endif %}
     </ul>
 </nav>
