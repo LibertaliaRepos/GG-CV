@@ -14,8 +14,8 @@
   <body id="layout">
     {% block body %}
       <div id="left-side" class="">
-        <a id="left-logo" class="logo" href="#">
-          <img class="" src="{{ asset('img/_design/gilles-logo/logo.svg') }}" alt="" />
+        <a id="left-logo" class="logo" href="{{ path('GGCV_index') }}">
+          <img class="" src="{{ asset('img/_design/gilles-logo/logo.svg') }}" alt="Logo de GG-CV.loc" />
         </a>
         
         {% block leftMenu %}
@@ -40,7 +40,7 @@
 
           </div>
 
-          <a class="logo" href="#">
+          <a class="logo" href="{{ path('GGCV_index') }}">
             <img class="logo-right" src="{{ asset('img/_design/gilles-logo/oreille.svg') }}" alt="" />
           </a>
         </nav>
