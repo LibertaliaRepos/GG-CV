@@ -28,4 +28,12 @@ class GGCVController extends AbstractController {
         return $this->render('GGCV/projects.html.twig', array('projects' => $projects));
     }
     
+    /**
+     * @Route("/contact", name="GGCV_contact")
+     */
+    public function contactForm() {
+        
+        return $this->render('GGCV/contact.html.twig');
+    }
+    
 }
