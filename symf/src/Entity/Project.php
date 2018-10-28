@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Project
  *
  * @ORM\Table(name="project", uniqueConstraints={@ORM\UniqueConstraint(name="project_anchor_IDX", columns={"anchor"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
  */
 class Project
 {
