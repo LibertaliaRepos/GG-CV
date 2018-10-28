@@ -9,6 +9,8 @@
       <link rel="stylesheet" href="{{ asset('stylesheets/css/app.css') }}">
     {% endblock %}
   </head>
+  
+  
   <body id="layout">
     {% block body %}
       <div id="left-side" class="">
@@ -26,8 +28,8 @@
           <div id="top-header">
             <h1>Gilles Gandner - Développeur web</h1>
             <ul class="menu">
-              <li class=""><a href="index.html">Accueil</a></li>
-              <li class=""><a href="projects.html">Projects</a></li>
+              <li class=""><a href="{{ path('GGCV_index') }}">Accueil</a></li>
+              <li class=""><a href="{{ path('GGCV_projects') }}">Projects</a></li>
               <li class=""><a href="contact.html">Contact</a></li>
               <li class=""><a href="#">Item 3</a></li>
             </ul>
@@ -55,6 +57,7 @@
       <script src="{{ asset('stylesheets/node_modules/what-input/dist/what-input.js') }}"></script>
       <script src="{{ asset('stylesheets/node_modules/foundation-sites/dist/js/foundation.js') }}"></script>
       <script src="{{ asset('stylesheets/js/app.js') }}"></script>
+      <script src="{{ asset('stylesheets/js/dateMenu.js') }}"></script>
     {% endblock %}
   </body>
 </html>
