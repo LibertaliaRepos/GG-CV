@@ -93,4 +93,63 @@
       }
     }
   }
+  
+  #mailSent {
+    @extend .callout;
+    
+    &[data-status=true] {
+      @extend .success;
+      
+      border: $callout-mail-succes-border;
+      background-color: rgba(#e1faea, 0.7);
+      
+      h3 {
+        background-color: rgba(#22bb5b, 0.5);
+      }
+    }
+    
+    &[data-status=false] {
+      @extend .alert;
+        
+      border: $callout-mail-alert-border;
+      background-color: rgba(233, 201, 201, 0.9);
+      
+      h3 {
+        background-color: rgba(246, 20, 15, 0.7);
+      }
+    }
+    
+//    left: 77%;
+//    display: block;
+    
+    position: fixed;
+    top: 28%;
+    width: 20vw;
+    
+    border-radius: 20px;
+    padding: 0;
+    
+    z-index: 999;
+    
+    transition: left 3s ease-out;
+    h3 {
+      font-size: 1.1em;
+      padding: 1rem 1rem 0 1rem;
+      border-radius: 20px 20px 0 0;
+      
+    }
+    p {
+      padding: 0 1rem 1rem 1rem;
+    }
+    
+    &[aria-hidden=true] {
+      left: 120%;
+      display: none;
+    }
+    
+    &[aria-hidden=false] {
+      left: 77%;
+      display: block;
+    }
+  }
 }
