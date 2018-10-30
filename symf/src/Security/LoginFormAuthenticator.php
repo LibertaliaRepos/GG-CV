@@ -38,7 +38,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        return 'app_login' === $request->attributes->get('_route')
+        return 'GGCV_admin_login' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
@@ -88,11 +88,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         // For example : return new RedirectResponse($this->router->generate('some_route'));
 //         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
 
-        return new RedirectResponse($this->router->generate('GGCV_index'));
+        return new RedirectResponse($this->router->generate('GGCV_admin_skill'));
     }
 
     protected function getLoginUrl()
     {
-        return $this->router->generate('app_login');
+        return $this->router->generate('GGCV_admin_login');
     }
 }
