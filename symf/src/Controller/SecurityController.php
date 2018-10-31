@@ -23,13 +23,6 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Route("/admin/skill", name="GGCV_admin_skill") 
-     */
-    public function skillForm() {
-        return new Response('skill form!!!');
-    }
-    
-    /**
      * @Route("/logout", name="GGCV_admin_logout")
      */
     public function logout() {
