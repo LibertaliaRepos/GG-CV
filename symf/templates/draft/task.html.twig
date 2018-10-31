@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+  {{ form_errors(form) }}
+  
+  <div>
+    {{ form_label(form.task, 'Task desciption') }}
+    {{ form_errors(form.task) }}
+    {{ form_widget(form.task, {'attr': {'class': 'myClass'}}) }}
+    {{ form_help(form.task) }}
+  </div>
+
+  <div>
+    {{ form_label(form.dueDate) }}
+    {{ form_errors(form.dueDate) }}
+    {{ form_widget(form.dueDate) }}
+    {{ form_help(form.dueDate) }}
+  </div>
+
+  <div>
+    {{ form_widget(form.save) }}
+  </div>
+
+{{ form_end(form) }}
