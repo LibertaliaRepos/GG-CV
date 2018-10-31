@@ -1,0 +1,9 @@
+#skillAdmin {
+  @include explanation('#skillForm');
+  @include global-form('#skillForm');
+  
+  #skillForm {
+    #titleLab, #anchorLab { width: 75%; }
+    #explanationLab { width: 100%; }
+  }
+}
