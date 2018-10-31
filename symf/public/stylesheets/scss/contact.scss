@@ -1,95 +1,19 @@
 #contact {
   @include explanation('#contactForm');
+  @include global-form('#contactForm');
   
   #contactForm {
-    
-    padding: 2%;
-    width: 60%;
-    margin: auto;
-    
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: flex-start;
-    
-    legend {
-      font-family: 'xolonium-reg';
-      font-size: 1.2rem;
-    }
-    
-    #details {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
       
-      .callout {
-        padding-top: 0;
-        padding-bottom: 0;
+    #emailLab { width: 85%; }
+    #nameLab { margin-right: 15%; }
+    #nameLab, #phoneLab { width: 35%; }
+    #societyLab { width: 60%; }
+    #msgLab { width: 100%; }
+    #subjectLab { 
+      width: 85%; 
+      margin-bottom: 1rem;
+      input {
         margin-bottom: 0;
-        margin-top: 10px;
-        color: red;
-        &.alert {
-          border: 1px solid red;
-        }
-      }
-      
-      label {        
-        &.callout {
-          padding-top: 0;
-          padding-bottom: 0;
-          &.alert {
-            border: 1px solid red;
-          }
-          
-          input {
-            margin-bottom: 0;
-          }
-          span.alert {
-            color: red;
-          }
-        }
-        
-        input[data-success=true] {
-          border: 2px solid green;
-          background-color: #d0e1d0;
-        }
-      }
-      
-      #emailLab { width: 85%; }
-      #nameLab { margin-right: 15%; }
-      #nameLab, #phoneLab { width: 35%; }
-      #societyLab { width: 60%; }
-      #msgLab { width: 100%; }
-      #subjectLab { 
-        width: 85%; 
-        margin-bottom: 1rem;
-        input {
-          margin-bottom: 0;
-        }
-      }
-      
-      // FRAOLA BUTTON ===>>> char counter
-      
-      div.fr-box {
-        width: 100%;
-        div.fr-toolbar {
-          #myCharCounter span {
-            text-align: center;
-          }
-        }
-      }
-    }
-    
-    .button-group {
-      width: 100%;
-      display: flex;
-      flex-wrap: nowrap;
-      flex-direction: row;
-      justify-content: flex-end;
-      
-      input[type=reset] {
-        margin-right: 10%;
       }
     }
   }
