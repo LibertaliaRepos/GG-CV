@@ -3,10 +3,6 @@
 {% block title %} Accueil {{ parent() }} {% endblock %}
 
 
-{% block leftMenu %}
-  {{ render(controller('App\\Controller\\leftMenuController::indexLeftMenu')) }}
-{% endblock %}
-
 {% block contentBody %}
   <article id="content">
     <h1>Connexion</h1>
