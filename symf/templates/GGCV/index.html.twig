@@ -16,7 +16,7 @@
           <section>
             <div class="explain">
               <h2 id="{{ skill.anchor }}">{{ skill.title }}</h2>
-              <p>{{ skill.explanation }}</p>
+              {{ skill.explanation | raw }}
             </div>
             <img class="illustration-right" src="{{ asset('img/html-css-js.svg') }}" alt="" />
           </section>
