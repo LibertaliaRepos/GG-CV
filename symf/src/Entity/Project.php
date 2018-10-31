@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Project
@@ -25,6 +26,14 @@ class Project
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     * min = 4,
+     * max = 255,
+     * minMessage = "Le titre doit faire au moins {{ limit }} caractères.",
+     * maxMessage = "Le titre doit faire moins de {{ limit }} caractères."
+     * )
      */
     private $title;
 
@@ -32,6 +41,19 @@ class Project
      * @var string
      *
      * @ORM\Column(name="anchor", type="string", length=255, nullable=false, unique=true)
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     * min = 4,
+     * max = 255,
+     * minMessage = "L'ancre doit faire au moins {{ limit }} caractères.",
+     * maxMessage = "L'ancre doit faire moins de {{ limit }} caractères."
+     * )
+     * @Assert\Regex(
+     *  pattern="/[\s\.#]/",
+     *  match=false,
+     *  message="L'ancre ne doit pas contenir d'espace [ ], de point [.] et de dièze [#]"
+     * )
      */
     private $anchor;
 
