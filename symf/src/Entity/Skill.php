@@ -64,12 +64,12 @@ class Skill
      * 
      * @Assert\NotBlank()
      * @Assert\Length(
-     * min = 50,
-     * minMessage = "L'ancre doit faire au moins {{ limit }} caractères."
+     * min = 20,
+     * minMessage = "La description doit faire au moins {{ limit }} caractères."
      * )
      */
     private $explanation;
-
+    
     public function __construct() {
         $this->anchor = '';
         $this->title = '';
@@ -116,6 +116,4 @@ class Skill
 
         return $this;
     }
-
-
 }
