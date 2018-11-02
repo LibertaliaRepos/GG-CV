@@ -3,8 +3,8 @@ namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\Skill;
 use App\Entity\Project;
+use App\Entity\Skill_Image;
 
 
 class GGCVController extends AbstractController {
@@ -14,9 +14,9 @@ class GGCVController extends AbstractController {
      */
     public function index() {
         
-        $skills = $this->getDoctrine()->getRepository(Skill::class)->findAll();
+        $skillsImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findAll();
         
-        return $this->render('GGCV/index.html.twig', array('skills' => $skills));
+        return $this->render('GGCV/index.html.twig', array('skillImages' => $skillsImages));
     }
     
     /**

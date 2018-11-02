@@ -12,13 +12,13 @@
     <div id="skills">
       <h1>Compétances</h1>
       
-        {% for skill in skills %}
+        {% for skillImage in skillImages %}
           <section>
             <div class="explain">
-              <h2 id="{{ skill.anchor }}">{{ skill.title }}</h2>
-              {{ skill.explanation | raw }}
+              <h2 id="{{ skillImage.skill.anchor }}">{{ skillImage.skill.title }}</h2>
+              {{ skillImage.skill.explanation | raw }}
             </div>
-            <img class="illustration-right" src="{{ asset('img/html-css-js.svg') }}" alt="" />
+            <img class="illustration-right" src="{{ asset(skill_dir ~ '/' ~ skillImage.image.filename) }}" alt="" />
           </section>
         {% endfor %}
       
