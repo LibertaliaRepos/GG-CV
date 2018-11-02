@@ -1,5 +1,6 @@
 {% set title_class = '' %}
 {% set anchor_class = '' %}
+{% set picture_class = '' %}
 
 {% extends 'base.html.twig' %}
 
@@ -22,7 +23,7 @@
       {{ form_start(form, {'attr': {'id': 'skillForm', 'method': 'POST'}}) }}
           <fieldset id="skillFields" class="fieldset">
             <legend>Ajouter une compétance</legend>
-            
+{# Title #}
             {% if form.title.vars.errors|length %}
               {% set title_class = 'callout alert' %}
             {% endif %}
@@ -38,7 +39,7 @@
               {% endif %}
               
             </label>
-            
+{# Anchor #}
             {% if form.anchor.vars.errors|length %}
               {% set anchor_class = 'callout alert' %}
             {% endif %}
@@ -59,7 +60,28 @@
               {% endif %}
               
             </label>
-
+{# Picture #}
+            {% if form.picture.vars.errors|length %}
+              {% set picture_class = 'callout alert' %}
+            {% endif %}
+            <label id="pictureLab" class="{{ picture_class }}">
+              Illustration
+              <span class="help-text">(facultatif)</span>: 
+              {{ form_widget(form.picture) }}
+              
+              {% if form.picture.vars.errors|length %}
+                <span class="help-text alert">
+                  {% for error in form.picture.vars.errors %}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                      <br />
+                    {% endif %}
+                  {% endfor %}
+                </span>
+              {% endif %}
+              
+            </label>
+{# explanation (foala) #}
             <label id="explanationLab" for="{{ form.explanation.vars.id }}" aria-describedby="">
               Description
               <span class="help-text">(obligatoire)</span>
@@ -85,7 +107,7 @@
             {{ form_widget(form.ajouter, {'attr': {'class': 'button success', 'value': 'Ajouter'}}) }}
           </div>
           
-      
+      {{ form_widget(form.oldPicture) }}
       {{ form_end(form) }}
       
       
