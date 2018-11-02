@@ -1,0 +1,66 @@
+#adminSkill {
+
+  width: 50%;
+  padding: 5px;
+  border: solid $green;
+  border-width: 5px;
+  border-radius: 5px 10px 5px 20px;
+  background-color: $light-gray;
+  box-shadow: 0 0 10px $dark-blue;
+  margin: auto;
+  
+  #skillList {
+    thead {
+      background-color: transparent;
+      border-width: 0;
+      tr {
+        th:not(.hidden) {
+          border: solid $white;
+          border-width: 0 1px 0 1px;
+          background-color: $black;
+          color: $white;
+        }
+      }
+    }
+    
+    tbody {
+      border: 1px solid $black;
+      tr {
+        border: solid $black;
+        border-width: 1px 0 1px 0;
+        &:nth-child(odd) {
+          background-color: $white;
+        }
+        &:nth-child(even) {
+          background-color: $medium-gray;
+        }
+        
+        td {
+          &.title {
+            font-weight: bold;
+          }
+          &.buttonAdmin {
+            max-width: 21px;
+          
+            a {
+              display: block;
+              border: 1px solid transparent;
+              &:hover {
+                border: 1pk solid black;
+                border-radius: 5px;
+                box-shadow: 1px 1px 2px $black;
+
+              }
+              img {
+                height: 32px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+    
+}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Accueil {{ parent() }} {% endblock %}
+
+
+{% block leftMenu %}
+  {{ include('menu/adminLeftMenu.html.twig') }}
+{% endblock %}
+
+{% block contentBody %}
+  <article id="content">
+    <h1>Compétances</h1>
+    
+    <div id="adminSkill">
+      <table id="skillList">
+        <caption>Liste des compétances</caption>
+        <thead>
+          <tr>
+            <th>Titre des compétances</th>
+            <th  class="hidden"><span class="show-for-sr">Modifier</span></th>
+            <th class="hidden"><span class="show-for-sr">Supprimer</span></th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {% for skillImage in skillsImages %}
+            <tr>
+              <td class="title">
+                <a href="{{ path('GGCV_index') }}#{{ skillImage.skill.anchor }}">
+                  {{ skillImage.skill.title }}
+                </a>
+              </td>
+              <td class="buttonAdmin">
+                <a href="{{ path('GGCV_admin_skill') }}/form/{{ skillImage.id }}">
+                  <img src="{{ asset('img/_design/edit.svg') }}" />
+                </a>
+              </td>
+              <td class="buttonAdmin"><a href="#"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+    </div>
+  </article>
+{% endblock %}
