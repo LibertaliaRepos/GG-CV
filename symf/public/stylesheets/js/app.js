@@ -31,6 +31,17 @@ function skillImageDim() {
   });  
 }
 
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      $('#pictPreview figure img').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 $(document).ready(skillImageDim());
 $(window).resize(function() {
   skillImageDim();

@@ -61,26 +61,40 @@
               
             </label>
 {# Picture #}
-            {% if form.picture.vars.errors|length %}
-              {% set picture_class = 'callout alert' %}
-            {% endif %}
-            <label id="pictureLab" class="{{ picture_class }}">
-              Illustration
-              <span class="help-text">(facultatif)</span>: 
-              {{ form_widget(form.picture) }}
-              
+            <div id="pictPreview">
               {% if form.picture.vars.errors|length %}
-                <span class="help-text alert">
-                  {% for error in form.picture.vars.errors %}
-                    {{ error.message }}
-                    {% if not loop.last %}
-                      <br />
-                    {% endif %}
-                  {% endfor %}
-                </span>
+                {% set picture_class = 'callout alert' %}
               {% endif %}
+              <label id="pictureLab" class="{{ picture_class }}">
+                Illustration
+                <span class="help-text">(facultatif)</span>: 
+                {{ form_widget(form.picture) }}
+
+                {% if form.picture.vars.errors|length %}
+                  <span class="help-text alert">
+                    {% for error in form.picture.vars.errors %}
+                      {{ error.message }}
+                      {% if not loop.last %}
+                        <br />
+                      {% endif %}
+                    {% endfor %}
+                  </span>
+                {% endif %}
+              </label>
               
-            </label>
+              <figure>
+                
+                {% if form.oldPicture.vars.value|length %}
+                  {% set previewSRC = asset(skill_dir~ '/' ~form.oldPicture.vars.value) %}
+                  
+                  {% else %}
+                    {% set previewSRC = asset('img/_design/PREVIEW.svg') %}
+                {% endif %}
+                
+                <img src="{{ previewSRC }}" alt="Aperçu" title="Aperçu" />
+              </figure>
+              
+            </div>
 {# explanation (foala) #}
             <label id="explanationLab" for="{{ form.explanation.vars.id }}" aria-describedby="">
               Description
@@ -131,5 +145,11 @@
           }
         ) 
       });
+      
+      $(function() {
+        $('#{{ form.picture.vars.id }}').change(function() {
+          readURL(this);
+        })
+      })
     </script>
 {% endblock %}

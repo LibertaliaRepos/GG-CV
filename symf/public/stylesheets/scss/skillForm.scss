@@ -5,7 +5,25 @@
   @include global-form('#projectForm');
   
   #skillForm, #projectForm {
-    #titleLab, #anchorLab { width: 75%; }
+    #titleLab, #anchorLab,  #pictPreview { width: 75%; }
     #explanationLab { width: 100%; }
+    
+    #pictPreview {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      
+      figure {
+        max-height: 200px;
+        text-align: center;
+        background-color: rgba($white, 0.2);
+        border: 1px solid $dark-gray;
+        img {
+          max-height: inherit;
+        }
+      }
+    }
   }
 }
