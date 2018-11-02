@@ -1,0 +1,140 @@
+{% set title_class = '' %}
+{% set anchor_class = '' %}
+{% set picture_class = '' %}
+
+{% extends 'base.html.twig' %}
+
+{% block title %} Administration des projets {{ parent() }} {% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  {{ include('_froala/stylesheets.html.twig') }}
+{% endblock %}
+
+
+{% block leftMenu %}
+  {{ include('menu/adminLeftMenu.html.twig') }}
+{% endblock %}
+
+{% block contentBody %}
+  <article id="content">
+    <h1>Projet</h1>
+    <div id="projectAdmin">
+      
+      {{ form_start(form, {'attr': {'id': 'projectForm', 'method': 'POST'}}) }}
+          <fieldset id="projectFields" class="fieldset">
+            <legend>Ajouter un projet</legend>
+{# Title #}
+            {% if form.title.vars.errors|length %}
+              {% set title_class = 'callout alert' %}
+            {% endif %}
+            <label id="titleLab" class="{{ title_class }}">
+              Titre
+              <span class="help-text">(obligatoire)</span>: 
+              {{ form_widget(form.title) }}
+              
+              {% if form.title.vars.errors|length %}
+                <span class="help-text alert">
+                  {% for error in form.title.vars.errors %}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                      <br />
+                    {% endif %}
+                  {% endfor %}
+                </span>
+              {% endif %}
+              
+            </label>
+{# Anchor #}
+            {% if form.anchor.vars.errors|length %}
+              {% set anchor_class = 'callout alert' %}
+            {% endif %}
+            <label id="anchorLab" class="{{ anchor_class }}">
+              Ancre
+              <span class="help-text">(obligatoire)</span>: 
+              {{ form_widget(form.anchor) }}
+              
+              {% if form.anchor.vars.errors|length %}
+                <span class="help-text alert">
+                  {% for error in form.anchor.vars.errors %}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                      <br />
+                    {% endif %}
+                  {% endfor %}
+                </span>
+              {% endif %}
+              
+            </label>
+{# Picture #}
+            {% if form.picture.vars.errors|length %}
+              {% set picture_class = 'callout alert' %}
+            {% endif %}
+            <label id="pictureLab" class="{{ picture_class }}">
+              Ancre
+              <span class="help-text">(obligatoire)</span>: 
+              {{ form_widget(form.picture) }}
+              
+              {% if form.picture.vars.errors|length %}
+                <span class="help-text alert">
+                  {% for error in form.picture.vars.errors %}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                      <br />
+                    {% endif %}
+                  {% endfor %}
+                </span>
+              {% endif %}
+              
+            </label>
+{# explanation (froala) #}
+            <label id="explanationLab" for="{{ form.explanation.vars.id }}" aria-describedby="">
+              Description
+              <span class="help-text">(obligatoire)</span>
+
+            </label>
+            {{ form_widget(form.explanation) }}
+            
+            {% if form.explanation.vars.errors|length %}
+                <p id="editorHelper" class="help-text alert callout">
+                  {% for error in form.explanation.vars.errors %}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                      <br />
+                    {% endif %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+            
+          </fieldset>
+  <!--      reset / submit      -->
+          <div class="button-group">
+            {{ form_widget(form.annuler, {'attr': {'class': 'button alert', 'value': 'Abandon'}}) }}
+            {{ form_widget(form.ajouter, {'attr': {'class': 'button success', 'value': 'Ajouter'}}) }}
+          </div>
+          
+      
+      {{ form_end(form) }}
+      
+      
+    </div>
+  </article>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ include('_froala/javascript.html.twig') }}
+    
+    <script>
+      $(function() { 
+        $('#{{ form.explanation.vars.id }}').froalaEditor(
+          {
+            enter: $.FroalaEditor.ENTER_P, 
+            placeholderText: null,
+            charCounterCount: false, 
+            toolbarButtons: ['html'],
+            height: 200
+          }
+        ) 
+      });
+    </script>
+{% endblock %}

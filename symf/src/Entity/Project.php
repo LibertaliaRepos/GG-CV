@@ -61,9 +61,21 @@ class Project
      * @var string
      *
      * @ORM\Column(name="explanation", type="text", nullable=false)
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     * min = 20,
+     * minMessage = "La description doit faire au moins {{ limit }} caractères."
+     * )
      */
     private $explanation;
 
+    public function __construct() {
+        $this->anchor = '';
+        $this->explanation = '';
+        $this->title = '';
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
