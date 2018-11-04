@@ -11,8 +11,8 @@
   <article id="content">
     <h1>Compétances</h1>
     
-    <div id="adminSkill">
-      <table id="skillList">
+    <div id="adminProject">
+      <table id="projectList">
         <caption>Liste des compétances</caption>
         <thead>
           <tr>
@@ -35,7 +35,7 @@
                   <img src="{{ asset('img/_design/edit.svg') }}" />
                 </a>
               </td>
-              <td class="buttonAdmin"><a href="#"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
+              <td class="buttonAdmin"><a href="#" data-open-reveal="{{ skillImage.id }}" data-parent-title="{{ skillImage.skill.title }}" data-action="project"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
             </tr>
           {% endfor %}
         </tbody>
@@ -43,5 +43,24 @@
       
       <a id="addSkill" class="button" href="{{ path('GGCV_admin_skill_form') }}">Ajouter une compétance</a>
     </div>
+    
+    <section id="beforeDel" class="reveal tiny alert" data-reveal>
+      <h2>Attention !!</h2>
+      
+      <p>
+        <img src="{{ asset('img/_design/warning.svg') }}" alt="Attention !" />
+        <span>Êtes-vous sûre de vouloir supprimer la compétance : "<strong><span class="ref-title"></span></strong>" ?</span>
+      </p>
+      
+      <div class="button-group-reveal">
+        <a class="button alert" href="#" data-abort>Non</a>
+        <a class="button success" href="#" data-delete="">Oui</a>
+      </div>
+    </section>
   </article>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('stylesheets/js/revealSkill.js') }}"></script>
 {% endblock %}
