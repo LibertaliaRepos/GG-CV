@@ -219,6 +219,8 @@ class adminController extends AbstractController {
                 
                 $em->persist($project);
                 $em->flush();
+                
+                return $this->redirectToRoute('GGCV_admin_project');
             } else {
                 $fileError['message'] = 'Les images autorisés doivent au format: <strong>jpeg, png ou svg</strong>.';
             }
@@ -319,6 +321,8 @@ class adminController extends AbstractController {
             
 
             $em->flush();
+            
+            return $this->redirectToRoute('GGCV_admin_project');
         }
         
         return $this->render(
