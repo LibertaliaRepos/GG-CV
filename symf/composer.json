@@ -16,6 +16,7 @@
 		"symfony/monolog-bundle": "^3.1",
 		"symfony/orm-pack": "^1.0",
 		"symfony/process": "*",
+		"symfony/requirements-checker": "^1.1",
 		"symfony/security-bundle": "*",
 		"symfony/serializer": "*",
 		"symfony/serializer-pack": "*",
@@ -65,6 +66,11 @@
 		"symfony" : {
 			"allow-contrib" : false,
 			"require" : "4.1.*"
+		}
+	},
+	"scripts": {
+		"auto-scripts": {
+			"requirements-checker": "script"
 		}
 	}
 }
