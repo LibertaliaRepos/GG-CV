@@ -15,8 +15,8 @@
         {% for project in projects %}
           <section>
             <div class="explain">
-              <h2 id="{{ project.anchor }}">{{ project.title }}</h2>
-              <p>{{ project.explanation }}</p>
+              <h2 id="{{ project.project.anchor }}">{{ project.project.title }}</h2>
+              {{ project.project.explanation | raw }}
             </div>
             
             <div class="orbit illustration-right" role="region" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out; autoPlay:false" data-zoomed="false">
@@ -28,29 +28,29 @@
                 </div>
                 
                 <ul class="orbit-container">
-                  <li class="is-active orbit-slide">
-                    <figure class="orbit-figure">
-                      <img src="{{ asset('img/catClinic/catClininc-2.png') }}" alt="" />
-                    </figure>
-                  </li>
-                  <li class="is-active orbit-slide">
-                    <figure class="orbit-figure">
-                      <img src="{{ asset('img/catClinic/catClininc-1.png') }}" alt="" />
-                    </figure>
-                  </li>
-                  <li class="is-active orbit-slide">
-                    <figure class="orbit-figure">
-                      <img src="{{ asset('img/catClinic/catClininc-3.png') }}" alt="" />
-                    </figure>
-                  </li>
+                  {% for image in project.images %}
+                    <li class="is-active orbit-slide">
+                      <figure class="orbit-figure">
+                        <img src="{{ asset( project_dir ~ image.filename) }}" alt="" />
+                      </figure>
+                    </li>
+                  {% endfor %}
                 </ul>
                 
               </div>
               
               <nav class="orbit-bullets">
-                <button class="is-active" data-slide="0"><span class="show-for-sr">First slide details.</span><span class="show-for-sr">Current Slide</span></button>
-                <button data-slide="1"><span class="show-for-sr">Second slide details.</span></button>
-                <button data-slide="2"><span class="show-for-sr">Third slide details.</span></button>
+                 {% for image in project.images %}
+                   {% if loop.first %}
+                      <button class="is-active" data-slide="0">
+                        <span class="show-for-sr">First slide details.</span>
+                        <span class="show-for-sr">Current Slide</span>
+                      </button>
+                     {% else %}
+                      <button data-slide="{{ loop.index - 1 }}"><span class="show-for-sr">Second slide details.</span></button>
+                   {% endif %}
+                   
+                 {% endfor %}
               </nav>
             </div>
             
@@ -59,6 +59,7 @@
       <div id="openedOrbitBack" aria-hidden="true" data-status="closed"></div>
     </div>
   </article>
+  
 {% endblock %}
 
 {% block javascripts %}

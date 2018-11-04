@@ -14,7 +14,9 @@
     }
     
   .illustration-right {
-      max-width: 30%;
+//      max-width: 30%;
+      width: 25vw;
+      height: 50vh;
       align-self: center;
       box-shadow: 0 0 20px $dark-blue;
       background-color: rgba($light-gray, 0.5);
@@ -36,18 +38,36 @@
         .orbit-previous, .orbit-next {
           top : 96%;
           border: 1px solid transparent;
+          z-index: 8;
           &:hover {
             border: 1px solid $white;
             cursor: pointer;
           }
         }
+        .orbit-wrapper {
+          height: 90%;
+          .orbit-container {
+            height: 100% !important;
+            .orbit-slide {
+              height: 100%;
+              figure {
+                height: inherit;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+            }
+          }
         .orbit-exit {display: none;}
         
         &[data-zoomed=true] {
           position: absolute;
           top: 15%;
-          left: 35%;
+          left: 40%;
           height: 75vh;
+          width: 75vw;
           z-index: 9;
           max-width: calc(32%);
           background-color: rgba($black,0.7);
