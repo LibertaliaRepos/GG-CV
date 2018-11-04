@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Accueil {{ parent() }} {% endblock %}
+
+
+{% block leftMenu %}
+  {{ include('menu/adminLeftMenu.html.twig') }}
+{% endblock %}
+
+{% block contentBody %}
+  <article id="content">
+    <h1>Projets</h1>
+    
+    <div id="adminSkill">
+      <table id="skillList">
+        <caption>Liste des projets</caption>
+        <thead>
+          <tr>
+            <th>Titre des projets</th>
+            <th  class="hidden"><span class="show-for-sr">Modifier</span></th>
+            <th class="hidden"><span class="show-for-sr">Supprimer</span></th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {% for project in projects %}
+            <tr>
+              <td class="title">
+                <a href="{{ path('GGCV_projects') }}#{{ project.anchor }}">
+                  {{ project.title }}
+                </a>
+              </td>
+              <td class="buttonAdmin">
+                <a href="{{ path('GGCV_admin_project') }}/form/{{ project.id }}">
+                  <img src="{{ asset('img/_design/edit.svg') }}" />
+                </a>
+              </td>
+              <td class="buttonAdmin"><a href="#" data-open-reveal="{{ project.id }}" data-parent-title="{{ project.title }}" data-action="project"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      <a id="addProject" class="button" href="{{ path('GGCV_admin_project_form') }}">Ajouter un projet</a>
+    </div>
+    
+    <section id="beforeDel" class="reveal tiny alert" data-reveal>
+      <h2>Attention !!</h2>
+      
+      <p>
+        <img src="{{ asset('img/_design/warning.svg') }}" alt="Attention !" />
+        <span>Êtes-vous sûre de vouloir supprimer le projet : "<strong><span class="ref-title"></span></strong>" ?</span>
+      </p>
+      
+      <div class="button-group-reveal">
+        <a class="button alert" href="#" data-abort>Non</a>
+        <a class="button success" href="#" data-delete="">Oui</a>
+      </div>
+    </section>
+  </article>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('stylesheets/js/reveal.js') }}"></script>
+{% endblock %}

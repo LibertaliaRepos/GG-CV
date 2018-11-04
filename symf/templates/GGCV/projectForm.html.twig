@@ -1,6 +1,6 @@
 {% set title_class = '' %}
 {% set anchor_class = '' %}
-{% set picture_class = '' %}
+{% set images_class = '' %}
 
 {% extends 'base.html.twig' %}
 
@@ -65,27 +65,31 @@
               {% endif %}
               
             </label>
-{# Picture #}
-            {% if form.picture.vars.errors|length %}
-              {% set picture_class = 'callout alert' %}
-            {% endif %}
-            <label id="pictureLab" class="{{ picture_class }}">
-              Ancre
-              <span class="help-text">(obligatoire)</span>: 
-              {{ form_widget(form.picture) }}
-              
-              {% if form.picture.vars.errors|length %}
-                <span class="help-text alert">
-                  {% for error in form.picture.vars.errors %}
-                    {{ error.message }}
-                    {% if not loop.last %}
-                      <br />
-                    {% endif %}
-                  {% endfor %}
-                </span>
+{# Images #}
+            <div id="orbitPreview">
+              {% if fileError|length %}
+                {% set images_class = 'callout alert' %}
               {% endif %}
+              <label id="pictureLab" class="{{ images_class }}">
+                Orbit images
+                <span class="help-text">(obligatoire)</span>:
+                {{ form_widget(form.images) }}
+
+                {% if fileError|length %}
+                  <span class="help-text alert">
+                      {{ fileError.message | raw }}
+                  </span>
+                {% endif %}
+              </label>
               
-            </label>
+              <div id="preview">
+                {% if images|length %}
+                  {% for image in images %}
+                    <img src="{{ asset(project_dir ~ image.filename) }}" />
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
 {# explanation (froala) #}
             <label id="explanationLab" for="{{ form.explanation.vars.id }}" aria-describedby="">
               Description
@@ -97,7 +101,7 @@
             {% if form.explanation.vars.errors|length %}
                 <p id="editorHelper" class="help-text alert callout">
                   {% for error in form.explanation.vars.errors %}
-                    {{ error.message }}
+                    {{ error.message}}
                     {% if not loop.last %}
                       <br />
                     {% endif %}
@@ -112,6 +116,7 @@
             {{ form_widget(form.ajouter, {'attr': {'class': 'button success', 'value': 'Ajouter'}}) }}
           </div>
           
+      
       
       {{ form_end(form) }}
       
@@ -137,4 +142,5 @@
         ) 
       });
     </script>
+  <script src="{{ asset("stylesheets/js/previewOrbit.js") }}"></script>
 {% endblock %}

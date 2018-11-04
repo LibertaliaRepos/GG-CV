@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  * Project
@@ -70,6 +71,11 @@ class Project
      */
     private $explanation;
 
+//     /**
+//      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="project")
+//      */
+//     private $images;
+
     public function __construct() {
         $this->anchor = '';
         $this->explanation = '';
@@ -116,6 +122,40 @@ class Project
 
         return $this;
     }
+    
+    public function getImages(ObjectRepository $repository) {
+        return $repository->findBy(['project' => $this]);
+    }
 
+//     /**
+//      * @return Collection|Image[]
+//      */
+//     public function getImages(): Collection
+//     {
+//         return $this->images;
+//     }
+
+//     public function addImage(Image $image): self
+//     {
+//         if (!$this->images->contains($image)) {
+//             $this->images[] = $image;
+//             $image->setProject($this);
+//         }
+
+//         return $this;
+//     }
+
+//     public function removeImage(Image $image): self
+//     {
+//         if ($this->images->contains($image)) {
+//             $this->images->removeElement($image);
+//             // set the owning side to null (unless already changed)
+//             if ($image->getProject() === $this) {
+//                 $image->setProject(null);
+//             }
+//         }
+
+//         return $this;
+//     }
 
 }

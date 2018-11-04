@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Image {
     
+    const ALLOWED_MIME_TYPE = array('image/png', 'image/jpeg', 'image/svg+xml');
+    
     /**
      * @var integer
      * 
@@ -28,6 +30,12 @@ class Image {
      * @ORM\Column(name="filename", type="string", length=255, nullable=false)
      */
     private $filename;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Project")
+     */
+    private $project;
+
 
     public function getId(): ?int
     {
@@ -46,8 +54,25 @@ class Image {
         return $this;
     }
     
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+    
+    public function setProject(?Project $project): self
+    {
+        $this->project = $project;
+        
+        return $this;
+    }
+    
     public function getFile($folder) {
         return new File($folder .'/'. $this->filename, true);
     }
     
+    public function unlink($folder) {
+        $filename = $folder .'/'. $this->filename;
+        
+        return unlink($filename);
+    }
 }

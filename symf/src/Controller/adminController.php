@@ -13,10 +13,14 @@ use App\Entity\Skill_Image;
 use App\Entity\Image;
 use App\Entity\Form\SkillForm;
 use Symfony\Component\HttpFoundation\File\File;
+use App\Entity\Form\ProjectForm;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 
 
 class adminController extends AbstractController {
+    
+    
     
     /**
      * @Route("/admin/skill", name="GGCV_admin_skill")
@@ -76,6 +80,8 @@ class adminController extends AbstractController {
             
             $em->persist($skillImage);
             $em->flush();
+            
+            return $this->redirectToRoute('GGCV_admin_skill');
         }
         
         return $this->render('GGCV/skillForm.html.twig', array('form' => $form->createView()));
@@ -102,6 +108,7 @@ class adminController extends AbstractController {
         $skillForm->setPicture($skillImage->getImage()->getFile($this->getParameter('skill_dir')));
         
         $form = $this->createForm(SkillType::class, $skillForm);
+        
         
         $form->handleRequest($request);
         
@@ -141,14 +148,35 @@ class adminController extends AbstractController {
         
     }
     
+    
     /**
      * @Route("/admin/project", name="GGCV_admin_project")
      */
+    public function projectList() {
+        $projects = $this->getDoctrine()->getRepository(Project::class)->findAll();
+        
+        
+        return $this->render('GGCV/adminProject.html.twig', array('projects' => $projects));
+    }
+    
+    /**
+     * @Route("/admin/project/form", name="GGCV_admin_project_form")
+     */
     public function projectForm(Request $request) {
         
-        $project = new Project();
+        $projectForm = new ProjectForm();
         
-        $form = $this->createForm(ProjectType::class, $project);
+        $fileError = array();
+        
+        $form = $this->createForm(ProjectType::class, $projectForm);
+        $form->add('images', FileType::class, array(
+            'multiple'      => true,
+            'data_class'    => null,
+            'required'      => true,
+            'attr'          => array(
+                'accept' => 'image/png, image/jpeg, image/svg+xml'
+            )
+        ));
         
         $form->handleRequest($request);
         
@@ -156,13 +184,151 @@ class adminController extends AbstractController {
             
             $em = $this->getDoctrine()->getManager();
             
-            $project = $form->getData();
+            $projectForm = $form->getData();
             
-            $em->persist($project);
+            $files = $projectForm->getImages()->toArray()[0];
+            
+            if ($this->testMimeType($files, Image::ALLOWED_MIME_TYPE)) {
+            
+                $project = new Project();
+                $project->setTitle($projectForm->getTitle());
+                $project->setAnchor($projectForm->getAnchor());
+                $project->setExplanation($projectForm->getExplanation());
+                
+                foreach ($files as $file) {
+                    $filename = $this->generateUniqueFileName() .'.'. $file->guessExtension();
+                    try {
+                        
+                        $file->move(
+                            $this->getParameter('project_dir'),
+                            $filename
+                            );
+                        
+                    } catch (FileException $e) {
+                        throw new \Exception($e->getMessage());
+                    }
+                    
+                    $image = new Image();
+                    $image->setFilename($filename);
+                    $image->setProject($project);
+                    
+                    $em->persist($image);
+                }
+                
+                
+                
+                $em->persist($project);
+                $em->flush();
+            } else {
+                $fileError['message'] = 'Les images autorisés doivent au format: <strong>jpeg, png ou svg</strong>.';
+            }
+        }
+        
+        return $this->render(
+                'GGCV/projectForm.html.twig', 
+                array(
+                    'form' => $form->createView(), 
+                    'fileError' => $fileError,
+                    'images' => array()
+                )
+            );
+    }
+    
+    /**
+     * @Route(
+     *  "/admin/project/form/{id}",
+     *  name="GGCV_admin_project_update",
+     *  requirements={"id"="\d+"}
+     * )
+     */
+    public function updateProject($id, Request $request) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $doc = $this->getDoctrine();
+        $project = $doc->getRepository(Project::class)->find($id);
+        
+        $images = $project->getImages($doc->getRepository(Image::class));
+        
+        
+        for($i = 0; $i < count($images); ++$i) {
+            if ($i < count($images) - 1) {
+                $em->persist($images[$i]);
+            } elseif ($i == count($images) - 1) {
+                $ref = $images[$i];
+                $em->persist($ref);
+            }
+        }
+        
+        $project = $ref->getProject();
+        
+        
+        $fileError = array();
+        
+        $projectForm = new ProjectForm();
+        $projectForm->setTitle($project->getTitle());
+        $projectForm->setAnchor($project->getAnchor());
+        $projectForm->setExplanation($project->getExplanation());
+        
+        $form = $this->createForm(ProjectType::class, $projectForm);
+        $form->add('images', FileType::class, array(
+            'multiple'      => true,
+            'data_class'    => null,
+            'required'      => false,
+            'attr'          => array(
+                'accept' => 'image/png, image/jpeg, image/svg+xml'
+            )
+        ));
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $data = $form->getData();
+            $formImages = $data->getImages()->toArray()[0];
+            
+            if (!empty($formImages) && $this->testMimeType($formImages, Image::ALLOWED_MIME_TYPE)) {
+                foreach ($images as $image) {
+                    $em->remove($image);
+                    unlink($this->getParameter('project_dir') .'/'. $image->getFilename());
+                }
+                
+                foreach ($formImages as $formImage) {
+                    $filename = $this->generateUniqueFileName() .'.'. $formImage->guessExtension();
+                    try {
+                        
+                        $formImage->move(
+                            $this->getParameter('project_dir'),
+                            $filename
+                            );
+                        
+                    } catch (FileException $e) {
+                        throw new \Exception($e->getMessage());
+                    }
+                    
+                    $image = new Image();
+                    $image->setFilename($filename);
+                    $image->setProject($project);
+                    
+                    $em->persist($image);
+                }
+            }
+            
+            $project->setTitle($data->getTitle());
+            $project->setAnchor($data->getAnchor());
+            $project->setExplanation($data->getExplanation());
+            
+
             $em->flush();
         }
         
-        return $this->render('GGCV/projectForm.html.twig', array('form' => $form->createView()));
+        return $this->render(
+                'GGCV/projectForm.html.twig', 
+                array(
+                    'form' => $form->createView(), 
+                    'fileError' => $fileError,
+                    'images' => $images
+                )
+            );
     }
     
     /**
@@ -172,5 +338,14 @@ class adminController extends AbstractController {
         return md5(uniqid());
     }
     
+    private function testMimeType(array $files, array $mimeTypes) {
+        foreach ($files as $file) {
+            if (!in_array($file->getMimeType(), $mimeTypes)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
     
 }

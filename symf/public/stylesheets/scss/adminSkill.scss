@@ -1,4 +1,4 @@
-#adminSkill {
+#adminSkill, #adminProject {
 
   width: 50%;
   padding: 5px;
@@ -11,7 +11,7 @@
   
   
 // Liste des compétances -> <table>
-  #skillList {
+  #skillList, #projectList {
     thead {
       background-color: transparent;
       border-width: 0;
@@ -63,7 +63,7 @@
     }
   }
   
-  #addSkill {
+  #addSkill, #addProject {
     display: block;
     font-family: 'xolonium-bold';
     width: 50%;

@@ -33,4 +33,42 @@ h2 {
   font-family: 'xolonium-reg';
 }
 
+.reveal {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 0 0.5em 0;
+
+  > * { width: 100%; }
+  h2 {
+    text-align: center;
+  }  
+  p {
+    display: inherit;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      max-height: 50vh;
+    }
+  }
+  .button-group-reveal {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  &.alert {
+    border: 5px solid red;
+    background-color: $light-red;
+    h2 {
+      background-color: red;
+    }
+  }
+}
+
 

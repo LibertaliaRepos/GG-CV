@@ -4,3 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         skill_dir: 'uploads/skills/'
+        project_dir: 'uploads/project/'

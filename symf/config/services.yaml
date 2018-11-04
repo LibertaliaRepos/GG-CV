@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr'
     skill_dir: '%kernel.project_dir%/public/uploads/skills'
+    project_dir: '%kernel.project_dir%/public/uploads/project'
 
 services:
     # default configuration for services in *this* file
