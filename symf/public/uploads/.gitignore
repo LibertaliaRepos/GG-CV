@@ -1,2 +1,4 @@
 /skills/*
 !/skills/.gitignore
+/project/*
+!/project/.gitignore
