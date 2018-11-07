@@ -70,14 +70,14 @@
       $(function() { 
         $('#contactMSG').froalaEditor(
           {
+            key: '{{ froala_key_gt_v28 }}',
             enter: $.FroalaEditor.ENTER_P, 
             placeholderText: null,
             charCounterCount: false, 
             toolbarButtons: [
               'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'
             ],
-            height: 200,
-            key: {{ froala_key_lt_v28 }}
+            height: 200
           }
         ) 
       });
