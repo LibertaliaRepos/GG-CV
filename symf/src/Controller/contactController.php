@@ -28,11 +28,6 @@ class contactController extends AbstractController {
             
             $em = $this->getDoctrine()->getManager();
             
-            
-            $email = $emailServ->emailFormatTest($params['contact']['email']);
-            
-            file_put_contents('debug_email', var_export($email, true));
-            
             if (!$emailServ->emailFormatTest($params['contact']['email'])) {
                 return $this->json(
                         array(
