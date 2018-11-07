@@ -35,7 +35,7 @@
                   <img src="{{ asset('img/_design/edit.svg') }}" />
                 </a>
               </td>
-              <td class="buttonAdmin"><a href="#" data-open-reveal="{{ skillImage.id }}" data-parent-title="{{ skillImage.skill.title }}" data-action="project"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
+              <td class="buttonAdmin"><a href="#" data-open-reveal="{{ skillImage.id }}" data-parent-title="{{ skillImage.skill.title }}" data-action="skill"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
             </tr>
           {% endfor %}
         </tbody>
@@ -62,5 +62,5 @@
 
 {% block javascripts %}
   {{ parent() }}
-  <script src="{{ asset('stylesheets/js/revealSkill.js') }}"></script>
+  <script src="{{ asset('stylesheets/js/reveal.js') }}"></script>
 {% endblock %}

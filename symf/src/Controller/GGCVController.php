@@ -17,7 +17,7 @@ class GGCVController extends AbstractController {
         
         $skillsImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findAll();
         
-        return $this->render('GGCV/index.html.twig', array('skillImages' => $skillsImages));
+        return $this->render('GGCV/index.html.twig', array('skillImages' => $skillsImages, 'active' => 'accueil'));
     }
     
     /**
@@ -31,7 +31,7 @@ class GGCVController extends AbstractController {
             $projects[$key] = ['project' => $project, 'images' => $project->getImages($imageRepo)];
         }
         
-        return $this->render('GGCV/projects.html.twig', array('projects' => $projects));
+        return $this->render('GGCV/projects.html.twig', array('projects' => $projects, 'active' => 'projet'));
     }
     
     /**
@@ -39,7 +39,7 @@ class GGCVController extends AbstractController {
      */
     public function contactForm() {
         
-        return $this->render('GGCV/contact.html.twig');
+        return $this->render('GGCV/contact.html.twig', array('active' => 'contact'));
     }
     
 }

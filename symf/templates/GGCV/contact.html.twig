@@ -6,9 +6,7 @@
   {{ include('_froala/stylesheets.html.twig') }}
 {% endblock %}
 
-{% block leftMenu %}
-  {{ render(controller('App\\Controller\\leftMenuController::projectsLeftMenu')) }}
-{% endblock %}
+
 
 {% block contentBody %}
   <article id="content">
@@ -20,7 +18,7 @@
         <fieldset id="details" class="fieldset">
           <legend>Formulaire de contact</legend>
           <label id="emailLab" class="">
-            Adresse de messagerie 
+            Votre adresse de messagerie 
             <span class="help-text">(obligatoire)</span>: 
             <input type="text" placeholder="Your@email.com" name="EMAIL" required />
           </label>
@@ -78,7 +76,8 @@
             toolbarButtons: [
               'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'
             ],
-            height: 200
+            height: 200,
+            key: {{ froala_key }}
           }
         ) 
       });

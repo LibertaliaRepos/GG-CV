@@ -22,16 +22,28 @@
         {% endblock %}
       </div>
       
+      
+      {% set accueil = '' %}
+      {% set projet = '' %}
+      {% set contact = '' %}
+      
+      {% if active == 'accueil' %}
+          {% set accueil = 'active' %}
+      {% elseif active == 'projet' %}
+          {% set projet = 'active' %}
+      {% elseif active == 'contact' %}
+          {% set contact = 'active' %}
+      {% endif %}
+      
       <div id="right-side">
         <nav id="top-menu" class="cell">
-
+          {# {{ dump(active) }} #}
           <div id="top-header">
             <h1>Gilles Gandner - Développeur web</h1>
             <ul class="menu">
-              <li class=""><a href="{{ path('GGCV_index') }}">Accueil</a></li>
-              <li class=""><a href="{{ path('GGCV_projects') }}">Projects</a></li>
-              <li class=""><a href="{{ path('GGCV_contact') }}">Contact</a></li>
-              <li class=""><a href="#">Item 3</a></li>
+              <li class=""><a class="{{ accueil }}" href="{{ path('GGCV_index') }}">Accueil</a></li>
+              <li class=""><a class="{{ projet }}" href="{{ path('GGCV_projects') }}">Projets</a></li>
+              <li class=""><a class="{{ contact }}" href="{{ path('GGCV_contact') }}">Contact</a></li>
             </ul>
 
             <p id="ephemeris">
@@ -49,6 +61,16 @@
         {% block contentBody %}
         {% endblock %}
       </div>
+    {% endblock %}
+    
+    {% block footer %}
+      <footer id="construction">
+        <p>
+          <img src="{{ asset('img/_design/warning-yellow.svg') }}" alt="Attention !" />
+          <span>Le site est en construction, il est susceptible de changer.</span>
+          <img src="{{ asset('img/_design/warning-yellow.svg') }}" alt="Attention !" />
+        </p>
+      </footer>
     {% endblock %}
 
 

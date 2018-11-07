@@ -18,7 +18,9 @@
               <h2 id="{{ skillImage.skill.anchor }}">{{ skillImage.skill.title }}</h2>
               {{ skillImage.skill.explanation | raw }}
             </div>
-            <img class="illustration-right" src="{{ asset(skill_dir ~ skillImage.image.filename) }}" alt="" />
+            <div class="sticky-container">
+              <img class="illustration-right" src="{{ asset(skill_dir ~ skillImage.image.filename) }}" alt="" />
+            </div>
           </section>
         {% endfor %}
       
