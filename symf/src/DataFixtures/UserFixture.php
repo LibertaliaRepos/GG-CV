@@ -24,7 +24,7 @@ class UserFixture extends Fixture
         
         $user->setRoles($roles);
         $user->setUsername('admin');
-        $user->setPassword($this->passwordEncoder->encodePassword($user, '123456789'));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, '1491Js93@655957'));
         
         $user2 = new User();
         $user2->setUsername('libertalia');
