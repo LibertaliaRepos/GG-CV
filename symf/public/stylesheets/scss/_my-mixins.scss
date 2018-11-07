@@ -1,15 +1,31 @@
 @mixin activ-button() {
   background-position: 90% center;
   transition: background-position .1s ease-in;
-  &:hover {
-          border: solid $light-blue;
-          border-width: 0 1px 0 1px;
+  &:hover, &.active {
     
-          background-image: url(../../img/_design/pointer-menu.svg);
-          background-repeat: no-repeat;
-          background-size: 16%;
-          background-position: 90% center;
-        }
+    border: solid $light-blue;
+    border-width: 0 1px 0 1px;
+
+    background: $black url(../../img/_design/pointer-menu.svg);
+    background-repeat: no-repeat;
+    background-size: 12%;
+    background-position: 90% center;
+    
+    @media (max-width: 500px) {
+//      background-size: 12%;
+      
+      &:active {
+        
+        background-position: 90% center;
+        filter: invert(100%);
+      }
+    }
+    @media (max-width: 420px) {
+      background: none;
+      background-color: $black;
+    }
+    
+  }
   &:active {
     background-position: 80% center;
   }
@@ -51,8 +67,10 @@
         padding: 0 0 0 4%;
       }
       @if $cross == true {
-        order: 1;
-        .illustration-right {order: 0;}
+        @media (min-width: 501px) {
+          order: 1;
+          .illustration-right {order: 0;}
+        }
       }
     }
   }

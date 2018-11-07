@@ -1,13 +1,22 @@
+@keyframes construct {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+
 #layout {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: flex-start;
   
   
   
   #left-side {
     flex: 3;
+    
+    @media (max-width: 800px) {
+      display: none;
+    }
   }
   #right-side {
     flex: 15;
@@ -15,6 +24,26 @@
   
   @import 'left-side';
   @import 'right-side';
+  
+  #construction {
+    z-index: 1;
+    width: 100%;
+    background-color: #222222;
+    height: 40px;
+    overflow: hidden;
+    p {
+      animation: construct 20s linear infinite;
+      position: relative;
+      margin: 0;
+      font-family: 'jellee-roman';
+      color: $white;
+      width: auto;
+      img {
+        max-height: 30px;
+      }
+    }
+    
+  }
 }
 
 
@@ -31,6 +60,11 @@ h1 {
 
 h2 {
   font-family: 'xolonium-reg';
+  font-size: 2vw;
+  
+  @media (max-width: 790px) {
+    font-size: 3vw;
+  }
 }
 
 .reveal {

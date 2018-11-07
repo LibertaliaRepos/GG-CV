@@ -1,5 +1,8 @@
 #skills {
   padding: 1%;
+  h1 {
+    text-align: center;
+  }
   > section {
     display: flex;
     flex-direction: row;
@@ -10,11 +13,32 @@
     
     @include explanation('.explain', true);
     
-    .illustration-right {
-      max-width: 20%;
-      align-self: center;
-      box-shadow: 0 0 20px $dark-blue;
-      background-color: $light-gray;
+    .sticky-container {
+      width: 30%;
+      .illustration-right {
+        max-width: 100%;
+        align-self: center;
+        box-shadow: 0 0 20px $dark-blue;
+        background-color: $light-gray;
+        position: sticky;
+        top: 20px;
+      }
+      
+      
+    }
+    
+    @media (max-width: 500px) {
+      flex-wrap: wrap;
+      .explain {
+        width: 80%;
+      }
+      .sticky-container {
+        width: auto;
+        .illustration-right {
+          max-height: 100px !important;
+          margin-top: 20px;
+        }
+      }
     }
   }
 }

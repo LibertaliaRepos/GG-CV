@@ -30,15 +30,25 @@
       max-height: 42px;
       background-color: inherit;
       color: $white;
-      align-items: center;
       border: solid $light-blue;
       border-width: 2px 0 2px 0;
       align-self: stretch;
+      
+      @media (max-width: 940px) {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+      }
 
       li {
         color: inherit;
-        min-width: 12%;
+        min-width: 20%;
         margin-right: 2%;
+        
+        @media (max-width: 760px) {
+          min-width: 30%;
+        }
 
         &:first-child {
           a {
@@ -77,5 +87,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
+    @media (max-width: 420px) {
+      display: none;
+    }
   }
 }

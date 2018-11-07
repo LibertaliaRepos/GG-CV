@@ -1,7 +1,9 @@
 #contact {
   @include explanation('#contactForm');
   @include global-form('#contactForm');
-  
+  @media (max-width: 920px) {
+    h1 { text-align: center; }
+  }
   #contactForm {
       
     #emailLab { width: 85%; }
@@ -15,6 +17,16 @@
       input {
         margin-bottom: 0;
       }
+    }
+    @media (max-width: 920px) {
+      width: 75%;
+      #details {
+        label {width: 85%; }
+        #nameLab { margin: 0; }
+      }
+    }
+     @media (max-width: 700px) {
+       width: 90%;
     }
   }
   

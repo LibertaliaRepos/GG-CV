@@ -5,10 +5,17 @@ function closeOrbit() {
   $('.whiteDiv').each(function(){$(this).remove();});
 
   $('.orbit[data-zoomed=true]').each(function() {
+    
+    var cssDesabled = ['max-width', 'max-height','top', 'left'];
 
     $(this).attr('data-zoomed', 'false');
     $(this).data('zoomed', false);
-    $(this).css('max-width', '');
+//    $(this).css('max-width', '');
+    
+    for (var i = 0; i < cssDesabled.length; ++i) {
+      $(this).css(cssDesabled[i], '');
+    }
+    
     $('#openedOrbitBack').attr('data-status', 'closed');
     
     initOrbit();
@@ -25,11 +32,14 @@ function openOrbit() {
     
     
     var windowWidth = $(window).outerWidth();
+    var windowHeight = $(window).outerHeight();
     
     $(this).attr('data-zoomed', true);
-    $(this).css('max-width', (windowWidth * 0.33) + 'px' );
     $(this).data('zoomed', true);
+    positionZoomed();
     $('#openedOrbitBack').attr('data-status', 'opened');
+    
+    $(window).resize(positionZoomed);
         
     $(this).off('click');
 
@@ -79,9 +89,32 @@ function disableOpenOrbit(param) {
   alert(container);
 }
 
-
+function positionZoomed() {
+  
+  var windowWidth = $(window).outerWidth();
+  var windowHeight = $(window).outerHeight();
+  var zoomed = $('[data-zoomed=true]');
+  
+  $(zoomed).css('max-width', (windowWidth * 0.5) + 'px' );
+  $(zoomed).css('max-height', (windowHeight * 0.5) + 'px' );
+  
+  var orbitDim = {
+      height: $(zoomed).outerHeight(),
+      width: $(zoomed).outerWidth()
+    }
+    
+    var orbitPos = {
+      left: (windowWidth - orbitDim.width) / 2,
+      top: (windowHeight - orbitDim.height) / 2
+    }
+    
+    $(zoomed).css('left', orbitPos.left + 'px');
+    $(zoomed).css('top', orbitPos.top + 'px');
+}
 
 $(window).ready(initOrbit);
+
+
 
 
 

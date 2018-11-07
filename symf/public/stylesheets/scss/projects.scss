@@ -1,4 +1,12 @@
 #projects {
+  
+  @media (max-width: 800px) {
+    h1 {
+      text-align: center;
+      font-size: 6vw;
+    }
+  }
+  
   > section {
     display: flex;
     flex-direction: row;
@@ -11,10 +19,15 @@
     
     .explain {
       position: static;
+      
+      @media (max-width: 800px) {
+        h2 {
+          font-size: 4vw;
+        }
+      }
     }
     
   .illustration-right {
-//      max-width: 30%;
       width: 25vw;
       height: 50vh;
       align-self: center;
@@ -64,8 +77,8 @@
         
         &[data-zoomed=true] {
           position: absolute;
-          top: 15%;
-          left: 40%;
+          top: 15vh;
+          left: 39vw;
           height: 75vh;
           width: 75vw;
           z-index: 9;
@@ -95,9 +108,27 @@
             }
           }
         }
+          
+          @media (max-width: 500px) {
+            left: 0 !important;
+            top: 0 !important;
+            width: 100% !important;
+            max-height: none !important;
+            max-width: none !important;
+          }
       }
     }
   }
+    
+    @media (max-width: 1000px) {
+      flex-wrap: wrap;
+      .illustration-right, .explain {
+        width: 80%;
+      }
+      .illustration-right {
+        margin-top: 20px;
+      }
+    }
 }
 
   #openedOrbitBack {
