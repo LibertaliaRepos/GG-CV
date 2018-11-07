@@ -5,3 +5,5 @@ twig:
     globals:
         skill_dir: 'uploads/skills/'
         project_dir: 'uploads/project/'
+        froala_key_gt_v28: 'KB2B5A2D3rD1H5D4H3B2B10D6E2D5C5eA-7G-7C6B-21hE4fs=='
+        froala_key_lt_v28: 'KmlA8nxD5vc=='
