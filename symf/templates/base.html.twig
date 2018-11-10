@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html class="no-js" lang="fr">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %} - GG-CV.fr{% endblock %}</title>
     {% block stylesheets %}
-      <link rel="stylesheet" href="{{ asset('stylesheets/css/app.css') }}">
+      <link rel="stylesheet" href="{{ asset('stylesheets/css/app.css') }}" />
+      <link rel="stylesheet" href="{{ asset('stylesheets/IE/css/app.css') }}" />
     {% endblock %}
   </head>
   
   
   <body id="layout">
     {% block body %}
-      <div id="left-side" class="">
+      <div id="left-side">
         <a id="left-logo" class="logo" href="{{ path('GGCV_index') }}">
           <img class="" src="{{ asset('img/_design/gilles-logo/logo.svg') }}" alt="Logo de GG-CV.loc" />
         </a>
