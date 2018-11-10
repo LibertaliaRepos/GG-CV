@@ -1,4 +1,4 @@
-//@media all and (-ms-high-contrast:none) {
+@media all and (-ms-high-contrast:none) {
   #layout {
     @extend .grid-container;
     @extend .fluid;
@@ -90,4 +90,4 @@
       }
     }
   }
-//}
+}
