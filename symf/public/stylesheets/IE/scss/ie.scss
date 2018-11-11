@@ -1,78 +1,80 @@
-@media all and (-ms-high-contrast:none) {
-  #layout {
+#layout {
+  @extend .grid-container;
+  @extend .fluid;
+  @extend .grid-x;
+
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+
+  #left-side {
+    @extend .large-2;
+
     @extend .grid-container;
-    @extend .fluid;
-    @extend .grid-x;
-    
+    @extend .grid-y;
+
     padding: 0;
     height: 100vh;
-    overflow: hidden;
-    
-    #left-side {
-      @extend .large-2;
-            
-      @extend .grid-container;
-      @extend .grid-y;
-      
-      padding: 0;
-      height: 100vh;
-      #logo {
-        @extend .large-1;
-      }
-      #toAnchor {
-        @extend .large-11;
-      }
+    #logo {
+      @extend .large-1;
     }
-    #right-side {
-      @extend .large-10;
-      height: 100vh;
-      
-      #content {
-        #skills, #projects {
+    #toAnchor {
+      @extend .large-11;
+    }
+  }
+  #right-side {
+    @extend .large-10;
+    height: 100vh;
+
+    #content {
+      #skills, #projects {
+        @extend .grid-container;
+        @extend .full;
+        @extend .grid-x;
+
+        margin: 0;
+        h1 { @extend .cell; }
+        > section {
+          @extend .cell;
           @extend .grid-container;
           @extend .full;
           @extend .grid-x;
 
-          margin: 0;
-          h1 { @extend .cell; }
-          > section {
-            @extend .cell;
-            @extend .grid-container;
-            @extend .full;
-            @extend .grid-x;
-            
-            margin-bottom: 30px;
+          margin-bottom: 30px;
 
 
-            .explain {
-              @extend .large-5;
-              
-              display: block;
-            }
+          .explain {
+            @extend .large-5;
+
+            display: block;
+          }
+          
+          .sticky-container {
+            @extend .large-4;
             
             .illustration-right {
-              @extend .large-4;
+              @extend .thumbnail;
             }
+          }
 
-            .orbit {
+          .orbit {
+            .orbit-wrapper {
+              .orbit-container {
+                .orbit-slide {
+                  .orbit-figure {
+                    display: block;
+                  }
+                }
+              }
+            }
+            &[data-zoomed=true] {
               .orbit-wrapper {
                 .orbit-container {
                   .orbit-slide {
                     .orbit-figure {
-                      display: block;
-                    }
-                  }
-                }
-              }
-              &[data-zoomed=true] {
-                .orbit-wrapper {
-                  .orbit-container {
-                    .orbit-slide {
-                      .orbit-figure {
-                        text-align: center;
-                        img {
-                          height: 100%;
-                        }
+                      text-align: center;
+                      img {
+                        height: 100%;
                       }
                     }
                   }
@@ -81,11 +83,11 @@
             }
           }
         }
-        
-        #contact {
-          #contactForm {
-            display: block;
-          }
+      }
+
+      #contact {
+        #contactForm {
+          display: block;
         }
       }
     }
