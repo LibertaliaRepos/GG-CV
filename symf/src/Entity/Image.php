@@ -3,6 +3,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Orbitale\Component\ImageMagick\Command;
 
 /**
  * Image
@@ -13,7 +14,10 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Image {
     
-    const ALLOWED_MIME_TYPE = array('image/png', 'image/jpeg', 'image/svg+xml');
+    const PNG_MIME = 'image/png';
+    const JPEG_MIME = 'image/jpeg';
+    const SVG_MIME = 'image/svg+xml';
+    const ALLOWED_MIME_TYPE = array(self::PNG_MIME, self::JPEG_MIME, self::SVG_MIME);
     
     /**
      * @var integer
@@ -35,7 +39,51 @@ class Image {
      * @ORM\ManyToOne(targetEntity="App\Entity\Project")
      */
     private $project;
+    
+    static function imageInfo($path) {
+        
+        $uri = explode('/', $path);
+        $filename = array_pop($uri);
+        $folder = implode('/', $uri);
+        $file = new File("$folder/$filename");
+        
+        return array(
+            'filename' => $filename,
+            'folder'   => $folder,
+            'path' => "$folder/$filename",
+            'File'     => $file
+        );
+    }
+    
+    static function convertSVG(string $path) {
+        
+        $imageInfo = self::imageInfo($path);
+        
+        if($imageInfo['File']->getMimeType() == self::SVG_MIME) {
+            $pngFilename = preg_replace('#(.*)\.\D+#', '$1.png', $imageInfo['filename']);
+            
+            $command = new Command();
+            $response = $command->convert($imageInfo['path'])
+                        ->file($imageInfo['folder'].'/converted/'.$pngFilename, false)
+                        ->run();
 
+            var_dump($response);
+
+            if($response->hasFailed()) {
+                throw new \Exception($response->getError());
+            }
+        }
+    }
+    
+    static function deleteSVGRelatedFile(string $path) {
+        $imageInfo = self::imageInfo($path);
+        
+        if($imageInfo['File']->getMimeType() == self::SVG_MIME) {
+            $pngFilename = preg_replace('#(.*)\.\D+#', '$1.png', $imageInfo['filename']);
+            
+            unlink($imageInfo['folder'].'/converted/'.$pngFilename);
+        }
+    }
 
     public function getId(): ?int
     {
@@ -75,4 +123,4 @@ class Image {
         
         return unlink($filename);
     }
-}
+ }
