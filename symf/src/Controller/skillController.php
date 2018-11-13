@@ -5,6 +5,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Skill;
 use App\Entity\Skill_Image;
+use App\Entity\Image;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -23,6 +24,10 @@ class skillController extends AbstractController {
         $skillImage = $this->getDoctrine()->getRepository(Skill_Image::class)->find($id);
         
         $filename = $skillImage->getImage()->getFilename();
+        
+        Image::deleteSVGRelatedFile($this->getParameter('skill_dir').'/'. $filename);
+        
+        
         $filename = $this->getParameter('skill_dir').'/'. $filename;
         
         $em->remove($skillImage);

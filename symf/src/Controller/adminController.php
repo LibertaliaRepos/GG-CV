@@ -57,13 +57,15 @@ class adminController extends AbstractController {
             $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
             
             try {
-                $file->move(
+                $file = $file->move(
                     $this->getParameter('skill_dir'),
                     $filename
                     );
             } catch (FileException $e) {
                 throw new \Exception($e->getMessage());
             }
+            
+            Image::convertSVG($this->getParameter('skill_dir').'/'.$filename);
             
             $skillImage = new Skill_Image();
             
@@ -121,7 +123,7 @@ class adminController extends AbstractController {
                 $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
                 
                 try {
-                    $file->move(
+                    $file = $file->move(
                         $this->getParameter('skill_dir'),
                         $filename
                         );
@@ -131,6 +133,10 @@ class adminController extends AbstractController {
                 
                 $skillImage->getImage()->setFilename($filename);
             }
+            
+            Image::convertSVG($this->getParameter('skill_dir').'/'.$filename);
+            
+            
                         
             $skillImage->getSkill()->setTitle($skillForm->getTitle());
             $skillImage->getSkill()->setAnchor($skillForm->getAnchor());
@@ -139,8 +145,10 @@ class adminController extends AbstractController {
             
             $em->flush();
             
-            unlink($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
+            Image::deleteSVGRelatedFile($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
             
+            unlink($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
+
             return $this->redirectToRoute('GGCV_admin_skill');
         }
         
