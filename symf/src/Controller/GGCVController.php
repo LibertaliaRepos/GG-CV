@@ -6,18 +6,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Project;
 use App\Entity\Skill_Image;
 use App\Entity\Image;
+use App\Service\DetectIE;
 
 
 class GGCVController extends AbstractController {
+    
+    
+    
+    public function __construct(DetectIE $detectIE) {
+        $detectIE->isIE();
+    }
     
     /**
      * @Route("/", name="GGCV_index")
      */
     public function index() {
-        
+                
         $skillsImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findAll();
         
-        return $this->render('GGCV/index.html.twig', array('skillImages' => $skillsImages, 'active' => 'accueil'));
+        return $this->render(
+            'GGCV/index.html.twig', 
+            array(
+                    'skillImages' => $skillsImages, 
+                    'active'      => 'accueil'
+                )
+            );
     }
     
     /**
