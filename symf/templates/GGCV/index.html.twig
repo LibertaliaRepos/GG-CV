@@ -19,11 +19,25 @@
               {{ skillImage.skill.explanation | raw }}
             </div>
             <div class="sticky-container">
-              <img class="illustration-right" src="{{ asset(skill_dir ~ skillImage.image.filename) }}" alt="" />
+              
+              {% if IE and '.svg' in skillImage.image.filename %}
+                {% set src = asset(skill_dir ~ 'converted/' ~ skillImage.image.filename)|replace({'.svg': '.png'}) %}
+                
+              {% elseif not IE or '.svg' not in skillImage.image.filename %}
+                {% set src = asset(skill_dir ~ skillImage.image.filename) %}
+              {% endif %}
+              
+              {{ dump(src) }}
+              <img class="illustration-right" src="{{ src }}" alt="" />
             </div>
           </section>
         {% endfor %}
       
     </div>
   </article>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('stylesheets/js/browser.js') }}"></script>
 {% endblock %}
