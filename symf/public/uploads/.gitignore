@@ -1,4 +1,6 @@
-/skills/*
-!/skills/.gitignore
+/skill/*
+/skill/converted/*
+!/skill/.gitignore
+!/skill/converted/.gitignore
 /project/*
 !/project/.gitignore
