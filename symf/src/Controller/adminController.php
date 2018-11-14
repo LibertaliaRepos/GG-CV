@@ -15,12 +15,15 @@ use App\Entity\Form\SkillForm;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Entity\Form\ProjectForm;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use App\Service\DetectIE;
 
 
 
 class adminController extends AbstractController {
     
-    
+    public function __construct(DetectIE $detectIE) {
+        $detectIE->isIE();
+    }
     
     /**
      * @Route("/admin/skill", name="GGCV_admin_skill")
@@ -175,6 +178,7 @@ class adminController extends AbstractController {
         $projectForm = new ProjectForm();
         
         $fileError = array();
+        $allowedTypes = array(Image::JPEG_MIME, Image::PNG_MIME);
         
         $form = $this->createForm(ProjectType::class, $projectForm);
         $form->add('images', FileType::class, array(
@@ -182,7 +186,7 @@ class adminController extends AbstractController {
             'data_class'    => null,
             'required'      => true,
             'attr'          => array(
-                'accept' => 'image/png, image/jpeg, image/svg+xml'
+                'accept' => 'image/png, image/jpeg'
             )
         ));
         
@@ -196,7 +200,7 @@ class adminController extends AbstractController {
             
             $files = $projectForm->getImages()->toArray()[0];
             
-            if ($this->testMimeType($files, Image::ALLOWED_MIME_TYPE)) {
+            if ($this->testMimeType($files, $allowedTypes)) {
             
                 $project = new Project();
                 $project->setTitle($projectForm->getTitle());
@@ -230,7 +234,9 @@ class adminController extends AbstractController {
                 
                 return $this->redirectToRoute('GGCV_admin_project');
             } else {
-                $fileError['message'] = 'Les images autorisés doivent au format: <strong>jpeg, png ou svg</strong>.';
+                $allowedStr = implode(', ', $allowedTypes);
+                
+                $fileError['message'] = 'Les images autorisés doivent au format: <strong>'. $allowedStr .'</strong>.';
             }
         }
         
@@ -252,6 +258,8 @@ class adminController extends AbstractController {
      * )
      */
     public function updateProject($id, Request $request) {
+        
+        $allowedTypes = array(Image::JPEG_MIME, Image::PNG_MIME);
         
         $em = $this->getDoctrine()->getManager();
         $doc = $this->getDoctrine();
@@ -285,7 +293,7 @@ class adminController extends AbstractController {
             'data_class'    => null,
             'required'      => false,
             'attr'          => array(
-                'accept' => 'image/png, image/jpeg, image/svg+xml'
+                'accept' => 'image/png, image/jpeg'
             )
         ));
         
@@ -296,7 +304,7 @@ class adminController extends AbstractController {
             $data = $form->getData();
             $formImages = $data->getImages()->toArray()[0];
             
-            if (!empty($formImages) && $this->testMimeType($formImages, Image::ALLOWED_MIME_TYPE)) {
+            if (!empty($formImages) && $this->testMimeType($formImages, array(Image::JPEG_MIME, Image::PNG_MIME))) {
                 foreach ($images as $image) {
                     $em->remove($image);
                     unlink($this->getParameter('project_dir') .'/'. $image->getFilename());
@@ -321,16 +329,20 @@ class adminController extends AbstractController {
                     
                     $em->persist($image);
                 }
+                
+                $project->setTitle($data->getTitle());
+                $project->setAnchor($data->getAnchor());
+                $project->setExplanation($data->getExplanation());
+                
+                
+                $em->flush();
+                
+                return $this->redirectToRoute('GGCV_admin_project');
+            } else {
+                $allowedStr = implode(', ', $allowedTypes);
+                
+                $fileError['message'] = 'Les images autorisés doivent au format: <strong>'. $allowedStr .'</strong>.';
             }
-            
-            $project->setTitle($data->getTitle());
-            $project->setAnchor($data->getAnchor());
-            $project->setExplanation($data->getExplanation());
-            
-
-            $em->flush();
-            
-            return $this->redirectToRoute('GGCV_admin_project');
         }
         
         return $this->render(
