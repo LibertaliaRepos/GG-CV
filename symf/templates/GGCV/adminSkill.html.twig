@@ -11,37 +11,43 @@
   <article id="content">
     <h1>Compétances</h1>
     
-    <div id="adminProject">
-      <table id="projectList">
-        <caption>Liste des compétances</caption>
-        <thead>
-          <tr>
-            <th>Titre des compétances</th>
-            <th  class="hidden"><span class="show-for-sr">Modifier</span></th>
-            <th class="hidden"><span class="show-for-sr">Supprimer</span></th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          {% for skillImage in skillsImages %}
+    <div id="adminSkill">
+      <div>
+        <table id="skillList">
+          <caption>Liste des compétances</caption>
+          <thead>
             <tr>
-              <td class="title">
-                <a href="{{ path('GGCV_index') }}#{{ skillImage.skill.anchor }}">
-                  {{ skillImage.skill.title }}
-                </a>
-              </td>
-              <td class="buttonAdmin">
-                <a href="{{ path('GGCV_admin_skill') }}/form/{{ skillImage.id }}">
-                  <img src="{{ asset('img/_design/edit.svg') }}" />
-                </a>
-              </td>
-              <td class="buttonAdmin"><a href="#" data-open-reveal="{{ skillImage.id }}" data-parent-title="{{ skillImage.skill.title }}" data-action="skill"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
+              <th>Titre des compétances</th>
+              <th  class="hidden"><span class="show-for-sr">Modifier</span></th>
+              <th class="hidden"><span class="show-for-sr">Supprimer</span></th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      
-      <a id="addSkill" class="button" href="{{ path('GGCV_admin_skill_form') }}">Ajouter une compétance</a>
+          </thead>
+
+          <tbody>
+            {% for skillImage in skillsImages %}
+              <tr data-order="{{ loop.index }}" data-ident="{{ skillImage.id }}">
+                <td class="title">
+                  <a href="#">
+                    {{ skillImage.skill.title }}
+                  </a>
+                </td>
+                <td class="buttonAdmin">
+                  <a href="{{ path('GGCV_admin_skill') }}/form/{{ skillImage.id }}">
+                    <img src="{{ asset('img/_design/edit.svg') }}" />
+                  </a>
+                </td>
+                <td class="buttonAdmin"><a href="#" data-open-reveal="{{ skillImage.id }}" data-parent-title="{{ skillImage.skill.title }}" data-action="skill"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <a id="addSkill" class="button" href="{{ path('GGCV_admin_skill_form') }}">Ajouter une compétance</a>
+      </div>
+      <div id="changeOrder">
+        <button id="orderUp" class="button" type="button" data-move="up">⬆</button>
+        <button id="orderDown" class="button" type="button" data-move="down">⬇</button>
+      </div>
     </div>
     
     <section id="beforeDel" class="reveal tiny alert" data-reveal>
@@ -63,4 +69,5 @@
 {% block javascripts %}
   {{ parent() }}
   <script src="{{ asset('stylesheets/js/reveal.js') }}"></script>
+  <script src="{{ asset('stylesheets/js/order.js') }}"></script>
 {% endblock %}

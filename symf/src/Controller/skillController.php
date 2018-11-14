@@ -7,6 +7,8 @@ use App\Entity\Skill;
 use App\Entity\Skill_Image;
 use App\Entity\Image;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Annotations\Annotation\Target;
 
 
 class skillController extends AbstractController {
@@ -47,4 +49,32 @@ class skillController extends AbstractController {
         return $this->json(array('deleted' => true), Response::HTTP_OK);
     }
     
+    /**
+     * @Route(
+     *      "/admin/skill/order",
+     *      name="GGCV_admin_skill_order"
+     * )
+     */
+    public function updateOrder(Request $request) {
+        
+        if($request->isXmlHttpRequest()) {
+            $params = json_decode($request->getContent(), true);
+            
+            $em = $this->getDoctrine()->getManager();
+            $repo = $this->getDoctrine()->getRepository(Skill_Image::class);
+            
+            $target = $repo->find($params['target']['id']);
+            $selected = $repo->find($params['selected']['id']);
+            
+            $em->persist($target);
+            $em->persist($selected);
+            
+            $target->setOrder($params['target']['order']);
+            $selected->setOrder($params['selected']['order']);
+            
+            $em->flush();
+            
+            return $this->json(json_encode([$target, $selected]));
+        }
+    }
 }

@@ -30,7 +30,7 @@ class adminController extends AbstractController {
      */
     public function adminSkill() {
         
-        $skillImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findAll();
+        $skillImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findby([], ['order' => 'ASC']);
         
         return $this->render('GGCV/adminSkill.html.twig', array('skillsImages' => $skillImages));
     }
@@ -70,6 +70,9 @@ class adminController extends AbstractController {
             
             Image::convertSVG($this->getParameter('skill_dir').'/'.$filename);
             
+            $order = $this->getDoctrine()->getRepository(Skill_Image::class)->getMaxOrder();
+            
+            
             $skillImage = new Skill_Image();
             
             $skill = new Skill();
@@ -82,6 +85,8 @@ class adminController extends AbstractController {
             
             $skillImage->setSkill($skill);
             $skillImage->setImage($image);
+            $skillImage->setOrder($order + 1);
+            
             
             $em->persist($skillImage);
             $em->flush();
@@ -135,22 +140,17 @@ class adminController extends AbstractController {
                 }
                 
                 $skillImage->getImage()->setFilename($filename);
+                
+                Image::convertSVG($this->getParameter('skill_dir').'/'.$filename);
+                Image::deleteSVGRelatedFile($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
+                unlink($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
             }
             
-            Image::convertSVG($this->getParameter('skill_dir').'/'.$filename);
-            
-            
-                        
             $skillImage->getSkill()->setTitle($skillForm->getTitle());
             $skillImage->getSkill()->setAnchor($skillForm->getAnchor());
             $skillImage->getSkill()->setExplanation($skillForm->getExplanation());
             
-            
             $em->flush();
-            
-            Image::deleteSVGRelatedFile($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
-            
-            unlink($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
 
             return $this->redirectToRoute('GGCV_admin_skill');
         }

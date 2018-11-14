@@ -36,6 +36,13 @@ class Skill_Image {
      * @ORM\JoinColumn(nullable=false)
      */
     private $image;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sorting", type="integer", nullable=false)
+     */
+    private $order;
 
     public function getSkill(): ?Skill
     {
@@ -64,5 +71,17 @@ class Skill_Image {
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getOrder(): ?int
+    {
+        return $this->order;
+    }
+
+    public function setOrder(int $order): self
+    {
+        $this->order = $order;
+
+        return $this;
     }
 }
