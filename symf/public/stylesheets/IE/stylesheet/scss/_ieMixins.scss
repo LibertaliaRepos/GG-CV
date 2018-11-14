@@ -1,0 +1,30 @@
+@mixin globalPosition($selector) {
+  #{$selector} {
+    display: table;
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    
+    h1 {
+      display: block;
+    }
+    
+    > section {
+      display: block;
+      
+      .explain, .sticky-container ,.illustration-right {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .explain {
+        margin: 20px 5%;
+      }
+      
+      @media (max-width: 500px) {
+        .explain, .sticky-container ,.illustration-right {
+          display: block;
+        }
+      }
+    }
+  }
+}
