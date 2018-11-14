@@ -54,17 +54,6 @@ class ProjectForm {
      */
     private $images;
 
-//     /**
-//      * @var ArrayCollection
-//      *
-//      * @Assert\Collection(
-//      *  flieds = {
-//      *      "image" = @Assert\File
-//      *  }
-//      * )
-//      */
-//     private $images;
-    
     public function __construct() {
         $this->title = '';
         $this->anchor = '';
