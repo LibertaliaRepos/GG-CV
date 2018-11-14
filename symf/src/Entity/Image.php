@@ -67,8 +67,6 @@ class Image {
                         ->file($imageInfo['folder'].'/converted/'.$pngFilename, false)
                         ->run();
 
-            var_dump($response);
-
             if($response->hasFailed()) {
                 throw new \Exception($response->getError());
             }
