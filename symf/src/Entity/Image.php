@@ -3,7 +3,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Orbitale\Component\ImageMagick\Command;
 
 /**
  * Image
@@ -62,14 +61,9 @@ class Image {
         if($imageInfo['File']->getMimeType() == self::SVG_MIME) {
             $pngFilename = preg_replace('#(.*)\.\D+#', '$1.png', $imageInfo['filename']);
             
-            $command = new Command();
-            $response = $command->convert($imageInfo['path'])
-                        ->file($imageInfo['folder'].'/converted/'.$pngFilename, false)
-                        ->run();
-
-            if($response->hasFailed()) {
-                throw new \Exception($response->getError());
-            }
+            $origin = new \Imagick($path);
+            $origin->setformat('png');
+            $origin->writeimage($imageInfo['folder'].'/converted/'.$pngFilename);
         }
     }
     
