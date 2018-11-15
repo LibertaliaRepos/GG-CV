@@ -13,7 +13,7 @@
     
     <div id="adminSkill">
       <div>
-        <table id="skillList">
+        <table id="skillList" data-action="skill">
           <caption>Liste des compétances</caption>
           <thead>
             <tr>
@@ -25,7 +25,7 @@
 
           <tbody>
             {% for skillImage in skillsImages %}
-              <tr data-order="{{ loop.index }}" data-ident="{{ skillImage.id }}">
+              <tr data-order="{{ skillImage.order }}" data-ident="{{ skillImage.id }}">
                 <td class="title">
                   <a href="#">
                     {{ skillImage.skill.title }}

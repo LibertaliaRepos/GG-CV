@@ -47,4 +47,24 @@ class ProjectRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    /**
+     * {@inheritDoc}
+     * @see \Doctrine\ORM\EntityRepository::findAll()
+     */
+    public function findAll() {
+        return $this->findBy([], ['order' => 'ASC']);
+    }
+    
+    /**
+     *
+     * @return integer
+     */
+    public function getMaxOrder() {
+        $conn = $this->getEntityManager()->getConnection();
+        $query = 'SELECT MAX(sorting) FROM project';
+        $stmt = $conn->query($query);
+        
+        return intval($stmt->fetch()['MAX(sorting)']);
+    }
 }

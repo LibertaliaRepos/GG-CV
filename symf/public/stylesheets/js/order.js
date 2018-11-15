@@ -23,8 +23,16 @@ function initOrder() {
 
 function moveOrder(e) {
   var way = $(e.target).data('move');
-  var min = 1;
-  var max = $('.title').length;
+  var min; 
+  var max;
+  
+  $('tr[data-order]').each(function(index) {
+    if (index == 0) {
+      min = $(this).data('order');
+    }
+    max = $(this).data('order');
+  });
+  
   var selected = $('.title.active').parent();
   var hisOrder = $(selected).data('order');
   
@@ -72,9 +80,12 @@ function updateOrder(target, selected) {
     selected: sldParams
   }
   
+  var url = $('[data-action]').data('action');
+  url = '/admin/'+ url +'/order';
+  
   $.ajax({
     type: 'POST',
-    url: '/admin/skill/order',
+    url: url,
     data: JSON.stringify(params),
     contentType: 'application/json',
     async: true,

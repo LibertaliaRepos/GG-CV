@@ -201,11 +201,14 @@ class adminController extends AbstractController {
             $files = $projectForm->getImages()->toArray()[0];
             
             if ($this->testMimeType($files, $allowedTypes)) {
+                
+                $repo = $this->getDoctrine()->getRepository(Project::class);
             
                 $project = new Project();
                 $project->setTitle($projectForm->getTitle());
                 $project->setAnchor($projectForm->getAnchor());
                 $project->setExplanation($projectForm->getExplanation());
+                $project->setOrder($repo->getMaxOrder() + 1);
                 
                 foreach ($files as $file) {
                     $filename = $this->generateUniqueFileName() .'.'. $file->guessExtension();
@@ -223,6 +226,8 @@ class adminController extends AbstractController {
                     $image = new Image();
                     $image->setFilename($filename);
                     $image->setProject($project);
+                    
+                    
                     
                     $em->persist($image);
                 }

@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Skill_Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Doctrine\DBAL\Exception\RetryableException;
 
 /**
  * @method Skill_Image|null find($id, $lockMode = null, $lockVersion = null)

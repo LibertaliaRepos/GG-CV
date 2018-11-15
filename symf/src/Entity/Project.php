@@ -70,11 +70,14 @@ class Project
      * )
      */
     private $explanation;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sorting", type="integer", nullable=false)
+     */
+    private $order;
 
-//     /**
-//      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="project")
-//      */
-//     private $images;
 
     public function __construct() {
         $this->anchor = '';
@@ -127,35 +130,15 @@ class Project
         return $repository->findBy(['project' => $this]);
     }
 
-//     /**
-//      * @return Collection|Image[]
-//      */
-//     public function getImages(): Collection
-//     {
-//         return $this->images;
-//     }
+    public function getOrder(): ?int
+    {
+        return $this->order;
+    }
 
-//     public function addImage(Image $image): self
-//     {
-//         if (!$this->images->contains($image)) {
-//             $this->images[] = $image;
-//             $image->setProject($this);
-//         }
+    public function setOrder(int $order): self
+    {
+        $this->order = $order;
 
-//         return $this;
-//     }
-
-//     public function removeImage(Image $image): self
-//     {
-//         if ($this->images->contains($image)) {
-//             $this->images->removeElement($image);
-//             // set the owning side to null (unless already changed)
-//             if ($image->getProject() === $this) {
-//                 $image->setProject(null);
-//             }
-//         }
-
-//         return $this;
-//     }
-
+        return $this;
+    }
 }

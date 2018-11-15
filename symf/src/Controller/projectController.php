@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Project;
 use App\Entity\Image;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class projectController extends AbstractController {
     
@@ -40,5 +41,35 @@ class projectController extends AbstractController {
         }
         
         return $this->json(array('deleted' => true), Response::HTTP_OK);
+    }
+    
+    /**
+     * @Route(
+     *      "admin/project/order",
+     *      name="GGCV_admin_project_order"
+     *  )
+     */
+    public function updateOrder(Request $request) {
+        
+        if($request->isXmlHttpRequest()) {
+            $params = json_decode($request->getContent(), true);
+            
+            $em = $this->getDoctrine()->getManager();
+            $repo = $this->getDoctrine()->getRepository(Project::class);
+            
+            $target = $repo->find($params['target']['id']);
+            $selected = $repo->find($params['selected']['id']);
+            
+            $em->persist($target);
+            $em->persist($selected);
+            
+            $target->setOrder($params['target']['order']);
+            $selected->setOrder($params['selected']['order']);
+            
+            $em->flush();
+            
+            return $this->json(json_encode($params));
+        }
+        
     }
 }
