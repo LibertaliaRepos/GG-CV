@@ -22,7 +22,7 @@ class GGCVController extends AbstractController {
      */
     public function index() {
                 
-        $skillsImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findby([], ['order' => 'ASC']);
+        $skillsImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findAll();
         
         return $this->render(
             'GGCV/index.html.twig', 
