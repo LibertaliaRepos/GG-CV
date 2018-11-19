@@ -61,9 +61,17 @@ class Image {
         if($imageInfo['File']->getMimeType() == self::SVG_MIME) {
             $pngFilename = preg_replace('#(.*)\.\D+#', '$1.png', $imageInfo['filename']);
             
-            $origin = new \Imagick($path);
-            $origin->setformat('png');
-            $origin->writeimage($imageInfo['folder'].'/converted/'.$pngFilename);
+            $img = new \Imagick();
+            $svg = file_get_contents($path);
+            
+            $img->readimageblob($svg);
+            
+            
+            $img->setimageformat('png');
+            $img->writeimage($imageInfo['folder'].'/converted/'.$pngFilename);
+            
+            $img->clear();
+            $img->destroy();
         }
     }
     
