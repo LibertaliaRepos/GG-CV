@@ -71,15 +71,24 @@
                 align-items: center;
               }
             }
-            }
           }
+        }
+        .orbit-bullets {
+          width: 80%;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          margin: 5px auto;
+
+        }
         .orbit-exit {display: none;}
         
         &[data-zoomed=true] {
           position: absolute;
           top: 15vh;
           left: 39vw;
-          height: 75vh;
+          height: 80vh;
           width: 75vw;
           z-index: 9;
           max-width: calc(32%);
