@@ -60,7 +60,8 @@ function openOrbit() {
 }
 
 function initOrbit() {
-  $('.orbit').each(function(index) { 
+  $('.orbit').each(function(index) {
+    sizeOrbitBullets();
     $(this).click(openOrbit);
   });
   
@@ -84,11 +85,6 @@ function initOrbit() {
   });
 }
 
-function disableOpenOrbit(param) {
-  var container = param.data.container;
-  alert(container);
-}
-
 function positionZoomed() {
   
   var windowWidth = $(window).outerWidth();
@@ -96,7 +92,7 @@ function positionZoomed() {
   var zoomed = $('[data-zoomed=true]');
   
   $(zoomed).css('max-width', (windowWidth * 0.5) + 'px' );
-  $(zoomed).css('max-height', (windowHeight * 0.5) + 'px' );
+  $(zoomed).css('max-height', (windowHeight * 0.9) + 'px' );
   
   var orbitDim = {
       height: $(zoomed).outerHeight(),
@@ -112,7 +108,26 @@ function positionZoomed() {
     $(zoomed).css('top', orbitPos.top + 'px');
 }
 
+function sizeOrbitBullets() {
+  $('.orbit').each(function(index) {
+    var bullets = $(this).find('.orbit-bullets');
+    var next = $(this).find('.orbit-next');
+    var previous = $(this).find('.orbit-previous');
+    
+    console.log($(bullets));
+    console.log($(next));
+    console.log($(previous));
+    
+    var arrowsWidth = ($(next).outerWidth()) + ($(previous).outerWidth());
+    console.log(arrowsWidth);
+    
+    $(bullets).css('width', 'calc(100% - '+ arrowsWidth +'px)')
+  });
+}
+
 $(window).ready(initOrbit);
+
+
 
 
 
