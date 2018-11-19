@@ -42,10 +42,10 @@ function readURL(input) {
   }
 }
 
-$(document).ready(skillImageDim());
-$(window).resize(function() {
-  skillImageDim();
-});
+//$(document).ready(skillImageDim());
+//$(window).resize(function() {
+//  skillImageDim();
+//});
 
 
 
