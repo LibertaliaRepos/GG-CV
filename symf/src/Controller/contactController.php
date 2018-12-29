@@ -11,6 +11,8 @@ use App\Entity\Phone;
 use App\Entity\Society;
 use App\Service\JsonResponse;
 use App\Service\EmailServ;
+use App\Service\SmtpTransport;
+use App\Service\Debug\DebugAjax;
 
 class contactController extends AbstractController {
     
@@ -19,7 +21,7 @@ class contactController extends AbstractController {
      *
      * @Route("/contact/new", name="contact_new")
      */
-    public function new(Request $request, JsonResponse $jsonResponse, EmailServ $emailServ) {
+    public function new(Request $request, JsonResponse $jsonResponse, EmailServ $emailServ, SmtpTransport $st, DebugAjax $debug) {
         
         if ($request->isXmlHttpRequest()) {
 
@@ -72,6 +74,10 @@ class contactController extends AbstractController {
             
             $em->flush();
             
+            $params['contact']['date'] = new \DateTime();
+            
+            $this->sendEmailToFranceserv($params, $st, $debug);
+            
             return $this->json(array(
                 'status'    =>  true,
                 'response'  =>  $jsonResponse->mailResponse($author)
@@ -84,5 +90,45 @@ class contactController extends AbstractController {
             Response::HTTP_BAD_REQUEST, 
             array('Content-type' => 'application/json')
         );
+    }
+    
+    /**
+     * @Route(
+     *  "contact/email"
+     * )
+     */
+    public function designEmail() {
+        $params = [
+          'contact' => [
+              'email' => 'email.du@client.com',
+              'subject' => 'Sujet de l\'email',
+              'message' => 'Message du client, de l\'utilisateur',
+              'date'    =>  new \DateTime()
+          ],
+           'author' => 'nom de l\'utilisateur',
+           'phone' => '01.23.45.67.89',
+           'society' => 'nom de la sociétée' 
+        ];
+        
+        return $this->render('emails/toFranceserv.html.twig', ['params' => $params]);
+    }
+    
+    private function sendEmailToFranceserv(array $params, SmtpTransport $st, DebugAjax $debug) {
+        $mailer = new \Swift_Mailer($st->getSwiftTransport()); 
+        
+        $message = (new \Swift_Message($params['contact']['subject']))
+        ->setFrom($this->getParameter('my_email'))
+        ->setTo($this->getParameter('my_email'))
+        ->setBody(
+            $this->renderView(
+                'emails/toFranceserv.html.twig', 
+                ['params' => $params]
+                ),
+            'text/html'
+            );
+        
+        $result = $mailer->send($message);
+        
+        $debug->debug('debug_swift_send', $result);
     }
 }

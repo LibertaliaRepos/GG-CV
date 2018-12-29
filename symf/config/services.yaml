@@ -8,6 +8,7 @@ parameters:
     skill_dir: '%kernel.project_dir%/public/uploads/skill'
     project_dir: '%kernel.project_dir%/public/uploads/project'
     debug_dir: '%kernel.project_dir%/public/debug_ajax'
+    my_email: 'webmaster@gg-cv.fr'
     
 
 services:

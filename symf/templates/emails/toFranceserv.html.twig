@@ -1,0 +1,41 @@
+<table cellspacing="0" cellpadding="10" border="0">
+  <tr>
+    <td>
+      <ul>
+        <li><a href="mailto:{{ params.contact.email }}">webmaster@gg-cv.fr</a></li>
+
+        {% if params.author is defined %}
+
+          <li>Madame/Monsieur: <strong>{{ params.author|upper }}</strong></li>
+
+        {% endif %}
+
+        {% if params.phone is defined %}
+
+          <li>Tél: <strong>{{ params.phone }}</strong></li>
+
+        {% endif %}
+
+        {% if params.society is defined %}
+
+          <li>societée: <strong>{{ params.society|upper }}</strong></li>
+
+        {% endif %}
+
+      </ul>
+    </td>
+    <td style="width:50%"></td>
+    <td style="vertical-align:bottom">Envoyé le <strong>{{ params.contact.date|date("d/m/Y G:i", "Europe/Paris") }}</strong> ,</td>
+  </tr>
+
+  <tr>
+    <td colspan="3">
+      <h1 style="text-align:center">{{ params.contact.subject }}</h1>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      {{ params.contact.message }}
+    </td>
+  </tr>
+</table>

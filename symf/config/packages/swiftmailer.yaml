@@ -1,3 +1,8 @@
 swiftmailer:
-    url: '%env(MAILER_URL)%'
+    transport: 'smtp'
+    username: 'libertalia'
+    password: '1491Js93@655957'
+    host: 'smtp.franceserv.fr'
+    port: '465'
+    encryption: 'ssl'
     spool: { type: 'memory' }
