@@ -40,21 +40,16 @@ function openOrbit() {
     $('#openedOrbitBack').attr('data-status', 'opened');
     
     $(window).resize(positionZoomed);
-        
-    $(this).off('click');
-
-    $(this).mouseleave(function() {
-      $('body').click(closeOrbit);
-    });
-
-    $(this).mouseenter(function(e) {
-      $('body').off('click', closeOrbit);
-    });
     
+
+    $('#openedOrbitBack').click(function (e) {
+      closeOrbit();
+    })
     var ident = '#' + $(this).attr('id');
     
-    $(this).find('.orbit-exit').click(function() {
-      $(ident).trigger('mouseleave');
+    $(this).find('.orbit-exit').click(function(e) {
+     e.stopPropagation(); 
+     $('#openedOrbitBack').click();
     });
   }
 }
@@ -114,12 +109,7 @@ function sizeOrbitBullets() {
     var next = $(this).find('.orbit-next');
     var previous = $(this).find('.orbit-previous');
     
-    console.log($(bullets));
-    console.log($(next));
-    console.log($(previous));
-    
     var arrowsWidth = ($(next).outerWidth()) + ($(previous).outerWidth());
-    console.log(arrowsWidth);
     
     $(bullets).css('width', 'calc(100% - '+ arrowsWidth +'px)')
   });
