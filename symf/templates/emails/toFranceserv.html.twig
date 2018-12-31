@@ -1,22 +1,22 @@
-<table cellspacing="0" cellpadding="10" border="0">
+<table cellspacing="0" cellpadding="10" border="0" style="margin:auto">
   <tr>
     <td>
-      <ul>
-        <li><a href="mailto:{{ params.contact.email }}">webmaster@gg-cv.fr</a></li>
+      <ul style="padding:0">
+        <li><a href="mailto:{{ params.contact.email }}">{{ params.contact.email }}</a></li>
 
-        {% if params.author is defined %}
+        {% if params.author|length > 0 %}
 
           <li>Madame/Monsieur: <strong>{{ params.author|upper }}</strong></li>
 
         {% endif %}
 
-        {% if params.phone is defined %}
+        {% if params.phone|length > 0 %}
 
           <li>Tél: <strong>{{ params.phone }}</strong></li>
 
         {% endif %}
 
-        {% if params.society is defined %}
+        {% if params.society|length > 0 %}
 
           <li>societée: <strong>{{ params.society|upper }}</strong></li>
 
@@ -29,13 +29,13 @@
   </tr>
 
   <tr>
-    <td colspan="3">
-      <h1 style="text-align:center">{{ params.contact.subject }}</h1>
+    <td colspan="3" style="background-color:gray;padding:0;">
+      <p>Object : <strong>{{ params.contact.subject }}</strong></p>
     </td>
   </tr>
   <tr>
     <td colspan="3">
-      {{ params.contact.message }}
+      {{ params.contact.message|raw }}
     </td>
   </tr>
 </table>
