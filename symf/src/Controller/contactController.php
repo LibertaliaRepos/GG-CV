@@ -14,8 +14,16 @@ use App\Service\EmailServ;
 use App\Service\SmtpTransport;
 use App\Service\Debug\DebugAjax;
 use App\Service\FileUploader;
+use Symfony\Component\Asset\PathPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 class contactController extends AbstractController {
+    
+    private $UploadedPathPackage;
+    
+    public function __construct() {
+        $this->UploadedPathPackage = new PathPackage('/uploads/contact', new EmptyVersionStrategy());
+    }
     
     /**
      * @param Request $request
@@ -138,14 +146,13 @@ class contactController extends AbstractController {
      *  "contact/upload/image"
      * )
      */
-    public function uploadImage(Request $request, FileUploader $fu,DebugAjax $debug) {
+    public function uploadImage(Request $request, FileUploader $fu) {
         
         $file = $request->files->get('file');
         
-        $debug->debug('debug_upload_image', $file);
+        $filename = $fu->upload($file);
+        $filename = $this->UploadedPathPackage->getUrl($filename);
         
-        $fu->upload($file);
-        
-       return new Response('ok'); 
+       return $this->json(['link' => $filename]); 
     }
 }
