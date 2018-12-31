@@ -13,6 +13,7 @@ use App\Service\JsonResponse;
 use App\Service\EmailServ;
 use App\Service\SmtpTransport;
 use App\Service\Debug\DebugAjax;
+use App\Service\FileUploader;
 
 class contactController extends AbstractController {
     
@@ -130,5 +131,21 @@ class contactController extends AbstractController {
         $result = $mailer->send($message);
         
         $debug->debug('debug_swift_send', $result);
+    }
+    
+    /**
+     * @Route(
+     *  "contact/upload/image"
+     * )
+     */
+    public function uploadImage(Request $request, FileUploader $fu,DebugAjax $debug) {
+        
+        $file = $request->files->get('file');
+        
+        $debug->debug('debug_upload_image', $file);
+        
+        $fu->upload($file);
+        
+       return new Response('ok'); 
     }
 }

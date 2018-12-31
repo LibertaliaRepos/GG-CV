@@ -7,6 +7,7 @@ parameters:
     locale: 'fr'
     skill_dir: '%kernel.project_dir%/public/uploads/skill'
     project_dir: '%kernel.project_dir%/public/uploads/project'
+    froala_upload_dir: '%kernel.project_dir%/public/uploads/contact'
     debug_dir: '%kernel.project_dir%/public/debug_ajax'
     my_email: 'webmaster@gg-cv.fr'
     
@@ -32,5 +33,6 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
         
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Service\FileUploader:
+      arguments:
+          $targetDirectory: '%froala_upload_dir%'
