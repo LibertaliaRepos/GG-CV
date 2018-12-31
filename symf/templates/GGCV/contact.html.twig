@@ -83,6 +83,14 @@
             imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif']
           }
         )
+          .on('froalaEditor.image.uploaded', function(e, editor, response) {
+            console.log(e);
+            console.log(editor);
+            console.log(response);
+          })
+          .on('froalaEditor.image.error', function (e, editor, error, response) {
+           console.log(error);
+          })
       });
     </script>
     <script src="{{ asset("stylesheets/js/contact-validation.js") }}"></script>

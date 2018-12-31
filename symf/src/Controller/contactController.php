@@ -16,6 +16,8 @@ use App\Service\Debug\DebugAjax;
 use App\Service\FileUploader;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class contactController extends AbstractController {
     
@@ -146,13 +148,40 @@ class contactController extends AbstractController {
      *  "contact/upload/image"
      * )
      */
-    public function uploadImage(Request $request, FileUploader $fu) {
+    public function uploadImage(Request $request, FileUploader $fu, DebugAjax $debug) {
         
         $file = $request->files->get('file');
         
-        $filename = $fu->upload($file);
-        $filename = $this->UploadedPathPackage->getUrl($filename);
+        $file = $fu->upload($file);
+        $ext = $file->guessExtension();
         
-       return $this->json(['link' => $filename]); 
+        $filename = $fu->guessFileNameNoExt($file);
+        
+        $url = $this->generateUrl(
+                'contact_get_froala_images',
+                [
+                    'filename' => $filename,
+                    '_format' => $ext
+                ],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+        
+       return $this->json(['link' => $url]); 
+    }
+    
+    /**
+     * @Route(
+     *  "/uploads/contact/{filename}.{_format}",
+     *  name="contact_get_froala_images",
+     *  requirements={
+     *      "_format":"jpeg|jpg|png|gif]"  
+     *  }
+     * )
+     */
+    public function getImageRealUrl(string $filename, string $_format) {
+        
+        $file = new File($this->UploadedPathPackage->getUrl($filename .'.'. $_format));
+        
+        return $this->file($file);
     }
 }
