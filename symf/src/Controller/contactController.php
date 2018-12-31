@@ -148,7 +148,7 @@ class contactController extends AbstractController {
      *  "contact/upload/image"
      * )
      */
-    public function uploadImage(Request $request, FileUploader $fu, DebugAjax $debug) {
+    public function uploadImage(Request $request, FileUploader $fu) {
         
         $file = $request->files->get('file');
         
