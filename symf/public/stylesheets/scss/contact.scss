@@ -18,6 +18,18 @@
         margin-bottom: 0;
       }
     }
+    div[contenteditable=true], .fr-dropdown-list {
+    	$size: 1.8em;
+    	@for $i from 1 through 4 {
+    		h#{$i} {
+	    		font-family: serif;
+	    		font-size: $size;
+	    		font-weight: bold;
+	    		border: none;
+	    	}
+	    	$size : $size - 0.3;
+    	}
+    }
     @media (max-width: 920px) {
       width: 75%;
       #details {
