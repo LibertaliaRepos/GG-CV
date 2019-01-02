@@ -67,6 +67,155 @@
   {{ include('_froala/javascript.html.twig') }}
     
     <script>
+    	// Define popup template
+    	$.extend($.FroalaEditor.POPUP_TEMPLATES, {
+    		"customPlugin.popup": '[_BUTTONS_][_CUSTOM_LAYER_]'
+    	});
+
+    	// Define popup buttons.
+    	$.extend($.FroalaEditor.DEFAULTS, {
+    		popupButtons: ['popupClose']
+    	});
+
+    	// The custom popup is defined inside a plugin (new or existing).
+    	$.FroalaEditor.PLUGINS.customPlugin = function(editor) {
+    		
+    		//Create custom popup
+    		function initPopup() {
+    			var popup_buttons = '';
+
+    			// Create the button list
+    			if (editor.opts.popupButtons.length > 0) {
+    				popup_buttons += '<div class="fr-buttons">';
+    				popup_buttons += editor.button.buildList(editor.opts.popupButtons);
+    				popup_buttons += '</div>';
+    			}
+
+    			// Load popup template
+    			var template = {
+    				buttons: popup_buttons,
+    				custom_layer: '<div class="fr-image-upload-layer fr-active fr-layer" id="fr-image-upload-layer-50"><strong>Drop image</strong><br>(or click)<div class="fr-form"></div></div>'
+    			};
+
+    			// Cfreate popup
+    			var $popup = editor.popups.create('customPlugin.popup', template);
+
+    			return $popup;
+    		}
+
+    		// Show the popup
+    		function showPopup() {
+    			// Get the popup object defined above.
+    			var $popup = editor.popups.get('customPlugin.popup');
+
+    			// If popup doesn't exist then create it.
+    			if (!$popup) $popup = initPopup();
+
+    			// Set the editor toolbar as the popup's container
+    			editor.popups.setContainer('customPlugin.popup', editor.$tb);
+
+    			// This custom popup is opened by pressing a button from the editor's toolbar.
+      		// Get the button's object in order to place the popup relative to it.
+      		var $btn = editor.$tb.find('.fr-command[data-cmd="attachmentBTN"]');
+
+      		// Set the popup's position
+      		var left = $btn.offset().left + $btn.outerWidth() / 2;
+      		var top = $btn.offset().top + (editor.opts.toolbarBottom ? 10 : $btn.outerHeight() - 10);
+
+      		// Show the custom popup
+      		// The button's outerHeight is required in case the popup needs to be displayed above it.
+      		editor.popups.show('customPlugin.popup', left, top, $btn.outerHeight());
+    		}
+
+    		// Hide the custom popup.
+    		function hidePopup() {
+    			editor.popups.hide('customPlugin.popup');
+    		}
+
+    		// Methods visible outside the plugin.
+    		return {
+    			showPopup: showPopup,
+    			hidePopup: hidePopup
+    		}
+    	}
+
+
+
+
+    	// Define Icon templates
+    	$.FroalaEditor.DefineIconTemplate('image', '<img src="[SRC]" alt="" />');
+    	$.FroalaEditor.DefineIconTemplate('charCounter', '<span id="myCharCounter" style="text-align:center;">[COUNT]</span>');
+      
+
+
+    	//Define the popup close button icon and command.
+    	$.FroalaEditor.DefineIcon('popupCloseIcon', {
+    		SRC: '{{ absolute_url(asset('img/_design/exit.png')) }}',
+      	template: 'image'
+    	});
+    	$.FroalaEditor.RegisterCommand('popupClose', {
+    		title: 'Close popup',
+    		icon: 'popupCloseIcon',
+    		undo: false,
+    		focus: false,
+    		callback: function() {
+    			this.customPlugin.hidePopup();
+    		}
+    	});
+
+
+
+
+
+
+
+
+
+
+
+    	// Define Icon contents using templates
+      $.FroalaEditor.DefineIcon(
+      	'attachmentIcon', 
+      	{
+	      	SRC: '{{ absolute_url(asset('img/_design/clipboard.png')) }}',
+	      	template: 'image'
+	      }
+      );
+      $.FroalaEditor.DefineIcon(
+      	'charCounterIcon',
+      	{
+      		COUNT: 0,
+      		template: 'charCounter'
+      	}
+      );
+
+      // Edit custom buttons
+      $.FroalaEditor.RegisterCommand('attachmentBTN', {
+      		title: 'Joindre un fichier',
+      		icon: 'attachmentIcon',
+      		focus: false,
+      		undo: false,
+      		refreshAfterCallback: false,
+      		plugin: 'customPlugin',
+	    		callback: function() {
+	    			this.customPlugin.showPopup();
+	    		}
+      	}
+    	);
+    	$.FroalaEditor.RegisterCommand('charCounterBTN', {
+	    		title: 'Compteur de caractères',
+	    		icon: 'charCounterIcon',
+	    		focus: false,
+	    		undo: false,
+	    		refreshAfterCallback: false
+	    	}
+  		);
+
+
+
+
+
+
       $(function() { 
         $('#contactMSG').froalaEditor(
           {
@@ -75,12 +224,18 @@
             placeholderText: null,
             charCounterCount: false, 
             toolbarButtons: [
-              'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'embedly', 'insertFile', 'insertTable', '|', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'
+              'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'embedly', 'insertTable', 'attachmentBTN', '|', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo', '|', 'charCounterBTN'
+            ],
+            pluginsEnabled: [
+            'align', 'charCounter', 'codeBeautifier', 'codeView', 'colors', 'draggable', 'embedly', 'emoticons', 'entities', 'file', 'fontAwesome', 'fontFamily', 'fontSize', 'fullscreen', 'image', 'imageTUI', 'imageManager', 'inlineStyle', 'inlineClass', 'lineBreaker', 'lineHeight', 'link', 'lists', 'paragraphFormat', 'paragraphStyle', 'quickInsert', 'quote', 'save', 'table', 'url', 'wordPaste', 'customPlugin'
+
             ],
             height: 200,
-            imageUploadURL: '/contact/upload/image',
+            imageUploadURL: '/contact/upload/file',
             imageUploadMethod: 'POST',
-            imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif']
+            imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
+            fileAllowedTypes: ['application/pdf'],
+            fileUploadURL: '/contact/upload/file'
           }
         )
       });
