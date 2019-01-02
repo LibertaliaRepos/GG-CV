@@ -7,7 +7,9 @@ parameters:
     locale: 'fr'
     skill_dir: '%kernel.project_dir%/public/uploads/skill'
     project_dir: '%kernel.project_dir%/public/uploads/project'
-    froala_upload_dir: '%kernel.project_dir%/public/uploads/contact'
+    froala_uploads: '%kernel.project_dir%/public/uploads/contact'
+    froala_uploads_images: '%froala_uploads%/images'
+    froala_uploads_pdf: '%froala_uploads%/pdf'
     debug_dir: '%kernel.project_dir%/public/debug_ajax'
     my_email: 'webmaster@gg-cv.fr'
     
@@ -32,7 +34,3 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
-        
-    App\Service\FileUploader:
-      arguments:
-          $targetDirectory: '%froala_upload_dir%'

@@ -8,16 +8,18 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class FileUploader {
     
-    private $targetDirectory;
+    public const ALLOWED_IMG_EXT = ['jpg', 'jpeg', 'png', 'gif'];
+    public const ALLOWED_IMG_MIME = ['image/jpeg', 'image/png', 'image/gif'];
+    public const ALLOWED_FILE_EXT = ['pdf'];
+    public const ALLOWED_FILE_MIME = ['application/pdf'];
+    
     private $debug;
     
     /**
      * 
-     * @param string $targetDirectory
      * @param DebugAjax $debug
      */
-    public function __construct(string $targetDirectory, DebugAjax $debug) {
-        $this->targetDirectory = $targetDirectory;
+    public function __construct(DebugAjax $debug) {
         $this->debug = $debug;
     }
     
@@ -35,12 +37,12 @@ class FileUploader {
      * @throws FileException
      * @return File
      */
-    public function upload(UploadedFile $uploadedFile) : File {
+    public function upload(string $targetDirectory, UploadedFile $uploadedFile) : File {
         $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
         
         
         try {
-            $file = $uploadedFile->move($this->targetDirectory, $filename);
+            $file = $uploadedFile->move($targetDirectory, $filename);
         } catch (FileException $e) {
             throw new FileException($e->getMessage());
         }

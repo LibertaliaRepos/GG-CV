@@ -101,30 +101,21 @@ var contactForm = {
   
   editorCounterInit: function() {
     var editable = $('[contenteditable=true]');
-    var container = $('.fr-toolbar.fr-desktop.fr-top.fr-basic.fr-sticky-off');
-    var button = $(container).find('button:last-child').clone();
-    var span = $(button).find('span');
+    var span = $('#myCharCounter');
     var charCount = $(editable).text().length;
-    
-    $(button).removeClass('fr-disabled');
-    $(button).attr('id', 'myCharCounter');
-    $(button).find('i').remove();
-    $(button).attr('title', 'Char counter')
-    
-    $(span).attr('class', '');
-    $(span).text(charCount);
-    
     var color = (charCount < 10 ) ? 'red' : 'green';
     
+    $(span).text(charCount);
     $(span).css('color', color);
+
     
     
-    $(container).append($(button));  
+    // $(container).append($(button));
   },
   
   editorCounter: function() {
     var editableLength = $('[contenteditable=true]').text().length;
-    var counter = $('#myCharCounter span');
+    var counter = $('#myCharCounter');
     var color = (editableLength < 10 ) ? 'red' : 'green';
     
     $(counter).text(editableLength);

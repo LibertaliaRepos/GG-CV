@@ -21,10 +21,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class contactController extends AbstractController {
     
-    private $UploadedPathPackage;
+    private $uploadedImagePackage;
+    private $uploadedPdfPackage;
     
     public function __construct() {
-        $this->UploadedPathPackage = new PathPackage('/uploads/contact', new EmptyVersionStrategy());
+        $this->uploadedImagePackage = new PathPackage('/uploads/contact/images', new EmptyVersionStrategy());
+        $this->uploadedPdfPackage = new PathPackage('/uploads/contact/pdf', new EmptyVersionStrategy());
     }
     
     /**
@@ -145,21 +147,36 @@ class contactController extends AbstractController {
     
     /**
      * @Route(
-     *  "contact/upload/image"
+     *  "contact/upload/file"
      * )
      */
-    public function uploadImage(Request $request, FileUploader $fu) {
+    public function upload(Request $request, FileUploader $fu) {
         
         $file = $request->files->get('file');
         
-        $file = $fu->upload($file);
-        $ext = $file->guessExtension();
+        $mime = $file->getMimeType();
         
+        switch (true) {
+            case (in_array($mime, FileUploader::ALLOWED_IMG_MIME)):
+                $targetDirectory = $this->getParameter('froala_uploads_images');
+                $folder = 'images';
+                break;
+            
+            case (in_array($mime, FileUploader::ALLOWED_FILE_MIME)):
+                $targetDirectory = $this->getParameter('froala_uploads_pdf');
+                $folder = 'pdf';
+                break;
+        }
+        
+        $file = $fu->upload($targetDirectory ,$file);
+        
+        $ext = $file->guessExtension();
         $filename = $fu->guessFileNameNoExt($file);
         
         $url = $this->generateUrl(
-                'contact_get_froala_images',
+                'contact_get_froala_files',
                 [
+                    'folder' => $folder,
                     'filename' => $filename,
                     '_format' => $ext
                 ],
@@ -171,16 +188,22 @@ class contactController extends AbstractController {
     
     /**
      * @Route(
-     *  "/uploads/contact/{filename}.{_format}",
-     *  name="contact_get_froala_images",
+     *  "/uploads/contact/{folder}/{filename}.{_format}",
+     *  name="contact_get_froala_files",
      *  requirements={
-     *      "_format":"jpeg|jpg|png|gif]"  
+     *      "folder":"images|pdf",
+     *      "_format":"jpeg|jpg|png|gif|pdf"
      *  }
      * )
      */
     public function getImageRealUrl(string $filename, string $_format) {
         
-        $file = new File($this->UploadedPathPackage->getUrl($filename .'.'. $_format));
+        switch (true) {
+            case (in_array($_format, FileUploader::ALLOWED_IMG_EXT)):   $package = $this->uploadedImagePackage; break;
+            case (in_array($_format, FileUploader::ALLOWED_FILE_EXT)):  $package = $this->uploadedPdfPackage; break;
+        }
+        
+        $file = new File($package->getUrl($filename .'.'. $_format));
         
         return $this->file($file);
     }
