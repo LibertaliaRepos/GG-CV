@@ -18,15 +18,25 @@ use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use App\Service\Convertion;
 
 class contactController extends AbstractController {
     
     private $uploadedImagePackage;
     private $uploadedPdfPackage;
+    private $session;
     
     public function __construct() {
         $this->uploadedImagePackage = new PathPackage('/uploads/contact/images', new EmptyVersionStrategy());
         $this->uploadedPdfPackage = new PathPackage('/uploads/contact/pdf', new EmptyVersionStrategy());
+        $this->session = new Session(new NativeSessionStorage(), new AttributeBag());
     }
     
     /**
@@ -85,11 +95,42 @@ class contactController extends AbstractController {
                 $em->persist($society);
             }
             
+            $attachmentFolder = $this->session->get('attachmentFolder', null);
+            $toSend = [];
+            
+            if ($attachmentFolder) {
+                $path = $this->getParameter('contact_pdf_tmp') .'/'. $attachmentFolder;
+            
+                $files = scandir($path);
+                foreach ($files as $key => $file) {
+                    if ($file != '.' && $file != '..') {
+                        $toSend[$key] = $path . '/' . $file;
+                    }
+                }
+            }
+            
             $em->flush();
             
             $params['contact']['date'] = new \DateTime();
             
-            $this->sendEmailToFranceserv($params, $st, $debug);
+            $test = $this->sendEmailToFranceserv($params, $st, $debug, $toSend);
+            $fileSystem = new Filesystem();
+            
+            if($test == 0) {
+                try {
+                    $fileSystem->remove($path);
+                } catch (IOExceptionInterface $e) {
+                    throw new IOException($e->getPath());
+                }
+            } else {
+                try {
+                    $target = $this->getParameter('froala_uploads_pdf') .'/'. $attachmentFolder;
+                    $fileSystem->copy($path, $target);
+                    $fileSystem->remove($path);
+                } catch (IOExceptionInterface $e) {
+                    throw new IOException($e->getPath());
+                }
+            }
             
             return $this->json(array(
                 'status'    =>  true,
@@ -126,7 +167,7 @@ class contactController extends AbstractController {
         return $this->render('emails/toFranceserv.html.twig', ['params' => $params]);
     }
     
-    private function sendEmailToFranceserv(array $params, SmtpTransport $st, DebugAjax $debug) {
+    private function sendEmailToFranceserv(array $params, SmtpTransport $st, DebugAjax $debug, array $attachments = []) {
         $mailer = new \Swift_Mailer($st->getSwiftTransport()); 
         
         $message = (new \Swift_Message($params['contact']['subject']))
@@ -140,9 +181,13 @@ class contactController extends AbstractController {
             'text/html'
             );
         
-        $result = $mailer->send($message);
+        if(!empty($attachments)) {
+            foreach ($attachments as $attach) {
+                $message->attach(\Swift_Attachment::fromPath($attach));
+            }
+        }
         
-        $debug->debug('debug_swift_send', $result);
+        return $mailer->send($message);
     }
     
     /**
@@ -206,5 +251,92 @@ class contactController extends AbstractController {
         $file = new File($package->getUrl($filename .'.'. $_format));
         
         return $this->file($file);
+    }
+    
+    /**
+     * @Route(
+     *  "/contact/init/attachment",
+     *  name="contact_init_attachment"
+     * )
+     */
+    public function uploadAttachmentInit(Request $request, Convertion $conv, FileUploader $fu) : Response {
+        
+        if ($request->isXmlHttpRequest()) {
+            $attachmentFolderTmp = $request->get('attachmentFolder');
+            $attachmentFolderTmpPath = $this->getParameter('contact_pdf_tmp') . '/' . $attachmentFolderTmp;
+            $this->session->set('attachmentFolder', $attachmentFolderTmp);
+            
+            $fileSystem = new Filesystem();
+            $file = $request->files->get('file');
+            
+            try {
+                $fileSystem->mkdir($attachmentFolderTmpPath);
+            } catch (IOExceptionInterface $e) {
+                throw new IOException('An error occurred while creating your directory at ' . $e->getPath());
+            }
+            
+            $originalFilename = htmlspecialchars($file->getClientOriginalName());
+            $size = $conv->bytes2Mo($request->request->get('fileSize'), true);
+            
+            $file = $fu->upload($attachmentFolderTmpPath, $file);
+            
+            $viewFile = [
+                'id' => $fu->guessFileNameNoExt($file),
+                'name'  =>  $originalFilename,
+                'size'  =>  $size,
+                'ext'   => $file->guessExtension(),
+                'attachmentFolder' => $attachmentFolderTmp
+            ];
+            
+            return new Response(
+                    $this->renderView(
+                        'contactAttachment/contactAttachment.html.twig',
+                        ['file' => $viewFile]
+                    )
+                );
+        }
+        
+        throw new BadRequestHttpException();
+    }
+    
+    /**
+     * @Route(
+     *  "/contact/tmp/attchment/del",
+     *  name="contact_tmp_del"
+     * )
+     */
+    public function delTmpAttachment(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            
+            $response = new Response();
+            
+            $filename = $request->get('id') .'.'. $request->get('ext');
+            $filename = str_replace('#', '', $filename);
+            $filename = $this->getParameter('contact_pdf_tmp') .'/'. $request->get('folderAttachment'). '/' . $filename;
+            
+            $fileSystem = new Filesystem();
+            
+            try {
+                $fileSystem->remove($filename);
+            } catch (IOExceptionInterface $e) {
+                throw new IOException($e->getPath());
+            }
+            
+            return $this->json(['id' => str_replace('#', '', $request->get('id'))]);
+        }
+        
+        return $response->setContent(false);
+    }
+    
+    /**
+     * @Route(
+     * "contact/attchment/container",
+     * name="contact_attchment_container"
+     * )
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getAttachmentContainer() : Response {
+        return new Response($this->renderView('contactAttachment/container.html.twig'));
     }
 }

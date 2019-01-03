@@ -1,0 +1,5 @@
+<li data-attachment="{{ file.id }}">
+	<img src="{{ asset('img/_design/pdf.png') }}" alt="Fichier pdf" /> 
+	<span>{{ file.name }} <em>({{ file.size }}mo)</em></span>
+	<a id="{{ file.id }}" class="exit" title="Retirer piece jointe" data-attachment="{{ file.attachmentFolder }}" data-ext="{{ file.ext }}">&times;</a>
+</li>

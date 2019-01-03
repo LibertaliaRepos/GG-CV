@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Entity\Skill_Image;
 use App\Entity\Image;
 use App\Service\DetectIE;
+use App\Service\FileUploader;
 
 
 class GGCVController extends AbstractController {
@@ -51,8 +52,8 @@ class GGCVController extends AbstractController {
      * @Route("/contact", name="GGCV_contact")
      */
     public function contactForm() {
-        
-        return $this->render('GGCV/contact.html.twig', array('active' => 'contact'));
+        $attachmentFolder = 'contact-'.uniqid();
+        return $this->render('GGCV/contact.html.twig', array('active' => 'contact', 'fileMime' => FileUploader::ALLOWED_FILE_MIME, 'attachmentFolder' => $attachmentFolder));
     }
     
 }

@@ -94,7 +94,7 @@
     			// Load popup template
     			var template = {
     				buttons: popup_buttons,
-    				custom_layer: '<div class="fr-image-upload-layer fr-active fr-layer" id="fr-image-upload-layer-50"><strong>Drop image</strong><br>(or click)<div class="fr-form"></div></div>'
+    				custom_layer: '<div class="fr-image-upload-layer fr-active fr-layer" id="myAttachment-upload"><input id="dropDownPdfInput" type="file" accept="{{ fileMime|join(' ') }}" />or <br /><strong>drop pdf file</strong></div>'
     			};
 
     			// Cfreate popup
@@ -132,10 +132,120 @@
     			editor.popups.hide('customPlugin.popup');
     		}
 
+    		function DropDown() {
+    			var myAttachment = $('#myAttachment-upload');
+    			myAttachment.hover(function() { $(this).css('cursor', 'pointer'); });
+
+
+    			$(document).on('dragenter', '#myAttachment-upload', function() {
+    				$(this).css('background-color', '#ebebeb');
+
+    				return false;
+    			});
+
+    			$(document).on('dragover', '#myAttachment-upload', function(e) {
+    				e.preventDefault();
+    				e.stopPropagation();
+    				$(this).css('background-color', '#ebebeb');
+
+    				return false;
+    			});
+
+    			$(document).on('dragleave', '#myAttachment-upload', function(e) {
+    				e.preventDefault();
+    				e.stopPropagation();
+    				
+    				$(this).css('background-color', '');
+
+    				return false;
+    			});
+
+    			$(document).on('drop', '#myAttachment-upload', function(e) {
+    				e.preventDefault();
+    				e.stopPropagation();
+
+    				var dt = e.originalEvent.dataTransfer;
+    				var files = dt.files;
+
+
+    				$.ajax({
+    					url: '{{ path('contact_attchment_container') }}',
+    					type:'POST',
+    					async: false,
+    					contentType: false,
+    					processData: false,
+    					success: function(response) {
+    						$('#details').append(response);
+    					}
+    				});
+
+
+		 				if (dt) {
+    					if(files.length) {
+    						for (var i = 0; i < files.length; ++i) {
+	    						$(this).css('border', '3px dashed green');
+
+	    						var current = files[i];
+
+	    						var fd = new FormData();
+	    						fd.append('file', current);
+	    						fd.append('attachmentFolder', '{{ attachmentFolder }}');
+	    						fd.append('fileSize', current.size);
+
+	    						upload(fd);
+	    					}
+	    				}
+    				} else {
+    					$(this).css('border', '3px solid #BBBBBB');
+    				}
+    				return false;
+    			});
+
+
+
+    			function upload(formData) {
+    				$.ajax({
+    					url: '{{ path('contact_init_attachment') }}',
+    					type: 'POST',
+    					data: formData,
+    					contentType: false,
+    					processData: false,
+    					success: function(response) {
+    						var link = $(response).find('a');
+    						$('#attachmentPdfSection ul').append(response);
+    						delAttachment('#' + link.attr('id'));
+    					}
+    				});
+    			}
+
+    			function delAttachment(ident) {
+    				$(ident).click(function(e) {
+    					e.preventDefault();
+
+    					var fd = new FormData();
+    					fd.append('id', ident);
+    					fd.append('ext', $(this).data('ext'));
+    					fd.append('folderAttachment', $(this).data('attachment'));
+
+    					$.ajax({
+    						url: '{{ path('contact_tmp_del') }}',
+    						type: 'POST',
+    						data: fd,
+    						contentType: false,
+    						processData: false,
+    						success: function(response) {
+    							$('#attachmentPdfSection li[data-attachment='+ response.id +']').remove();
+    						}
+    					});
+    				});
+    			}
+    		}
+
     		// Methods visible outside the plugin.
     		return {
     			showPopup: showPopup,
-    			hidePopup: hidePopup
+    			hidePopup: hidePopup,
+    			DropDown: DropDown
     		}
     	}
 
@@ -199,6 +309,7 @@
       		plugin: 'customPlugin',
 	    		callback: function() {
 	    			this.customPlugin.showPopup();
+	    			this.customPlugin.DropDown();
 	    		}
       	}
     	);
