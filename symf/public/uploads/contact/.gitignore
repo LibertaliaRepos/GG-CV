@@ -1,0 +1,6 @@
+/images/*
+/pdf/*
+/tmp/*
+!/pdf/.gitignore
+!/tmp/.gitignore
+!/images/.gitignore

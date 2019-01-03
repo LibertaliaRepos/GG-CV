@@ -30,6 +30,40 @@
 	    	$size : $size - 0.3;
     	}
     }
+
+    #attachmentPdfSection{
+      position: fixed;
+      right: 2vw;
+      top: 40vh;
+      background-color: $medium-gray;
+      border: 1px solid $orange;
+      border-radius: 10px;
+      width: calc((((100% - 60%) * (15/18)) / 2) - 2vw);
+      height: calc(77vh * 0.3);
+      overflow: hidden;
+      box-shadow: 2px 2px 7px $black;
+      h3 {
+        font-size: 1rem;
+        font-weight: bold;
+        text-align: center;
+        height: 22px;
+        margin: 0;
+        border-bottom: 1px solid $black;
+        background: linear-gradient(to bottom, #cccccc 23%,#eeeeee 100%);
+      }
+      ul {
+        font-size: 0.9em;
+        height: calc(100% - 22px);
+        margin: 0;
+        padding: 2px 0 0 2px;
+        overflow-y: scroll;
+        background-color: $white;
+        a.exit {
+          color: red;
+        }
+      }
+    }
+
     @media (max-width: 920px) {
       width: 75%;
       #details {
