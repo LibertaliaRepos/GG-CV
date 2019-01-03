@@ -125,7 +125,7 @@ class contactController extends AbstractController {
             } else {
                 try {
                     $target = $this->getParameter('froala_uploads_pdf') .'/'. $attachmentFolder;
-                    $fileSystem->copy($path, $target);
+                    $fileSystem->mirror($path, $target);
                     $fileSystem->remove($path);
                 } catch (IOExceptionInterface $e) {
                     throw new IOException($e->getPath());

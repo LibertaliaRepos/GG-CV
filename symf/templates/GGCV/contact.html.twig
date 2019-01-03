@@ -50,6 +50,10 @@
 
           </label>
           <textarea id="contactMSG" name="MESSAGE"></textarea>
+          <section id="attachmentPdfSection" style="display:none;">
+						<h3>Pièce jointes</h3>
+						<ul></ul>
+					</section>
         </fieldset>
 <!--      reset / submit      -->
         <div class="button-group">
@@ -146,7 +150,9 @@
     			$(document).on('dragover', '#myAttachment-upload', function(e) {
     				e.preventDefault();
     				e.stopPropagation();
+    				
     				$(this).css('background-color', '#ebebeb');
+    				$(this).on('drop');
 
     				return false;
     			});
@@ -167,23 +173,15 @@
     				var dt = e.originalEvent.dataTransfer;
     				var files = dt.files;
 
+    				console.log(files);
+    				
 
-    				$.ajax({
-    					url: '{{ path('contact_attchment_container') }}',
-    					type:'POST',
-    					async: false,
-    					contentType: false,
-    					processData: false,
-    					success: function(response) {
-    						$('#details').append(response);
-    					}
-    				});
+    				$('#attachmentPdfSection').css('display', 'block');
 
 
 		 				if (dt) {
     					if(files.length) {
     						for (var i = 0; i < files.length; ++i) {
-	    						$(this).css('border', '3px dashed green');
 
 	    						var current = files[i];
 
@@ -198,6 +196,9 @@
     				} else {
     					$(this).css('border', '3px solid #BBBBBB');
     				}
+
+    				$(this).off('drop');
+
     				return false;
     			});
 
