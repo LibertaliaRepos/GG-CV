@@ -10,6 +10,7 @@ parameters:
     froala_uploads: '%kernel.project_dir%/public/uploads/contact'
     froala_uploads_images: '%froala_uploads%/images'
     froala_uploads_pdf: '%froala_uploads%/pdf'
+    contact_pdf_tmp: '%froala_uploads%/tmp'
     debug_dir: '%kernel.project_dir%/public/debug_ajax'
     my_email: 'webmaster@gg-cv.fr'
     
