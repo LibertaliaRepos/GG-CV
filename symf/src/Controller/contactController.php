@@ -109,12 +109,14 @@ class contactController extends AbstractController {
                 }
             }
             
-            $em->flush();
+//             $em->flush();
             
-            $params['contact']['date'] = new \DateTime();
+//             $params['contact']['date'] = new \DateTime();
             
-            $test = $this->sendEmailToFranceserv($params, $st, $debug, $toSend);
+//             $test = $this->sendEmailToFranceserv($params, $st, $debug, $toSend);
             $fileSystem = new Filesystem();
+            
+            $test = 1;
             
             if($test == 0) {
                 try {
@@ -132,12 +134,13 @@ class contactController extends AbstractController {
                 }
             }
             
-            $this->session->clear();
+            $this->session->set('attachmentFolder', self::guessAttachmentDir());
+            
             
             return $this->json(array(
                 'status'    =>  true,
                 'response'  =>  $jsonResponse->mailResponse($author),
-                'attchment' => self::guessAttachmentDir()
+                'attchment' => $this->session->get('attachmentFolder')
             ));
         }
         
@@ -342,7 +345,7 @@ class contactController extends AbstractController {
      */
     public function clearTmp(Request $request, Filesystem $fs) : Response {
         if($request->isXmlHttpRequest()) {
-            $folder = $this->getParameter('contact_pdf_tmp') .'/'. $request->get('folder');
+            $folder = $this->getParameter('contact_pdf_tmp') .'/'. $this->session->get('attachmentFolder');
             
             try {
                 $fs->remove($folder);

@@ -282,7 +282,9 @@
 
 			var dt = e.originalEvent.dataTransfer;
 			var files = dt.files;
-			var attachmentFolder = $('#attachmentPdfSection').data('attchment')
+			var attachmentFolder = $('#attachmentPdfSection').attr('data-attchment');
+
+			console.log('folder :', attachmentFolder);
 
 			$('#attachmentPdfSection').css('display', 'block');
 
@@ -348,15 +350,14 @@
 		}
 
 		function contactLeaving() {
-
-			var folder = $('#attachmentPdfSection').data('attchment');
+/*
+			var folder = $('#attachmentPdfSection').attr('data-attchment');
 			var formData = new FormData();
 			formData.append('folder', folder);
-
+*/
 			$.ajax({
 				url: '{{ path('contact_clear_tmp') }}',
-				type: 'POST',
-				data: formData,
+				type: 'GET',
 				async: true,
 				contentType: false,
 				processData: false,
