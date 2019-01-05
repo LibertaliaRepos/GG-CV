@@ -350,28 +350,16 @@
 		}
 
 		function contactLeaving() {
-/*
-			var folder = $('#attachmentPdfSection').attr('data-attchment');
-			var formData = new FormData();
-			formData.append('folder', folder);
-*/
 			$.ajax({
 				url: '{{ path('contact_clear_tmp') }}',
-				type: 'GET',
-				async: true,
+				type: 'POST',
+				async: false,
 				contentType: false,
-				processData: false,
-				success: function(response) {
-					console.log(response);
-				}
+				processData: false
 			});
 		}
 
 		$(window).on('beforeunload', contactLeaving);
-		
-		
-
-		window.onpopstate = function() { alert('popstate !!!'); };
     </script>
     <script src="{{ asset("stylesheets/js/contact-validation.js") }}"></script>
 {% endblock %}

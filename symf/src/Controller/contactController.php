@@ -109,14 +109,12 @@ class contactController extends AbstractController {
                 }
             }
             
-//             $em->flush();
+            $em->flush();
             
-//             $params['contact']['date'] = new \DateTime();
+            $params['contact']['date'] = new \DateTime();
             
-//             $test = $this->sendEmailToFranceserv($params, $st, $debug, $toSend);
+            $test = $this->sendEmailToFranceserv($params, $st, $debug, $toSend);
             $fileSystem = new Filesystem();
-            
-            $test = 1;
             
             if($test == 0) {
                 try {
