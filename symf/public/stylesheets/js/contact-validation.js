@@ -65,22 +65,24 @@ var contactForm = {
       
       var params = contactForm.paramsSerial($(e.target));
       
-      
-      
       $.ajax({
         type: 'POST',
         url: '/contact/new',
         data: JSON.stringify(params),
         contentType: 'application/json',
         async: true,
-        success: function(response) {          
+        success: function(response) {
           $(contactForm.sent).html(response.response);
           $(contactForm.sent).attr('aria-hidden', 'false');
           $(contactForm.sent).attr('data-status', 'true');
           $(contactForm.sent).delay(5000).fadeOut('slow', function() {
             $(this).attr('aria-hidden', 'true');
             $(this).removeAttr('style');
-          });          
+          });
+          var pdfSection = $('#attachmentPdfSection');
+          pdfSection.attr('data-attchment', response.attchment);
+          pdfSection.find('ul').empty();
+          pdfSection.css('display', 'none');
         },
         error: function(response) {          
           var json = response.responseJSON;

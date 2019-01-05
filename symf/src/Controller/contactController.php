@@ -132,9 +132,12 @@ class contactController extends AbstractController {
                 }
             }
             
+            $this->session->clear();
+            
             return $this->json(array(
                 'status'    =>  true,
-                'response'  =>  $jsonResponse->mailResponse($author)
+                'response'  =>  $jsonResponse->mailResponse($author),
+                'attchment' => self::guessAttachmentDir()
             ));
         }
         
@@ -330,13 +333,35 @@ class contactController extends AbstractController {
     
     /**
      * @Route(
-     * "contact/attchment/container",
-     * name="contact_attchment_container"
+     *  "/contact/clear/tmp",
+     *  name="contact_clear_tmp"
      * )
      * 
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return Response
      */
-    public function getAttachmentContainer() : Response {
-        return new Response($this->renderView('contactAttachment/container.html.twig'));
+    public function clearTmp(Request $request, Filesystem $fs) : Response {
+        if($request->isXmlHttpRequest()) {
+            $folder = $this->getParameter('contact_pdf_tmp') .'/'. $request->get('folder');
+            
+            try {
+                $fs->remove($folder);
+            } catch (IOExceptionInterface $e) {
+                throw new IOException('contact_clear_tmp => ' . $e->getPath());
+            }
+            $this->session->clear();
+            
+            return $this->json(['remove' => true]);
+        }
+        
+        $this->session->clear();
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public static function guessAttachmentDir() : string {
+        return 'contact-'.uniqid();
     }
 }

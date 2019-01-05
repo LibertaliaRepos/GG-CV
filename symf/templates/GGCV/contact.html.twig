@@ -50,7 +50,7 @@
 
           </label>
           <textarea id="contactMSG" name="MESSAGE"></textarea>
-          <section id="attachmentPdfSection" style="display:none;">
+          <section id="attachmentPdfSection" style="display:none;" data-attchment="{{ attachmentFolder }}">
 						<h3>Pièce jointes</h3>
 						<ul></ul>
 					</section>
@@ -282,8 +282,7 @@
 
 			var dt = e.originalEvent.dataTransfer;
 			var files = dt.files;
-
-			console.log(files);
+			var attachmentFolder = $('#attachmentPdfSection').data('attchment')
 
 			$('#attachmentPdfSection').css('display', 'block');
 
@@ -292,9 +291,11 @@
 				if(files.length) {
 					for (var i = 0; i < files.length; ++i) {
 
+
+
 						var fd = new FormData();
 						fd.append('file', files[i]);
-						fd.append('attachmentFolder', '{{ attachmentFolder }}');
+						fd.append('attachmentFolder', attachmentFolder);
 						fd.append('fileSize', files[i].size);
 
 						upload(fd);
@@ -345,6 +346,31 @@
 				});
 			});
 		}
+
+		function contactLeaving() {
+
+			var folder = $('#attachmentPdfSection').data('attchment');
+			var formData = new FormData();
+			formData.append('folder', folder);
+
+			$.ajax({
+				url: '{{ path('contact_clear_tmp') }}',
+				type: 'POST',
+				data: formData,
+				async: true,
+				contentType: false,
+				processData: false,
+				success: function(response) {
+					console.log(response);
+				}
+			});
+		}
+
+		$(window).on('beforeunload', contactLeaving);
+		
+		
+
+		window.onpopstate = function() { alert('popstate !!!'); };
     </script>
     <script src="{{ asset("stylesheets/js/contact-validation.js") }}"></script>
 {% endblock %}

@@ -52,8 +52,9 @@ class GGCVController extends AbstractController {
      * @Route("/contact", name="GGCV_contact")
      */
     public function contactForm() {
-        $attachmentFolder = 'contact-'.uniqid();
+        $attachmentFolder = contactController::guessAttachmentDir();
         return $this->render('GGCV/contact.html.twig', array('active' => 'contact', 'fileMime' => FileUploader::ALLOWED_FILE_MIME, 'attachmentFolder' => $attachmentFolder));
     }
+    
     
 }
