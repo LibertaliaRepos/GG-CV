@@ -64,6 +64,28 @@
       }
     }
 
+    #myAttachment-upload {
+      height: 35vh;
+      max-height: 175px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1vh;
+      > p {
+        input {
+          margin: 5px;
+        }
+      }
+      #attachmentUploading {
+        margin: 0;
+        line-height: 1em;
+        text-align: left;
+        font-weight: bold;
+        color: $dark-gray;
+      }
+    }
+
+
     @media (max-width: 920px) {
       width: 75%;
       #details {

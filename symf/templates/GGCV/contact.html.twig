@@ -96,10 +96,12 @@
     				popup_buttons += '</div>';
     			}
 
+    			var cunstomLayer = '<div class="fr-image-upload-layer fr-active fr-layer" id="myAttachment-upload"><p><input id="dropDownPdfInput" type="file" accept="{{ fileMime|join(' ') }}" />or <br /><strong>drop pdf file</strong></p></div>';
+
     			// Load popup template
     			var template = {
     				buttons: popup_buttons,
-    				custom_layer: '<div class="fr-image-upload-layer fr-active fr-layer" id="myAttachment-upload"><input id="dropDownPdfInput" type="file" accept="{{ fileMime|join(' ') }}" />or <br /><strong>drop pdf file</strong></div>'
+    				custom_layer: cunstomLayer
     			};
 
     			// Cfreate popup
@@ -246,120 +248,159 @@
       });
 
 
-    var myAttachment = $('#myAttachment-upload');
-		myAttachment.hover(function() { $(this).css('cursor', 'pointer'); });
+      var myAttachment = $('#myAttachment-upload');
+  		myAttachment.hover(function() { $(this).css('cursor', 'pointer'); });
 
-		
+  		
 
-		$(document).on('dragenter', '#myAttachment-upload', function() {
-			$(this).css('background-color', '#ebebeb');
-
-
-			return false;
-		});
-
-		$(document).on('dragover', '#myAttachment-upload', function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			
-			$(this).css('background-color', '#ebebeb');
-
-			return false;
-		});
-
-		$(document).on('dragleave', '#myAttachment-upload', function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			
-			$(this).css('background-color', '');
-
-			return false;
-		});
-
-		$(document).on('drop', '#myAttachment-upload', function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			var dt = e.originalEvent.dataTransfer;
-			var files = dt.files;
-			var attachmentFolder = $('#attachmentPdfSection').attr('data-attchment');
-
-			console.log('folder :', attachmentFolder);
-
-			$('#attachmentPdfSection').css('display', 'block');
+  		$(document).on('dragenter', '#myAttachment-upload', function() {
+  			$(this).css('background-color', '#ebebeb');
 
 
-			if (dt) {
-				if(files.length) {
-					for (var i = 0; i < files.length; ++i) {
+  			return false;
+  		});
+
+  		$(document).on('dragover', '#myAttachment-upload', function(e) {
+  			e.preventDefault();
+  			e.stopPropagation();
+  			
+  			$(this).css('background-color', '#ebebeb');
+
+  			return false;
+  		});
+
+  		$(document).on('dragleave', '#myAttachment-upload', function(e) {
+  			e.preventDefault();
+  			e.stopPropagation();
+  			
+  			$(this).css('background-color', '');
+
+  			return false;
+  		});
+
+  		$(document).on('drop', '#myAttachment-upload', sendPdf);
+
+  		function sendPdf(e) {
+  			e.preventDefault();
+  			e.stopPropagation();
+
+  			var dt;
+  			var files;
+
+  			if ($(e.currentTarget).attr('id') == 'myAttachment-upload') {
+  				dt = e.originalEvent.dataTransfer;
+  				files = dt.files;
+  			} else if ($(e.currentTarget).attr('id') == 'dropDownPdfInput') {
+  				dt = true;
+  				files = e.currentTarget.files;
+  			}
+  			
+  			var attachmentFolder = $('#attachmentPdfSection').attr('data-attchment');
+
+  			$('#attachmentPdfSection').css('display', 'block');
 
 
-
-						var fd = new FormData();
-						fd.append('file', files[i]);
-						fd.append('attachmentFolder', attachmentFolder);
-						fd.append('fileSize', files[i].size);
-
-						upload(fd);
-					}
-				}
-			} else {
-				$(this).css('border', '3px solid #BBBBBB');
-			}
-
-			return false;
-		});
+  			if (dt) {
+  				if(files.length) {
+  					for (var i = 0; i < files.length; ++i) {
 
 
 
-		function upload(formData) {
-			$.ajax({
-				url: '{{ path('contact_init_attachment') }}',
-				type: 'POST',
-				data: formData,
-				contentType: false,
-				processData: false,
-				success: function(response) {
-					var link = $(response).find('a');
-					$('#attachmentPdfSection ul').append(response);
-					delAttachment('#' + link.attr('id'));
-				}
-			});
-		}
+  						var fd = new FormData();
+  						fd.append('file', files[i]);
+  						fd.append('attachmentFolder', attachmentFolder);
+  						fd.append('fileSize', files[i].size);
 
-		function delAttachment(ident) {
-			$(ident).click(function(e) {
-				e.preventDefault();
+  						upload(fd);
+  					}
+  				}
+  			} else {
+  				$(this).css('border', '3px solid #BBBBBB');
+  			}
 
-				var fd = new FormData();
-				fd.append('id', ident);
-				fd.append('ext', $(this).data('ext'));
-				fd.append('folderAttachment', $(this).data('attachment'));
+  			return false;
+  		}
 
-				$.ajax({
-					url: '{{ path('contact_tmp_del') }}',
-					type: 'POST',
-					data: fd,
-					contentType: false,
-					processData: false,
-					success: function(response) {
-						$('#attachmentPdfSection li[data-attachment='+ response.id +']').remove();
-					}
-				});
-			});
-		}
+  		function upload(formData) {
+  			$.ajax({
+  				url: '{{ path('contact_init_attachment') }}',
+  				type: 'POST',
+  				data: formData,
+  				contentType: false,
+  				processData: false,
+  				success: function(response) {
+  					var link = $(response).find('a');
+  					$('#attachmentPdfSection ul').append(response);
+  					delAttachment('#' + link.attr('id'));
+            $('#attachmentUploading').remove();
+  				},
+          xhr: function() {
+            var xhr = new window.XMLHttpRequest();
+            var progressBar = $('#progressBar');
+            var total = $(progressBar).parent().attr('width');
 
-		function contactLeaving() {
-			$.ajax({
-				url: '{{ path('contact_clear_tmp') }}',
-				type: 'POST',
-				async: false,
-				contentType: false,
-				processData: false
-			});
-		}
+            function showProgress(e) {
+              if(e.lengthComputable) {
+                var percent = e.loaded / e.total;
 
-		$(window).on('beforeunload', contactLeaving);
+                $(progressBar).attr('x2', total * percent);
+              }
+            }
+
+            xhr.upload.addEventListener('progress', showProgress, false);
+
+            xhr.addEventListener('progress', showProgress, false);
+
+            return xhr;
+          },
+          beforeSend: function(jqXHR) {
+            var width = $('#myAttachment-upload p:first').outerWidth();
+
+            var svgP = '<p id="attachmentUploading">uploading ...<svg width="'+ width +'" height="10" version="1.1" xmlns="http://www.w3.org/2000/svg"><line id="progressBar" x1="0" y1="5" x2="0" y2="5" stroke="#3F73FF" fill="transparent" stroke-width="5" /></svg></p>';
+
+            $('#myAttachment-upload').append(svgP);
+          }
+  			});
+  		}
+
+  		function delAttachment(ident) {
+  			$(ident).click(function(e) {
+  				e.preventDefault();
+
+  				var fd = new FormData();
+  				fd.append('id', ident);
+  				fd.append('ext', $(this).data('ext'));
+  				fd.append('folderAttachment', $(this).data('attachment'));
+
+  				$.ajax({
+  					url: '{{ path('contact_tmp_del') }}',
+  					type: 'POST',
+  					data: fd,
+  					contentType: false,
+  					processData: false,
+  					success: function(response) {
+  						$('#attachmentPdfSection li[data-attachment='+ response.id +']').remove();
+  					}
+  				});
+  			});
+  		}
+
+  		function contactLeaving() {
+  			$.ajax({
+  				url: '{{ path('contact_clear_tmp') }}',
+  				type: 'POST',
+  				async: false,
+  				contentType: false,
+  				processData: false
+  			});
+  		}
+
+
+  		$(document).on('change', '#dropDownPdfInput', sendPdf);
+
+
+  		$(window).on('beforeunload', contactLeaving);
+      $('input[type=reset]').click(contactLeaving);
     </script>
     <script src="{{ asset("stylesheets/js/contact-validation.js") }}"></script>
 {% endblock %}

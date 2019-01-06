@@ -150,26 +150,6 @@ class contactController extends AbstractController {
         );
     }
     
-    /**
-     * @Route(
-     *  "contact/email"
-     * )
-     */
-    public function designEmail() {
-        $params = [
-          'contact' => [
-              'email' => 'email.du@client.com',
-              'subject' => 'Sujet de l\'email',
-              'message' => 'Message du client, de l\'utilisateur',
-              'date'    =>  new \DateTime()
-          ],
-           'author' => 'nom de l\'utilisateur',
-           'phone' => '01.23.45.67.89',
-           'society' => 'nom de la sociétée' 
-        ];
-        
-        return $this->render('emails/toFranceserv.html.twig', ['params' => $params]);
-    }
     
     private function sendEmailToFranceserv(array $params, SmtpTransport $st, DebugAjax $debug, array $attachments = []) {
         $mailer = new \Swift_Mailer($st->getSwiftTransport()); 

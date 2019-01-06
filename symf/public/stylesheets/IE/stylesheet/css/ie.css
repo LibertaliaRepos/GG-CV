@@ -1,0 +1,128 @@
+/* line 3, ../scss/ie.scss */
+#layout {
+  display: block;
+  font-size: 0;
+  overflow: hidden;
+}
+/* line 7, ../scss/ie.scss */
+#layout #left-side {
+  display: inline-block;
+  vertical-align: top;
+  width: 20%;
+  font-size: 1rem;
+}
+@media (max-width: 800px) {
+  /* line 7, ../scss/ie.scss */
+  #layout #left-side {
+    display: none;
+  }
+}
+/* line 17, ../scss/ie.scss */
+#layout #right-side {
+  display: inline-block;
+  vertical-align: top;
+  width: 80%;
+  font-size: 1rem;
+}
+/* line 2, ../scss/_ieMixins.scss */
+#layout #right-side #content #skills {
+  display: table;
+  width: 100%;
+  height: 100%;
+  table-layout: fixed;
+}
+/* line 8, ../scss/_ieMixins.scss */
+#layout #right-side #content #skills h1 {
+  display: block;
+}
+/* line 12, ../scss/_ieMixins.scss */
+#layout #right-side #content #skills > section {
+  display: block;
+}
+/* line 15, ../scss/_ieMixins.scss */
+#layout #right-side #content #skills > section .explain, #layout #right-side #content #skills > section .sticky-container, #layout #right-side #content #skills > section .illustration-right {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 19, ../scss/_ieMixins.scss */
+#layout #right-side #content #skills > section .explain {
+  margin: 20px 5%;
+}
+@media (max-width: 500px) {
+  /* line 24, ../scss/_ieMixins.scss */
+  #layout #right-side #content #skills > section .explain, #layout #right-side #content #skills > section .sticky-container, #layout #right-side #content #skills > section .illustration-right {
+    display: block;
+  }
+}
+/* line 2, ../scss/_ieMixins.scss */
+#layout #right-side #content #projects {
+  display: table;
+  width: 100%;
+  height: 100%;
+  table-layout: fixed;
+}
+/* line 8, ../scss/_ieMixins.scss */
+#layout #right-side #content #projects h1 {
+  display: block;
+}
+/* line 12, ../scss/_ieMixins.scss */
+#layout #right-side #content #projects > section {
+  display: block;
+}
+/* line 15, ../scss/_ieMixins.scss */
+#layout #right-side #content #projects > section .explain, #layout #right-side #content #projects > section .sticky-container, #layout #right-side #content #projects > section .illustration-right {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 19, ../scss/_ieMixins.scss */
+#layout #right-side #content #projects > section .explain {
+  margin: 20px 5%;
+}
+@media (max-width: 500px) {
+  /* line 24, ../scss/_ieMixins.scss */
+  #layout #right-side #content #projects > section .explain, #layout #right-side #content #projects > section .sticky-container, #layout #right-side #content #projects > section .illustration-right {
+    display: block;
+  }
+}
+@media (max-width: 500px) {
+  /* line 27, ../scss/ie.scss */
+  #layout #right-side #content h1 {
+    text-align: center;
+  }
+  /* line 30, ../scss/ie.scss */
+  #layout #right-side #content #skills > section .explain, #layout #right-side #content #skills > section .illustration-right {
+    margin: auto;
+  }
+}
+/* line 39, ../scss/ie.scss */
+#layout #right-side #content #projects > section .orbit .orbit-wrapper .orbit-container .orbit-slide .orbit-figure {
+  display: block;
+}
+/* line 50, ../scss/ie.scss */
+#layout #right-side #content #projects > section .orbit[data-zoomed=true] .orbit-wrapper .orbit-container .orbit-slide .orbit-figure {
+  text-align: center;
+}
+/* line 52, ../scss/ie.scss */
+#layout #right-side #content #projects > section .orbit[data-zoomed=true] .orbit-wrapper .orbit-container .orbit-slide .orbit-figure img {
+  max-height: 100%;
+}
+/* line 63, ../scss/ie.scss */
+#layout #right-side #content #contact form#contactForm {
+  display: block;
+}
+@media (max-width: 800px) {
+  /* line 17, ../scss/ie.scss */
+  #layout #right-side {
+    width: 100%;
+  }
+}
+/* line 71, ../scss/ie.scss */
+#layout #construction {
+  font-size: 1rem;
+}
+/* line 73, ../scss/ie.scss */
+#layout #construction p {
+  background-color: inherit;
+  animation: none;
+  text-align: center;
+}
