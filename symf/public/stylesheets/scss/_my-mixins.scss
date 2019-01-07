@@ -156,3 +156,31 @@
     }
   }  
 }
+
+.myAccordion {
+  transition: height 0.5s ease-in;
+
+  .myAccordion-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: space-around;
+    flex-wrap: wrap;
+
+    > p {
+      height: 100%;
+    }
+
+    .arrow{
+      height: 80%;
+      border-bottom: 1px solid transparent;
+      &:hover {
+        cursor: pointer;
+        box-shadow: 2px 2px 1px $black;
+        background-color: $light-gray;
+      }
+    }
+   }
+
+   .myAccordion-content { transition: inherit; }
+}

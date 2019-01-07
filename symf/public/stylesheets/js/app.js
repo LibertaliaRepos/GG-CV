@@ -38,7 +38,63 @@ function escapeHtml(text) {
 }
 
 
+function MyAccordion(element) {
+  this.header = $(element).find('.myAccordion-header');
+  this.content = $(element).find('.myAccordion-content');
+  this.arrow = null;
+  this.header.opened = '<span class="arrow" title="Réduire">⬆</span>';
+  this.header.closed = '<span class="arrow" title="Ouvrir">⬇</span>';
+  this.open = function(e) {
+    console.log(this);
+
+    var header = e.data.header;
+    var content = e.data.content;
+    var opened = $(header).attr('data-opened');
+    var title = {
+      open: 'Réduire',
+      close: 'Ouvrir'
+    };
+    var arrows = {
+      open: '⬇',
+      close: '⬆'
+    };
 
 
 
+    if(opened == 'true') {
+      var parentH = $(header).outerHeight() + 'px';
 
+      $(this).attr('title', title.open);
+      $(this).text(arrows.open);
+
+      $(header).attr('data-opened', 'false');
+      $(content).css('height', '0');
+      $(content).parent().css('height', parentH);
+    } else if(opened == 'false') {
+      $(this).attr('title', title.close);
+      $(this).text(arrows.close);
+
+      $(header).attr('data-opened', 'true');
+      $(content).css('height', '');
+      $(content).parent().css('height', '');
+    }
+  }
+  this.init = function() {
+    var open = $(this.header).attr('data-opened');
+
+    if (open == 'true') {
+      $(this.header).append(this.header.opened);
+    } else if (open == 'false') {
+      $(this.header).append(this.header.closed);
+    }
+
+    
+    this.arrow = $(this.header).find('.arrow');
+    this.arrow.on('click', {header: this.header, content: this.content},this.open);
+
+    if (open == 'false') {
+      $(this.header).attr('data-opened', 'true');
+      this.arrow.trigger('click', {header: this.header, content: this.content});
+    }
+  }
+}

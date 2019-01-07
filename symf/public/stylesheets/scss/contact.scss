@@ -35,21 +35,29 @@
       position: fixed;
       right: 2vw;
       top: 40vh;
-      background-color: $medium-gray;
+      background-color: $white;
       border: 1px solid $orange;
       border-radius: 10px;
       width: calc((((100% - 60%) * (15/18)) / 2) - 2vw);
-      height: calc(77vh * 0.3);
+      height: calc(77vh * 0.4);
       overflow: hidden;
       box-shadow: 2px 2px 7px $black;
       h3 {
         font-size: 1rem;
         font-weight: bold;
         text-align: center;
-        height: 22px;
+        height: 27px;
         margin: 0;
         border-bottom: 1px solid $black;
         background: linear-gradient(to bottom, #cccccc 23%,#eeeeee 100%);
+
+/*
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+*/
       }
       ul {
         font-size: 0.9em;
@@ -71,6 +79,7 @@
       flex-direction: column;
       justify-content: space-between;
       padding: 1vh;
+      overflow: hidden;
       > p {
         input {
           margin: 5px;
