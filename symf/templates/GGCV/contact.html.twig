@@ -50,9 +50,9 @@
 
           </label>
           <textarea id="contactMSG" name="MESSAGE"></textarea>
-          <section id="attachmentPdfSection" style="display:none;" data-attchment="{{ attachmentFolder }}">
-						<h3>Pièce jointes</h3>
-						<ul></ul>
+          <section id="attachmentPdfSection" class="myAccordion" style="display:block;" data-attchment="{{ attachmentFolder }}">
+						<h3 class="myAccordion-header" data-opened="true" title="Réduire"><span>Pièce jointes</span></h3>
+						<ul class="myAccordion-content"></ul>
 					</section>
         </fieldset>
 <!--      reset / submit      -->
@@ -280,9 +280,28 @@
 
   		$(document).on('drop', '#myAttachment-upload', sendPdf);
 
+      function BadMimeTypeException(message, element) {
+        this.message = message;
+        this.name = 'BadMimeTypeException';
+        this.element = element;
+        this.toString = function() {
+          $(this.element).append('<p id="UploadBadMime" class="help-text">'+ this.message +'</p>');
+          $(this.element).css('border', '3px dashed red');
+          $('#UploadBadMime').css('color', 'red');
+
+          return this.name + ' : ' + this.message;
+        };
+      }
+
   		function sendPdf(e) {
   			e.preventDefault();
   			e.stopPropagation();
+
+        var error = $('#UploadBadMime');
+        if (error.length) {
+          $(error).remove();
+          $('#myAttachment-upload').css('border','');
+        }
 
   			var dt;
   			var files;
@@ -295,16 +314,23 @@
   				files = e.currentTarget.files;
   			}
   			
+
+        var regex = new RegExp('{{ fileMime|join('|') }}');
+        for (var i = 0; i < files.length; ++i) {
+
+          if(!files[i].type.match(regex)) {
+            throw new BadMimeTypeException('Les mimes types autorisés sont : {{ fileMime|join(', ') }}', $('#myAttachment-upload'));
+          }
+        }
+
   			var attachmentFolder = $('#attachmentPdfSection').attr('data-attchment');
 
   			$('#attachmentPdfSection').css('display', 'block');
-
+   
 
   			if (dt) {
   				if(files.length) {
   					for (var i = 0; i < files.length; ++i) {
-
-
 
   						var fd = new FormData();
   						fd.append('file', files[i]);
@@ -332,11 +358,22 @@
   					var link = $(response).find('a');
   					$('#attachmentPdfSection ul').append(response);
   					delAttachment('#' + link.attr('id'));
-            $('#attachmentUploading').remove();
+
+            
+            $('#attachmentUploading svg').find('line[data-status=loaded]').parent().remove();
+
+            if(!$('#attachmentUploading svg').length) {
+              $('#attachmentUploading').remove();
+            }
+
+
   				},
+          error: function(jqXHR) {
+            throw new BadMimeTypeException(jqXHR.responseJSON.message, $('#myAttachment-upload'));
+          },
           xhr: function() {
             var xhr = new window.XMLHttpRequest();
-            var progressBar = $('#progressBar');
+            var progressBar = $('.progressBar:last');
             var total = $(progressBar).parent().attr('width');
 
             function showProgress(e) {
@@ -344,6 +381,10 @@
                 var percent = e.loaded / e.total;
 
                 $(progressBar).attr('x2', total * percent);
+
+                if (percent > 0.8) {
+                  $(progressBar).attr('data-status', 'loaded');
+                }
               }
             }
 
@@ -354,11 +395,18 @@
             return xhr;
           },
           beforeSend: function(jqXHR) {
+
             var width = $('#myAttachment-upload p:first').outerWidth();
 
-            var svgP = '<p id="attachmentUploading">uploading ...<svg width="'+ width +'" height="10" version="1.1" xmlns="http://www.w3.org/2000/svg"><line id="progressBar" x1="0" y1="5" x2="0" y2="5" stroke="#3F73FF" fill="transparent" stroke-width="5" /></svg></p>';
+            var container = '<p id="attachmentUploading">uploading ...</p>';
 
-            $('#myAttachment-upload').append(svgP);
+            var svg = '<svg width="'+ width +'" height="10" version="1.1" xmlns="http://www.w3.org/2000/svg"><line class="progressBar" x1="0" y1="5" x2="0" y2="5" stroke="#3F73FF" fill="transparent" stroke-width="5" /></svg>';
+
+            if (!$('#attachmentUploading').length) {
+              $('#myAttachment-upload').append(container);
+            }
+
+            $('#attachmentUploading').append(svg);
           }
   			});
   		}
@@ -396,9 +444,10 @@
   		}
 
 
+      var accordion = new MyAccordion($('#attachmentPdfSection'));
+      accordion.init();
+
   		$(document).on('change', '#dropDownPdfInput', sendPdf);
-
-
   		$(window).on('beforeunload', contactLeaving);
       $('input[type=reset]').click(contactLeaving);
     </script>

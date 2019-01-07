@@ -59,4 +59,8 @@ class FileUploader {
         
         return array_pop($matches);
     }
+    
+    public function testMimeType(UploadedFile $uploadedFile) {
+        return in_array($uploadedFile->getMimeType(), self::ALLOWED_FILE_MIME);
+    }
 }

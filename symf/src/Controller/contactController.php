@@ -246,6 +246,7 @@ class contactController extends AbstractController {
     public function uploadAttachmentInit(Request $request, Convertion $conv, FileUploader $fu) : Response {
         
         if ($request->isXmlHttpRequest()) {
+            
             $attachmentFolderTmp = $request->get('attachmentFolder');
             $attachmentFolderTmpPath = $this->getParameter('contact_pdf_tmp') . '/' . $attachmentFolderTmp;
             $this->session->set('attachmentFolder', $attachmentFolderTmp);
@@ -261,6 +262,13 @@ class contactController extends AbstractController {
             
             $originalFilename = htmlspecialchars($file->getClientOriginalName());
             $size = $conv->bytes2Mo($request->request->get('fileSize'), true);
+            
+            if (!$fu->testMimeType($file)) {
+                // throw new \InvalidArgumentException('Les types MIMES autorisés sont : ' . implode(', ', $fu::ALLOWED_FILE_MIME));
+                $message = 'Les types MIME autorisés sont : ' . implode(', ', $fu::ALLOWED_FILE_MIME);
+                
+                return $this->json(['message' => $message, 'mime' => false], Response::HTTP_FORBIDDEN);
+            }
             
             $file = $fu->upload($attachmentFolderTmpPath, $file);
             
@@ -282,6 +290,7 @@ class contactController extends AbstractController {
         
         throw new BadRequestHttpException();
     }
+    
     
     /**
      * @Route(

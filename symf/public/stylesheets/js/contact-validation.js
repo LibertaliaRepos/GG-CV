@@ -79,6 +79,7 @@ var contactForm = {
             $(this).attr('aria-hidden', 'true');
             $(this).removeAttr('style');
           });
+          
           var pdfSection = $('#attachmentPdfSection');
           pdfSection.attr('data-attchment', response.attchment);
           pdfSection.find('ul').empty();
@@ -97,7 +98,8 @@ var contactForm = {
         }
       });
       
-      $(contactForm.reset).trigger('click');
+      $(contactForm.message).val('');
+      $('[contenteditable=true]').empty();
     }
   },
   
