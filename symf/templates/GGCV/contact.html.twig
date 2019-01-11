@@ -129,6 +129,13 @@
       		var left = $btn.offset().left + $btn.outerWidth() / 2;
       		var top = $btn.offset().top + (editor.opts.toolbarBottom ? 10 : $btn.outerHeight() - 10);
 
+          {% if IE %}
+
+          left = 0;
+          top = 0;
+          $popup.find('.fr-arrow').css('display', 'none');
+
+          {% endif %}
       		// Show the custom popup
       		// The button's outerHeight is required in case the popup needs to be displayed above it.
       		editor.popups.show('customPlugin.popup', left, top, $btn.outerHeight());
@@ -285,10 +292,11 @@
         this.name = 'BadMimeTypeException';
         this.element = element;
         this.toString = function() {
-          $(this.element).append('<p id="UploadBadMime" class="help-text">'+ this.message +'</p>');
-          $(this.element).css('border', '3px dashed red');
-          $('#UploadBadMime').css('color', 'red');
-
+          if (!$('#UploadBadMime').length) {
+            $(this.element).append('<p id="UploadBadMime" class="help-text">'+ this.message +'</p>');
+            $(this.element).css('border', '3px dashed red');
+            $('#UploadBadMime').css('color', 'red');
+        }
           return this.name + ' : ' + this.message;
         };
       }
