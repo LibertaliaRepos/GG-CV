@@ -6,6 +6,9 @@ use DeviceDetector\DeviceDetector;
 
 class DetectIE extends AbstractController {
     
+    public const IE_CLIENT = 'Internet Explorer';
+    public const SARAFI_CLIENT = 'Safari';
+    
     private $browserDetector;
     
     public function __construct() {
@@ -15,7 +18,7 @@ class DetectIE extends AbstractController {
     public function isIE() {
         $this->browserDetector->parse();
         
-        $this->get('twig')->addGlobal('IE', ($this->browserDetector->getClient('name') == 'Internet Explorer'));
+        $this->get('twig')->addGlobal('IE', ($this->browserDetector->getClient('name') == self::IE_CLIENT));
     }
     
 }
