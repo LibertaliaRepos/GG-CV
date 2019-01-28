@@ -238,18 +238,28 @@
             placeholderText: null,
             charCounterCount: false, 
             toolbarButtons: [
-              'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'embedly', 'insertTable', 'attachmentBTN', '|', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo', '|', 'charCounterBTN'
+              'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'embedly', 'insertTable', 'attachmentBTN', '|', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo', '|', 'charCounterBTN'
+            ],
+            toolbarButtonsMD: [
+              'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'embedly', 'insertTable', 'attachmentBTN', '|', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo', '|', 'charCounterBTN'
+            ],
+            toolbarButtonsSM: [
+              'bold', 'italic', 'underline', 'strikeThrough', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', '-', 'insertLink', 'insertImage', 'insertTable', 'attachmentBTN', '|', 'insertHR', '|', 'charCounterBTN'
+            ],
+            toolbarButtonsXS:  [
+              'bold', 'italic', 'underline', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', '-', 'insertLink', 'insertImage', 'insertTable', 'attachmentBTN', '|', 'insertHR', '|', 'charCounterBTN'
             ],
             pluginsEnabled: [
-            'align', 'charCounter', 'codeBeautifier', 'codeView', 'colors', 'draggable', 'embedly', 'emoticons', 'entities', 'file', 'fontAwesome', 'fontFamily', 'fontSize', 'fullscreen', 'image', 'imageTUI', 'imageManager', 'inlineStyle', 'inlineClass', 'lineBreaker', 'lineHeight', 'link', 'lists', 'paragraphFormat', 'paragraphStyle', 'quickInsert', 'quote', 'save', 'table', 'url', 'wordPaste', 'customPlugin'
-
+            'align', 'draggable', 'embedly', 'entities', 'fontAwesome', 'image', 'imageTUI', 'imageManager', 'lineBreaker', 'link', 'lists', 'paragraphStyle', 'quickInsert', 'quote', 'save', 'table', 'url', 'wordPaste', 'customPlugin'
             ],
             height: 200,
             imageUploadURL: '/contact/upload/file',
             imageUploadMethod: 'POST',
             imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
             fileAllowedTypes: ['application/pdf'],
-            fileUploadURL: '/contact/upload/file'
+            fileUploadURL: '/contact/upload/file',
+            toolbarInline: ($(window).width() <= 768),
+            toolbarVisibleWithoutSelection: ($(window).width() <= 768)
           }
         )
       });
