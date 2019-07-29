@@ -1,0 +1,3 @@
+[submodule "deployment"]
+	path = deployment
+	url = git@ldap-server:GG-CV-deployment.git
