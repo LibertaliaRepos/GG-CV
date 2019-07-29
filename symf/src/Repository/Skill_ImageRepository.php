@@ -17,40 +17,19 @@ class Skill_ImageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Skill_Image::class);
     }
-
-//    /**
-//     * @return Skill_Image[] Returns an array of Skill_Image objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Skill_Image
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \Doctrine\ORM\EntityRepository::findAll()
+     */
     public function findAll() {
         return $this->findBy([], ['order' => 'ASC']);
     }
     
+    /**
+     * 
+     */
     public function findAllSkills() {
         $skillImages = $this->findAll();
         $skills = [];
@@ -62,6 +41,9 @@ class Skill_ImageRepository extends ServiceEntityRepository
         return $skills;
     }
     
+    /**
+     * 
+     */
     public function getMaxOrder() {
         $conn = $this->getEntityManager()->getConnection();
         $query = 'SELECT MAX(sorting) FROM skill_image';

@@ -56,5 +56,20 @@ class GGCVController extends AbstractController {
         return $this->render('GGCV/contact.html.twig', array('active' => 'contact', 'fileMime' => FileUploader::ALLOWED_FILE_MIME, 'attachmentFolder' => $attachmentFolder));
     }
     
+    /**
+     * @Route("/xp_pro", name="GGCV_xppro")
+     */
+    public function xpPro() {
+        
+        $skillsImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findAll();
+        
+        return $this->render(
+            'GGCV/index.html.twig',
+            array(
+                    'skillImages' => $skillsImages,
+                    'active'      => 'accueil'
+                )
+            );
+    }
     
 }

@@ -34,6 +34,7 @@
       {% set accueil = '' %}
       {% set projet = '' %}
       {% set contact = '' %}
+      {% set xp_pro = '' %}
       
       {% if active == 'accueil' %}
           {% set accueil = 'active' %}
@@ -41,6 +42,8 @@
           {% set projet = 'active' %}
       {% elseif active == 'contact' %}
           {% set contact = 'active' %}
+      {% elseif active == 'xp_pro' %}
+          {% set xp_pro = 'active' %}
       {% endif %}
       
       <div id="right-side">
@@ -51,6 +54,7 @@
               <li class=""><a class="{{ accueil }}" href="{{ path('GGCV_index') }}">Accueil</a></li>
               <li class=""><a class="{{ projet }}" href="{{ path('GGCV_projects') }}">Projets</a></li>
               <li class=""><a class="{{ contact }}" href="{{ path('GGCV_contact') }}">Contact</a></li>
+              <li class=""><a class="{{ xp_pro }}" href="{{ path('GGCV_xppro') }}">Expériences pro</a></li>
             </ul>
 
             <p id="ephemeris">
