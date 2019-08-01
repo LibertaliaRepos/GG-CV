@@ -6,3 +6,5 @@
 !/project/.gitignore
 /contact/*
 !/contact/.gitignore
+/xppro/*
+!/xppro/.gitignore

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Accueil {{ parent() }} {% endblock %}
+
+
+{% block leftMenu %}
+  {{ include('menu/adminLeftMenu.html.twig') }}
+{% endblock %}
+
+{% block contentBody %}
+  <article id="content">
+    <h1>Expérience Professionnel</h1>
+    
+    <div id="xpproAdmin">
+      <div>
+        <table id="XPProList" data-action="skill">
+            <caption>Liste des <abbr title="Expérience">XP Pro</abbr></caption>
+          <thead>
+            <tr>
+              <th>Titre des XP</th>
+              <th  class="hidden"><span class="show-for-sr">Modifier</span></th>
+              <th class="hidden"><span class="show-for-sr">Supprimer</span></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for xpProImage in xpProImages %}
+              <tr data-order="{{ xpProImage.order }}" data-ident="{{ xpProImage.id }}">
+                <td class="title">
+                  <a href="#">
+                    {{ xpProImage.xpPro.title }}
+                  </a>
+                </td>
+                <td class="buttonAdmin">
+                  <a href="{{ path('GGCV_admin_skill') }}/form/{{ xpProImage.id }}">
+                    <img src="{{ asset('img/_design/edit.svg') }}" />
+                  </a>
+                </td>
+                <td class="buttonAdmin"><a href="#" data-open-reveal="{{ xpProImage.id }}" data-parent-title="{{ xpProImage.xpPro.title }}" data-action="skill"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <a id="addXP" class="button" href="{{ path('GGCV_admin_xppro_form') }}">Ajouter une compétance</a>
+      </div>
+      <div id="changeOrder">
+        <button id="orderUp" class="button" type="button" data-move="up">⬆</button>
+        <button id="orderDown" class="button" type="button" data-move="down">⬇</button>
+      </div>
+    </div>
+    
+    <section id="beforeDel" class="reveal tiny alert" data-reveal>
+      <h2>Attention !!</h2>
+      
+      <p>
+        <img src="{{ asset('img/_design/warning.svg') }}" alt="Attention !" />
+        <span>Êtes-vous sûre de vouloir supprimer la compétance : "<strong><span class="ref-title"></span></strong>" ?</span>
+      </p>
+      
+      <div class="button-group-reveal">
+        <a class="button alert" href="#" data-abort>Non</a>
+        <a class="button success" href="#" data-delete="">Oui</a>
+      </div>
+    </section>
+  </article>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('stylesheets/js/reveal.js') }}"></script>
+  <script src="{{ asset('stylesheets/js/order.js') }}"></script>
+{% endblock %}

@@ -3,21 +3,23 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Skill;
-use App\Form\SkillType;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Project;
-use App\Form\ProjectType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use App\Entity\Skill;
+use App\Entity\Project;
 use App\Entity\Skill_Image;
 use App\Entity\Image;
+use App\Entity\XpPro_Image;
+use App\Entity\XpPro;
 use App\Entity\Form\SkillForm;
-use Symfony\Component\HttpFoundation\File\File;
 use App\Entity\Form\ProjectForm;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use App\Entity\Form\XpProForm;
 use App\Service\DetectIE;
-
-
+use App\Form\SkillType;
+use App\Form\ProjectType;
+use App\Form\XpProType;
 
 class adminController extends AbstractController {
     
@@ -29,8 +31,7 @@ class adminController extends AbstractController {
      * @Route("/admin/skill", name="GGCV_admin_skill")
      */
     public function adminSkill() {
-        
-        $skillImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findby([], ['order' => 'ASC']);
+        $skillImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findAll();
         
         return $this->render('GGCV/adminSkill.html.twig', array('skillsImages' => $skillImages));
     }
@@ -358,6 +359,76 @@ class adminController extends AbstractController {
                     'images' => $images
                 )
             );
+    }
+  
+    /**
+     * @Route("/admin/xppro", name="GGCV_admin_xppro")
+     */
+    public function adminXP_pro() {
+        $xpProImages = $this->getDoctrine()->getRepository(XpPro_Image::class)->findAll();
+        
+        return $this->render('GGCV/adminXpPro.html.twig', array('xpProImages' => $xpProImages));
+    }
+    
+    /**
+     * @Route(
+     *  "/admin/xppro/form", 
+     *  name="GGCV_admin_xppro_form"
+     * )
+     */
+    public function xpProForm(Request $request) {
+        $xpProForm = new XpProForm(); 
+        
+        $form = $this->createForm(XpProType::class, $xpProForm);
+        
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            $xpProForm = $form->getData();
+            
+            /** @var Symfony\Component\HttpFoundation\File\UploadFile $file */
+            $file = $xpProForm->getPicture();
+            $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            
+            try {
+                $file = $file->move(
+                    $this->getParameter('xppro_dir'),
+                    $filename
+                    );
+            } catch (FileException $e) {
+                throw new \Exception($e->getMessage());
+            }
+            
+            Image::convertSVG($this->getParameter('xppro_dir').'/'.$filename);
+            
+            $order = $this->getDoctrine()->getRepository(XpPro_Image::class)->getMaxOrder();
+            
+            
+            $xpProImage = new XpPro_Image();
+            
+            $xpPro = new XpPro();
+            $xpPro->setTitle($xpProForm->getTitle());
+            $xpPro->setAnchor($xpProForm->getAnchor());
+            $xpPro->setExplanation($xpProForm->getExplanation());
+            
+            $image = new Image();
+            $image->setFilename($filename);
+            
+            $xpProImage->setXpPro($xpPro);
+            $xpProImage->setImage($image);
+            $xpProImage->setOrder($order + 1);
+            
+            
+            $em->persist($xpProImage);
+            $em->flush();
+            
+            return $this->redirectToRoute('GGCV_admin_xppro');
+        }
+        
+        return $this->render('GGCV/xpproForm.html.twig', array('form' => $form->createView()));
     }
     
     /**

@@ -5,6 +5,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Project;
 use App\Entity\Skill_Image;
+use App\Entity\XpPro_Image;
 use App\Entity\Image;
 use App\Service\DetectIE;
 use App\Service\FileUploader;
@@ -61,13 +62,13 @@ class GGCVController extends AbstractController {
      */
     public function xpPro() {
         
-        $skillsImages = $this->getDoctrine()->getRepository(Skill_Image::class)->findAll();
+        $skillsImages = $this->getDoctrine()->getRepository(XpPro_Image::class)->findAll();
         
         return $this->render(
-            'GGCV/index.html.twig',
+            'GGCV/xppro.html.twig',
             array(
                     'skillImages' => $skillsImages,
-                    'active'      => 'accueil'
+                    'active'      => 'xppro'
                 )
             );
     }

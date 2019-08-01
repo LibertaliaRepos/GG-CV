@@ -1,0 +1,156 @@
+{% set title_class = '' %}
+{% set anchor_class = '' %}
+{% set picture_class = '' %}
+
+{% extends 'base.html.twig' %}
+
+{% block title %} Administration XP Pro {{ parent() }} {% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  {{ include('_froala/stylesheets.html.twig') }}
+{% endblock %}
+
+
+{% block leftMenu %}
+  {{ include('menu/adminLeftMenu.html.twig') }}
+{% endblock %}
+
+{% block contentBody %}
+  <article id="content">
+    <h1>XP. Pro</h1>
+    <div id="xpproAdmin">
+      
+      {{ form_start(form, {'attr': {'id': 'XPProForm', 'method': 'POST'}}) }}
+          <fieldset id="skillFields" class="fieldset">
+            <legend>Ajouter une expérience</legend>
+{# Title #}
+            {% if form.title.vars.errors|length %}
+              {% set title_class = 'callout alert' %}
+            {% endif %}
+            <label id="titleLab" class="{{ title_class }}">
+              Titre
+              <span class="help-text">(obligatoire)</span>: 
+              {{ form_widget(form.title) }}
+              
+              {% if form.title.vars.errors|length %}
+                <span class="help-text alert">
+                  {{ form.title.vars.errors }}
+                </span>
+              {% endif %}
+              
+            </label>
+{# Anchor #}
+            {% if form.anchor.vars.errors|length %}
+              {% set anchor_class = 'callout alert' %}
+            {% endif %}
+            <label id="anchorLab" class="{{ anchor_class }}">
+              Ancre
+              <span class="help-text">(obligatoire)</span>: 
+              {{ form_widget(form.anchor) }}
+              
+              {% if form.anchor.vars.errors|length %}
+                <span class="help-text alert">
+                  {% for error in form.anchor.vars.errors %}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                      <br />
+                    {% endif %}
+                  {% endfor %}
+                </span>
+              {% endif %}
+              
+            </label>
+{# Picture #}
+            <div id="pictPreview">
+              {% if form.picture.vars.errors|length %}
+                {% set picture_class = 'callout alert' %}
+              {% endif %}
+              <label id="pictureLab" class="{{ picture_class }}">
+                Illustration
+                <span class="help-text">(facultatif)</span>: 
+                {{ form_widget(form.picture) }}
+
+                {% if form.picture.vars.errors|length %}
+                  <span class="help-text alert">
+                    {% for error in form.picture.vars.errors %}
+                      {{ error.message }}
+                      {% if not loop.last %}
+                        <br />
+                      {% endif %}
+                    {% endfor %}
+                  </span>
+                {% endif %}
+              </label>
+              
+              <figure>
+                
+                {% if form.oldPicture.vars.value|length %}
+                  {% set previewSRC = asset(skill_dir~ '/' ~form.oldPicture.vars.value) %}
+                  
+                  {% else %}
+                    {% set previewSRC = asset('img/_design/PREVIEW.svg') %}
+                {% endif %}
+                
+                <img src="{{ previewSRC }}" alt="Aperçu" title="Aperçu" />
+              </figure>
+              
+            </div>
+{# explanation (froala) #}
+            <label id="explanationLab" for="{{ form.explanation.vars.id }}" aria-describedby="">
+              Description
+              <span class="help-text">(obligatoire)</span>
+
+            </label>
+            {{ form_widget(form.explanation) }}
+            
+            {% if form.explanation.vars.errors|length %}
+                <p id="editorHelper" class="help-text alert callout">
+                  {% for error in form.explanation.vars.errors %}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                      <br />
+                    {% endif %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+            
+          </fieldset>
+  <!--      reset / submit      -->
+          <div class="button-group">
+            {{ form_widget(form.annuler, {'attr': {'class': 'button alert', 'value': 'Abandon'}}) }}
+            {{ form_widget(form.ajouter, {'attr': {'class': 'button success', 'value': 'Ajouter'}}) }}
+          </div>
+          
+      {{ form_widget(form.oldPicture) }}
+      {{ form_end(form) }}
+      
+      
+    </div>
+  </article>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ include('_froala/javascript.html.twig') }}
+    
+    <script>
+      $(function() { 
+        $('#{{ form.explanation.vars.id }}').froalaEditor(
+          {
+            key: '{{ froala_key_gt_v28 }}',
+            enter: $.FroalaEditor.ENTER_P, 
+            placeholderText: null,
+            charCounterCount: false, 
+            toolbarButtons: ['html'],
+            height: 200
+          }
+        ) 
+      });
+      
+      $(function() {
+        $('#{{ form.picture.vars.id }}').change(function() {
+          readURL(this);
+        })
+      })
+    </script>
+{% endblock %}

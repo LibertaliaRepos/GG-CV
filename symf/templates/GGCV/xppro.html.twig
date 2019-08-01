@@ -10,21 +10,21 @@
 {% block contentBody %}
   <article id="content">
     <div id="skills">
-      <h1>Compétances</h1>
+      <h1>Expérience professionnelle</h1>
       
         {% for skillImage in skillImages %}
           <section>
             <div class="explain">
-              <h2 id="{{ skillImage.skill.anchor }}">{{ skillImage.skill.title }}</h2>
-              {{ skillImage.skill.explanation | raw }}
+              <h2 id="{{ skillImage.xpPro.anchor }}">{{ skillImage.xpPro.title }}</h2>
+              {{ skillImage.xpPro.explanation | raw }}
             </div>
             <div class="sticky-container">
               
               {% if IE and '.svg' in skillImage.image.filename %}
-                {% set src = asset(skill_dir ~ 'converted/' ~ skillImage.image.filename)|replace({'.svg': '.png'}) %}
+                {% set src = asset(xppro_dir ~ 'converted/' ~ skillImage.image.filename)|replace({'.svg': '.png'}) %}
                 
               {% elseif not IE or '.svg' not in skillImage.image.filename %}
-                {% set src = asset(skill_dir ~ skillImage.image.filename) %}
+                {% set src = asset(xppro_dir ~ skillImage.image.filename) %}
               {% endif %}
               
               <img class="illustration-right" src="{{ src }}" alt="" />

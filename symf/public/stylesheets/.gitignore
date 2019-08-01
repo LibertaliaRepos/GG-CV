@@ -4,3 +4,4 @@ node_modules
 npm-debug.log
 IE/stylesheet/.sass-cache/*
 !IE/stylesheet/.sass-cache/.gitignore
+/.sass-cache

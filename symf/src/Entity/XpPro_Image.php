@@ -4,7 +4,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Skill_Image
+ * XpPro_Image
  * @author libertalia
  *
  * @ORM\Table(name="xppro_image")
@@ -81,6 +81,18 @@ class XpPro_Image {
     public function setOrder(int $order): self
     {
         $this->order = $order;
+
+        return $this;
+    }
+
+    public function getXpPro(): ?XpPro
+    {
+        return $this->xpPro;
+    }
+
+    public function setXpPro(XpPro $xpPro): self
+    {
+        $this->xpPro = $xpPro;
 
         return $this;
     }

@@ -3,7 +3,7 @@
   @include explanation('#projectForm');
   @include global-form('#skillForm');
   @include global-form('#projectForm');
-  
+
   #skillForm, #projectForm {
     #titleLab, #anchorLab,  #pictPreview { width: 75%; }
     #explanationLab { width: 100%; }
