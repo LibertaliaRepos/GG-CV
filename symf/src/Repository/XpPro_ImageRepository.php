@@ -27,6 +27,20 @@ class XpPro_ImageRepository extends ServiceEntityRepository
     public function findAll() {
         return $this->findBy([], ['order' => 'ASC']);
     }
+
+    /**
+     *
+     */
+    public function findAllXP_Pros() {
+        $xpprosImages = $this->findAll();
+        $xppros = [];
+
+        foreach ($xpprosImages as $xpproImage) {
+            array_push($xppros, $xpproImage->getXpPro());
+        }
+
+        return $xppros;
+    }
   
     /**
      * 
