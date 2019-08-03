@@ -62,12 +62,12 @@ class GGCVController extends AbstractController {
      */
     public function xpPro() {
         
-        $skillsImages = $this->getDoctrine()->getRepository(XpPro_Image::class)->findAll();
+        $xpproImages = $this->getDoctrine()->getRepository(XpPro_Image::class)->findAll();
         
         return $this->render(
             'GGCV/xppro.html.twig',
             array(
-                    'skillImages' => $skillsImages,
+                    'xpproImages' => $xpproImages,
                     'active'      => 'xppro'
                 )
             );

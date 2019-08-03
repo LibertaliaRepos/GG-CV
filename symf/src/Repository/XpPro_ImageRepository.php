@@ -33,7 +33,7 @@ class XpPro_ImageRepository extends ServiceEntityRepository
      */
     public function getMaxOrder() {
         $conn = $this->getEntityManager()->getConnection();
-        $query = 'SELECT MAX(sorting) FROM skill_image';
+        $query = 'SELECT MAX(sorting) FROM xppro_image';
         $stmt = $conn->query($query);
 
         return intval($stmt->fetch()['MAX(sorting)']);

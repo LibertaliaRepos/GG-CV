@@ -13,7 +13,7 @@
     
     <div id="xpproAdmin">
       <div>
-        <table id="XPProList" data-action="skill">
+        <table id="XPProList" data-action="xppro">
             <caption>Liste des <abbr title="Expérience">XP Pro</abbr></caption>
           <thead>
             <tr>
@@ -32,11 +32,11 @@
                   </a>
                 </td>
                 <td class="buttonAdmin">
-                  <a href="{{ path('GGCV_admin_skill') }}/form/{{ xpProImage.id }}">
+                  <a href="{{ path('GGCV_admin_xppro') }}/form/{{ xpProImage.id }}">
                     <img src="{{ asset('img/_design/edit.svg') }}" />
                   </a>
                 </td>
-                <td class="buttonAdmin"><a href="#" data-open-reveal="{{ xpProImage.id }}" data-parent-title="{{ xpProImage.xpPro.title }}" data-action="skill"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
+                <td class="buttonAdmin"><a href="#" data-open-reveal="{{ xpProImage.id }}" data-parent-title="{{ xpProImage.xpPro.title }}" data-action="xppro"><img src="{{ asset('img/_design/del.svg') }}" /></a></td>
               </tr>
             {% endfor %}
           </tbody>

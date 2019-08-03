@@ -392,7 +392,7 @@ class adminController extends AbstractController {
             /** @var Symfony\Component\HttpFoundation\File\UploadFile $file */
             $file = $xpProForm->getPicture();
             $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
-            
+
             try {
                 $file = $file->move(
                     $this->getParameter('xppro_dir'),
@@ -405,7 +405,6 @@ class adminController extends AbstractController {
             Image::convertSVG($this->getParameter('xppro_dir').'/'.$filename);
             
             $order = $this->getDoctrine()->getRepository(XpPro_Image::class)->getMaxOrder();
-            
             
             $xpProImage = new XpPro_Image();
             
@@ -428,6 +427,66 @@ class adminController extends AbstractController {
             return $this->redirectToRoute('GGCV_admin_xppro');
         }
         
+        return $this->render('GGCV/xpproForm.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+     * @Route(
+     *  "/admin/xppro/form/{id}",
+     *  name="GGCV_admin_skill_update",
+     *  requirements={"id"="\d+"}
+     * )
+     */
+    public function updateXPPro(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        /** @var XpPro_Image $xpproImage */
+        $xpproImage = $this->getDoctrine()->getRepository(XpPro_Image::class)->find($id);
+
+        $em->persist($xpproImage);
+
+        $xpproForm = new XpProForm();
+        $xpproForm->setTitle($xpproImage->getXpPro()->getTitle());
+        $xpproForm->setAnchor($xpproImage->getXpPro()->getAnchor());
+        $xpproForm->setExplanation($xpproImage->getXpPro()->getExplanation());
+        $xpproForm->setOldPicture($xpproImage->getImage()->getFilename());
+        $xpproForm->setPicture($xpproImage->getImage()->getFile($this->getParameter('xppro_dir')));
+
+        $form = $this->createForm(XpProType::class, $xpproForm);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $xpproForm = $form->getData();
+
+            if ($xpproForm->getPicture() != null) {
+
+                $file = $xpproForm->getPicture();
+                $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('xppro_dir'),
+                        $filename
+                    );
+                } catch (FileException $e) {
+                    throw new \Exception($e->getMessage());
+                }
+
+                $xpproImage->getImage()->setFilename($filename);
+
+                Image::convertSVG($this->getParameter('xppro_dir').'/'.$filename);
+                Image::deleteSVGRelatedFile($this->getParameter('xppro_dir').'/'.$xpproForm->getOldPicture());
+                unlink($this->getParameter('xppro_dir').'/'.$xpproForm->getOldPicture());
+            }
+
+            $xpproImage->getXpPro()->setTitle($xpproForm->getTitle());
+            $xpproImage->getXpPro()->setAnchor($xpproForm->getAnchor());
+            $xpproImage->getXpPro()->setExplanation($xpproForm->getExplanation());
+
+            $em->flush();
+
+            return $this->redirectToRoute('GGCV_admin_xppro');
+        }
+
         return $this->render('GGCV/xpproForm.html.twig', array('form' => $form->createView()));
     }
     

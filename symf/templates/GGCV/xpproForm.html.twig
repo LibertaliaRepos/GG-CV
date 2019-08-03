@@ -85,7 +85,7 @@
               <figure>
                 
                 {% if form.oldPicture.vars.value|length %}
-                  {% set previewSRC = asset(skill_dir~ '/' ~form.oldPicture.vars.value) %}
+                  {% set previewSRC = asset(xppro_dir ~ '/' ~ form.oldPicture.vars.value) %}
                   
                   {% else %}
                     {% set previewSRC = asset('img/_design/PREVIEW.svg') %}
