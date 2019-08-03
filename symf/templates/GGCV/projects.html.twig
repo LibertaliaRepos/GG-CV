@@ -31,7 +31,7 @@
                   {% for image in project.images %}
                     <li class="is-active orbit-slide">
                       <figure class="orbit-figure">
-                        <img src="{{ asset( project_dir ~ image.filename) }}" alt="" />
+                        <img src="{{ asset( project_dir ~ '/' ~ image.filename) }}" alt="" />
                       </figure>
                     </li>
                   {% endfor %}

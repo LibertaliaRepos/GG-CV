@@ -21,10 +21,10 @@
             <div class="sticky-container">
               
               {% if IE and '.svg' in skillImage.image.filename %}
-                {% set src = asset(skill_dir ~ 'converted/' ~ skillImage.image.filename)|replace({'.svg': '.png'}) %}
+                {% set src = asset(skill_dir ~ '/' ~ 'converted/' ~ skillImage.image.filename)|replace({'.svg': '.png'}) %}
                 
               {% elseif not IE or '.svg' not in skillImage.image.filename %}
-                {% set src = asset(skill_dir ~ skillImage.image.filename) %}
+                {% set src = asset(skill_dir ~ '/' ~ skillImage.image.filename) %}
               {% endif %}
               
               <img class="illustration-right" src="{{ src }}" alt="" />
