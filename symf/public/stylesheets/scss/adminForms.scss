@@ -1,10 +1,12 @@
-#skillAdmin, #projectAdmin {
+#skillFormAdmin, #projectFormAdmin, #xpproFormAdmin {
   @include explanation('#skillForm');
   @include explanation('#projectForm');
+  @include explanation('#XPProForm');
   @include global-form('#skillForm');
   @include global-form('#projectForm');
+  @include global-form('#XPProForm');
 
-  #skillForm, #projectForm {
+  #skillForm, #projectForm, #XPProForm {
     #titleLab, #anchorLab,  #pictPreview { width: 75%; }
     #explanationLab { width: 100%; }
     
