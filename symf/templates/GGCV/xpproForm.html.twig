@@ -1,4 +1,5 @@
 {% set title_class = '' %}
+{% set type_class = '' %}
 {% set anchor_class = '' %}
 {% set picture_class = '' %}
 
@@ -39,6 +40,22 @@
               {% endif %}
               
             </label>
+{# Type #}
+              {% if form.contractType.vars.errors|length %}
+                  {% set type_class = 'callout alert' %}
+              {% endif %}
+              <label id="typeLab" class="{{ type_class }}">
+                  Type d'XP. pro
+                  <span class="help-text">(obligatoire)</span>:
+                  {{ form_widget(form.contractType) }}
+
+                  {% if form.contractType.vars.errors|length %}
+                      <span class="help-text alert">
+                  {{ form.contractType.vars.errors }}
+                </span>
+                  {% endif %}
+
+              </label>
 {# Anchor #}
             {% if form.anchor.vars.errors|length %}
               {% set anchor_class = 'callout alert' %}

@@ -38,6 +38,14 @@ class XpPro
     private $title;
 
     /**
+     * @var ContractType;
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\ContractType", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $contractType;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="anchor", type="string", length=255, nullable=false, unique=true)
@@ -114,6 +122,24 @@ class XpPro
     {
         $this->explanation = $explanation;
 
+        return $this;
+    }
+
+    /**
+     * @return ContractType
+     */
+    public function getContractType(): ContractType
+    {
+        return $this->contractType;
+    }
+
+    /**
+     * @param ContractType $contractType
+     * @return XpPro
+     */
+    public function setContractType(ContractType $contractType): XpPro
+    {
+        $this->contractType = $contractType;
         return $this;
     }
 }

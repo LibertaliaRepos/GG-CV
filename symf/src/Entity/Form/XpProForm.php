@@ -24,6 +24,11 @@ class XpProForm
     private $title;
 
     /**
+     *
+     */
+    private $contractType;
+
+    /**
      * @var string
      *
      * @Assert\NotBlank()
@@ -86,6 +91,22 @@ class XpProForm
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContractType()
+    {
+        return $this->contractType;
+    }
+
+    /**
+     * @param mixed $contractType
+     */
+    public function setContractType($contractType): void
+    {
+        $this->contractType = $contractType;
     }
 
     public function getAnchor(): ?string

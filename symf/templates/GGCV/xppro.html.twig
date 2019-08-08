@@ -15,8 +15,17 @@
         {% for xpproImage in xpproImages %}
           <section>
             <div class="explain">
-              <h2 id="{{ xpproImage.xpPro.anchor }}">{{ xpproImage.xpPro.title }}</h2>
-              {{ xpproImage.xpPro.explanation | raw }}
+              <div class="header">
+                <h2 id="{{ xpproImage.xpPro.anchor }}">{{ xpproImage.xpPro.title }}</h2>
+
+                {% if IE %}
+                  {% set href = 'img/' ~ contractTypeHref ~ '/' ~ xpproImage.xpPro.contractType.pngHref %}
+                {% else %}
+                    {% set href = 'img/' ~ contractTypeHref ~ '/' ~ xpproImage.xpPro.contractType.svgHref %}
+                {% endif %}
+                <img src="{{  asset(href) }}" alt="{{ xpproImage.xpPro.contractType.longName }}" />
+              </div>
+                {{ xpproImage.xpPro.explanation | raw }}
             </div>
             <div class="sticky-container">
               

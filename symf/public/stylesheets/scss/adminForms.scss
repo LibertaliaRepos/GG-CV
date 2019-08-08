@@ -7,7 +7,7 @@
   @include global-form('#XPProForm');
 
   #skillForm, #projectForm, #XPProForm {
-    #titleLab, #anchorLab,  #pictPreview { width: 75%; }
+    #titleLab, #typeLab ,#anchorLab,  #pictPreview { width: 75%; }
     #explanationLab { width: 100%; }
     
     #pictPreview {

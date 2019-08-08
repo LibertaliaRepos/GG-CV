@@ -10,6 +10,24 @@
     justify-content: space-around;
     
     margin-bottom: 20px;
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      width: 100%;
+
+      h2 {
+        max-width: calc(100% - 70px);
+      }
+
+      img {
+        max-width: 70px;
+      }
+    }
     
     @include explanation('.explain', true);
     

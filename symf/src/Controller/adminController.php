@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\ContractType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -410,6 +411,7 @@ class adminController extends AbstractController {
             
             $xpPro = new XpPro();
             $xpPro->setTitle($xpProForm->getTitle());
+            $xpPro->setContractType($em->getRepository(ContractType::class)->find($xpProForm->getContractType()));
             $xpPro->setAnchor($xpProForm->getAnchor());
             $xpPro->setExplanation($xpProForm->getExplanation());
             
@@ -446,12 +448,16 @@ class adminController extends AbstractController {
 
         $xpproForm = new XpProForm();
         $xpproForm->setTitle($xpproImage->getXpPro()->getTitle());
+        $xpproForm->setContractType($xpproImage->getXpPro()->getContractType()->getIdContractType());
         $xpproForm->setAnchor($xpproImage->getXpPro()->getAnchor());
         $xpproForm->setExplanation($xpproImage->getXpPro()->getExplanation());
         $xpproForm->setOldPicture($xpproImage->getImage()->getFilename());
         $xpproForm->setPicture($xpproImage->getImage()->getFile($this->getParameter('xppro_dir')));
 
         $form = $this->createForm(XpProType::class, $xpproForm);
+
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -476,6 +482,12 @@ class adminController extends AbstractController {
                 Image::convertSVG($this->getParameter('xppro_dir').'/'.$filename);
                 Image::deleteSVGRelatedFile($this->getParameter('xppro_dir').'/'.$xpproForm->getOldPicture());
                 unlink($this->getParameter('xppro_dir').'/'.$xpproForm->getOldPicture());
+            }
+
+            if ($xpproForm->getContractType() != null) {
+                $contractType = $em->getRepository(ContractType::class)->find($xpproForm->getContractType());
+
+                $xpproImage->getXpPro()->setContractType($contractType);
             }
 
             $xpproImage->getXpPro()->setTitle($xpproForm->getTitle());

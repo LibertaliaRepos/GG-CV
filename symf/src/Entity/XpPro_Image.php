@@ -44,18 +44,6 @@ class XpPro_Image {
      */
     private $order;
 
-    public function getSkill(): ?Skill
-    {
-        return $this->skill;
-    }
-
-    public function setSkill(Skill $skill): self
-    {
-        $this->skill = $skill;
-
-        return $this;
-    }
-
     public function getImage(): ?Image
     {
         return $this->image;
