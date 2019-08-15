@@ -1,8 +1,9 @@
+$default_contract_max_width: 70px;
+$stage_contract_max_width: 100px;
+
 #xppros {
   padding: 1%;
-  h1 {
-//    text-align: center;
-  }
+
   > section {
     display: flex;
     flex-direction: row;
@@ -20,12 +21,16 @@
 
       width: 100%;
 
+      &.stage h2 { max-width: calc(100% - 100px); }
+
       h2 {
         max-width: calc(100% - 70px);
       }
 
       img {
-        max-width: 70px;
+        max-width: $default_contract_max_width;
+
+        &.stage { max-width: $stage_contract_max_width; }
       }
     }
     

@@ -13,17 +13,23 @@
       <h1>Expérience professionnelle</h1>
       
         {% for xpproImage in xpproImages %}
+
+          {% if 'Stage' in xpproImage.xpPro.contractType.longName %}
+              {% set stageClass = 'stage' %}
+          {% else %}
+              {% set stageClass = '' %}
+          {% endif %}
+
           <section>
             <div class="explain">
-              <div class="header">
+              <div class="header {{ stageClass }}">
                 <h2 id="{{ xpproImage.xpPro.anchor }}">{{ xpproImage.xpPro.title }}</h2>
-
                 {% if IE %}
                   {% set href = 'img/' ~ contractTypeHref ~ '/' ~ xpproImage.xpPro.contractType.pngHref %}
                 {% else %}
                     {% set href = 'img/' ~ contractTypeHref ~ '/' ~ xpproImage.xpPro.contractType.svgHref %}
                 {% endif %}
-                <img src="{{  asset(href) }}" alt="{{ xpproImage.xpPro.contractType.longName }}" />
+                <img class="{{ stageClass }}" src="{{ asset(href) }}" alt="{{ xpproImage.xpPro.contractType.longName }}" />
               </div>
                 {{ xpproImage.xpPro.explanation | raw }}
             </div>

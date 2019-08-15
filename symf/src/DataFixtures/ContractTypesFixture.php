@@ -12,21 +12,28 @@ class ContractTypesFixture extends Fixture
 {
     public function load(ObjectManager $manager) {
 
-        $contract1 = new ContractType();
-        $contract1->setShortName('CDD');
-        $contract1->setLongName('Contrat à Durée Déterminé');
-        $contract1->setSvgHref('cdd.svg');
-        $contract1->setPngHref('cdd.png');
+        $cdd = new ContractType();
+        $cdd->setShortName('CDD');
+        $cdd->setLongName('Contrat à Durée Déterminé');
+        $cdd->setSvgHref('cdd.svg');
+        $cdd->setPngHref('cdd.png');
 
-        $contract2 = new ContractType();
-        $contract2->setShortName('CDI');
-        $contract2->setLongName('Contrat à Durée Indéterminé');
-        $contract2->setSvgHref('cdi.svg');
-        $contract2->setPngHref('cdd.png');
+        $cdi = new ContractType();
+        $cdi->setShortName('CDI');
+        $cdi->setLongName('Contrat à Durée Indéterminé');
+        $cdi->setSvgHref('cdi.svg');
+        $cdi->setPngHref('cdd.png');
 
-        $manager->persist($contract1);
-        $manager->persist($contract2);
-        
+        $stage = new ContractType();
+        $stage->setShortName('Stage');
+        $stage->setLongName('Stage');
+        $stage->setSvgHref('stage.svg');
+        $stage->setPngHref('stage.png');
+
+        $manager->persist($cdd);
+        $manager->persist($cdi);
+        $manager->persist($stage);
+
         $manager->flush();
     }
     
