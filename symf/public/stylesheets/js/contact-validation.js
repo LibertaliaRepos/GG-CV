@@ -111,10 +111,6 @@ var contactForm = {
     
     $(span).text(charCount);
     $(span).css('color', color);
-
-    
-    
-    // $(container).append($(button));
   },
   
   editorCounter: function() {

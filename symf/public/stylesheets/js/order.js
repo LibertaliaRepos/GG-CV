@@ -62,8 +62,8 @@ function moveOrder(e) {
 
 function updateOrder(target, selected) {
   
-  console.log(target);
-  console.log(selected);
+  // console.log(target);
+  // console.log(selected);
   
   var tgtParams = {
     id: $(target).data('ident'),

@@ -9,7 +9,14 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   overflow: hidden;
-  
+  overflow-y: scroll;
+  width: 100vw;
+  height: 100vh;
+
+
+  &.canvas {
+    @import "offCanvas";
+  }
   
   #left-side {
     flex: 3;
@@ -56,6 +63,8 @@
 
 h1 {
   font-family: 'jellee-roman';
+  font-size: 5vw;
+
 }
 
 h2 {

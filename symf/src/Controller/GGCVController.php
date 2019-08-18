@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
 
+
+use App\Service\DetectDevice;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Project;
@@ -15,8 +18,9 @@ class GGCVController extends AbstractController {
     
     
     
-    public function __construct(DetectIE $detectIE) {
+    public function __construct(DetectIE $detectIE, DetectDevice $dd) {
         $detectIE->isIE();
+        $dd->isDesktop();
     }
     
     /**
@@ -54,7 +58,15 @@ class GGCVController extends AbstractController {
      */
     public function contactForm() {
         $attachmentFolder = contactController::guessAttachmentDir();
-        return $this->render('GGCV/contact.html.twig', array('active' => 'contact', 'fileMime' => FileUploader::ALLOWED_FILE_MIME, 'attachmentFolder' => $attachmentFolder));
+        return $this->render(
+            'GGCV/contact.html.twig',
+            array(
+                'active' => 'contact',
+                'fileMime' => FileUploader::ALLOWED_FILE_MIME,
+                'attachmentFolder' => $attachmentFolder,
+                'canvas'       => true,
+            )
+        );
     }
     
     /**

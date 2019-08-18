@@ -92,9 +92,6 @@
     "egulias/email-validator": {
         "version": "2.1.6"
     },
-    "facebook/webdriver": {
-        "version": "1.6.0"
-    },
     "fig/link-util": {
         "version": "1.0.0"
     },
@@ -103,6 +100,9 @@
     },
     "jms/metadata": {
         "version": "1.7.0"
+    },
+    "mobiledetect/mobiledetectlib": {
+        "version": "2.8.33"
     },
     "monolog/monolog": {
         "version": "1.23.0"
@@ -187,6 +187,9 @@
             "version": "3.3",
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
+    },
+    "symfony/contracts": {
+        "version": "v1.1.5"
     },
     "symfony/css-selector": {
         "version": "v4.1.6"
@@ -290,9 +293,6 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
-    "symfony/panther": {
-        "version": "v0.2.0"
-    },
     "symfony/phpunit-bridge": {
         "version": "4.1",
         "recipe": {
@@ -304,6 +304,9 @@
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.9.0"
+    },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.12.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.9.0"

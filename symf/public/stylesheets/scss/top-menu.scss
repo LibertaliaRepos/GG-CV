@@ -58,12 +58,40 @@
             }
           }
         }
+        &:last-child {
+          @media (max-width: 1625px) and (min-width: 1324px) {
+            min-width: 23%;
+          }
+
+          @media (max-width: 1325px) and (min-width: 1176px) {
+            min-width: 26%;
+          }
+
+          @media (max-width: 1177px) and (min-width: 1094px) {
+            min-width: 28%;
+          }
+
+          @media (max-width: 1095px) and (min-width: 1000px) {
+            min-width: 30%;
+          }
+        }
         a {
           color: inherit;
           border: solid transparent;
           border-width: 0 2px 0 2px;
 
           @include activ-button();
+
+        }
+
+        &:last-child a {
+          &:hover, &.active {
+            @media (max-width: 1625px) { background-size: 10%; }
+            @media (max-width: 1177px) { background-size: 9%;  }
+
+            @media (max-width: 1095px) {
+            }
+          }
         }
       }
     }
@@ -91,5 +119,9 @@
     @media (max-width: 420px) {
       display: none;
     }
+  }
+
+  @media (max-width: 1000px) {
+    display: none;
   }
 }

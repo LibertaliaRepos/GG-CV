@@ -6,3 +6,4 @@ IE/stylesheet/.sass-cache/*
 !IE/stylesheet/.sass-cache/.gitignore
 /.sass-cache
 /.idea
+/templates

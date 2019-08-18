@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html class="no-js" lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="{{ asset('img/_design/gilles-logo/right-ear.png') }}" />
     <title>{% block title %} - GG-CV.fr{% endblock %}</title>
+
     {% block stylesheets %}
-      <link rel="stylesheet" href="{{ asset('stylesheets/css/app.css') }}" />      
+      <link rel="stylesheet" href="{{ asset('stylesheets/css/app.css') }}" />
       {% if IE %}
         <link rel="stylesheet" href="{{ asset('stylesheets/css/ie.css') }}" />
       {% endif %}
     {% endblock %}
-  </head>
-  
-  
-  <body id="layout">
+
+</head>
+
+
+<body id="layout">
     {% block body %}
       <div id="left-side">
         <a id="left-logo" class="logo" href="{{ path('GGCV_index') }}">
@@ -25,17 +27,17 @@
           {% endif %}
           <img class="" src="{{ logoSrc }}" alt="Logo de GG-CV.loc" />
         </a>
-        
+
         {% block leftMenu %}
         {% endblock %}
       </div>
-      
-      
+
+
       {% set accueil = '' %}
       {% set projet = '' %}
       {% set contact = '' %}
       {% set xp_pro = '' %}
-      
+
       {% if active == 'accueil' %}
           {% set accueil = 'active' %}
       {% elseif active == 'projet' %}
@@ -45,7 +47,7 @@
       {% elseif active == 'xp_pro' %}
           {% set xp_pro = 'active' %}
       {% endif %}
-      
+
       <div id="right-side">
         <nav id="top-menu" class="cell">
           <div id="top-header">
@@ -54,7 +56,7 @@
               <li class=""><a class="{{ accueil }}" href="{{ path('GGCV_index') }}">Accueil</a></li>
               <li class=""><a class="{{ projet }}" href="{{ path('GGCV_projects') }}">Projets</a></li>
               <li class=""><a class="{{ contact }}" href="{{ path('GGCV_contact') }}">Contact</a></li>
-              <li class=""><a class="{{ xp_pro }}" href="{{ path('GGCV_xppro') }}">Expériences pro</a></li>
+              <li class=""><a id="menuXppro" class="{{ xp_pro }}" href="#{# {{ path('GGCV_xppro') }} #}">Expériences pro</a></li>
             </ul>
 
             <p id="ephemeris">
@@ -67,27 +69,26 @@
             <img class="logo-right" src="{{ asset('img/_design/gilles-logo/oreille.svg') }}" alt="" />
           </a>
         </nav>
-      
-      
+
+
         {% block contentBody %}
         {% endblock %}
       </div>
-      
     {% endblock %}
-    
-    {% block footer %}
-      <footer id="construction">
-        {% set warningYellow = asset('img/_design/warning-yellow.svg') %}
-        {% if IE %}
-          {% set warningYellow = asset('img/_design/warning-yellow.png')|replace({'.svg': '.png'}) %}
-        {% endif %}
-        <p>
-          <img src="{{ warningYellow }}" alt="Attention !" />
-          <span>Le site est en construction, il est susceptible de changer.</span>
-          <img src="{{ warningYellow }}" alt="Attention !" />
-        </p>
-      </footer>
-    {% endblock %}
+
+    {#{% block footer %}#}
+      {#<footer id="construction">#}
+        {#{% set warningYellow = asset('img/_design/warning-yellow.svg') %}#}
+        {#{% if IE %}#}
+          {#{% set warningYellow = asset('img/_design/warning-yellow.png')|replace({'.svg': '.png'}) %}#}
+        {#{% endif %}#}
+        {#<p>#}
+          {#<img src="{{ warningYellow }}" alt="Attention !" />#}
+          {#<span>Le site est en construction, il est susceptible de changer.</span>#}
+          {#<img src="{{ warningYellow }}" alt="Attention !" />#}
+        {#</p>#}
+      {#</footer>#}
+    {#{% endblock %}#}
 
 
     {% block javascripts %}
@@ -97,5 +98,5 @@
       <script src="{{ asset('stylesheets/js/app.js') }}"></script>
       <script src="{{ asset('stylesheets/js/dateMenu.js') }}"></script>
     {% endblock %}
-  </body>
+</body>
 </html>

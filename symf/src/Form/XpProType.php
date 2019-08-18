@@ -1,7 +1,6 @@
 <?php
 namespace App\Form;
 
-use App\Controller\contractController;
 use App\Entity\ContractType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;

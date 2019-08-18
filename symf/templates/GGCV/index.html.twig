@@ -1,4 +1,10 @@
-{% extends 'base.html.twig' %}
+{#{% if desktop %}#}
+    {#{% set baseTpl = 'base.html.twig' %}#}
+{#{% else %}#}
+    {% set baseTpl = 'baseCanvas.html.twig' %}
+{#{% endif %}#}
+
+{% extends baseTpl  %}
 
 {% block title %} Accueil {{ parent() }} {% endblock %}
 

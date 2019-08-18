@@ -78,6 +78,7 @@ $foundation-palette: (
 $light-gray: #cbd1cf;
 $medium-gray: #cacaca;
 $dark-gray: #8a8a8a;
+$medium-black: #333;
 $black: #0a0a0a;
 $white: #fefefe;
 $light-blue: #89c1e0;
@@ -245,9 +246,9 @@ $accordionmenu-padding: $global-menu-padding;
 $accordionmenu-nested-margin: $global-menu-nested-margin;
 $accordionmenu-submenu-padding: $accordionmenu-padding;
 $accordionmenu-arrows: true;
-$accordionmenu-arrow-color: $primary-color;
+$accordionmenu-arrow-color: $white;
 $accordionmenu-item-background: null;
-$accordionmenu-border: null;
+$accordionmenu-border: 1px solid $light-blue;
 $accordionmenu-submenu-toggle-background: null;
 $accordion-submenu-toggle-border: $accordionmenu-border;
 $accordionmenu-submenu-toggle-width: 40px;
@@ -508,10 +509,11 @@ $offcanvas-sizes: (
 $offcanvas-vertical-sizes: (
   small: 250px,
 );
-$offcanvas-background: $light-gray;
+//$offcanvas-background: $light-gray;
+$offcanvas-background: $black;
 $offcanvas-shadow: 0 0 10px rgba($black, 0.7);
 $offcanvas-inner-shadow-size: 20px;
-$offcanvas-inner-shadow-color: rgba($black, 0.25);
+$offcanvas-inner-shadow-color: rgba($white, 0.25);
 $offcanvas-overlay-zindex: 11;
 $offcanvas-push-zindex: 12;
 $offcanvas-overlap-zindex: 13;

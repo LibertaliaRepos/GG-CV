@@ -1,0 +1,82 @@
+{% set accueil = '' %}
+{% set projet = '' %}
+{% set contact = '' %}
+{% set xp_pro = '' %}
+
+{% if active == 'accueil' %}
+    {% set accueil = 'active' %}
+{% elseif active == 'projet' %}
+    {% set projet = 'active' %}
+{% elseif active == 'contact' %}
+    {% set contact = 'active' %}
+{% elseif active == 'xp_pro' %}
+    {% set xp_pro = 'active' %}
+{% endif %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{ asset('img/_design/gilles-logo/right-ear.png') }}" />
+    <title>{% block title %} - GG-CV.fr{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('stylesheets/css/app.css') }}" />
+        {% if IE %}
+            <link rel="stylesheet" href="{{ asset('stylesheets/css/ie.css') }}" />
+        {% endif %}
+    {% endblock %}
+</head>
+
+
+<body id="layout" class="canvas">
+    <div id="offCanvas" class="off-canvas position-left" data-off-canvas>
+
+        <a id="left-logo" class="logo" href="{{ path('GGCV_index') }}">
+            {% set logoSrc = asset('img/_design/gilles-logo/logo.svg') %}
+            {% if IE %}
+                {% set logoSrc = logoSrc|replace({'.svg': '.png'}) %}
+            {% endif %}
+            <img src="{{ logoSrc }}" alt="Logo de GG-CV.fr" />
+        </a>
+
+        <ul class="vertical menu accordion-menu" data-accordion-menu>
+            <li class="">
+                <a class="{{ accueil }}" href="{{ path('GGCV_index') }}">Compétances</a>
+                <ul>
+                    <li><a href="#">Anchor 1</a></li>
+                    <li><a href="#">Anchor 2</a></li>
+                </ul>
+            </li>
+            <li class=""><a class="{{ projet }}" href="{{ path('GGCV_projects') }}">Projets</a></li>
+            <li class=""><a class="{{ contact }}" href="{{ path('GGCV_contact') }}">Contact</a></li>
+            <li class=""><a id="menuXppro" class="{{ xp_pro }}" href="#{# {{ path('GGCV_xppro') }} #}">Expériences pro</a></li>
+        </ul>
+    </div>
+
+        <header id="canvasHeader">
+            <div id="headTitle">
+                <h1>GG-CV.fr</h1>
+                <h2>Gandner Gilles &mdash; Développeur web</h2>
+            </div>
+            <button id="toggleCanvas" type="button" data-toggle="offCanvas"><img src="{{ asset('img/_design/menu-button-of-three-horizontal-lines-white.svg') }}" alt="Menu" /></button>
+        </header>
+
+        {% block body %}
+            <div id="right-side" class="off-canvas-content" data-off-canvas-content>
+                {% block contentBody %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ asset('stylesheets/node_modules/jquery/dist/jquery.js') }}"></script>
+        <script src="{{ asset('stylesheets/node_modules/what-input/dist/what-input.js') }}"></script>
+        <script src="{{ asset('stylesheets/node_modules/foundation-sites/dist/js/foundation.js') }}"></script>
+        <script src="{{ asset('stylesheets/js/app.js') }}"></script>
+        <script src="{{ asset('stylesheets/js/dateMenu.js') }}"></script>
+        <script src="{{ asset('stylesheets/js/topMenu.js') }}"></script>
+    {% endblock %}
+</body>
+</html>
