@@ -1,0 +1,53 @@
+#globalHead {
+  background-color: $light-brown;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  #globalLogo {
+    flex: 1;
+  }
+
+  #globalMenu {
+    flex: 4;
+    max-width: 40%;
+    background-color: $white;
+    border: $global-borders;
+    border-width: 2px 0 2px 2px;
+
+    .menu {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+
+      li {
+        background-color: $white;
+         &:hover {
+           filter: invert(100%);
+
+           a {
+             color: $black;
+           }
+         }
+        a {
+          padding: 0.3em 0.5em;
+          color: $black;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  #blankDiv {
+    width: 100%;
+    height: 15px;
+    border: $global-borders;
+    border-width: 2px 0;
+    background-color: $white;
+  }
+}

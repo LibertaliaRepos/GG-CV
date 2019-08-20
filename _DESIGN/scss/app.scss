@@ -4,6 +4,10 @@
 @import 'foundation';
 @import 'motion-ui';
 
+@import "fonts";
+
+$body-font-family: latinMono;
+
 // Global styles
 @include foundation-global-styles;
 @include foundation-forms;
@@ -62,3 +66,7 @@
 // Motion UI
 @include motion-ui-transitions;
 @include motion-ui-animations;
+
+@import "globals";
+
+@import "layout";

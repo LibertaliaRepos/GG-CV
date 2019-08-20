@@ -80,7 +80,9 @@ $medium-gray: #cacaca;
 $dark-gray: #8a8a8a;
 $black: #0a0a0a;
 $white: #fefefe;
-$body-background: $white;
+$light-brown: #f5f2e9;
+$light-blue: #ebf0f9;
+$body-background: $light-blue;
 $body-font-color: $black;
 $body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
 $body-antialiased: true;
@@ -97,6 +99,7 @@ $global-flexbox: true;
 $global-prototype-breakpoints: false;
 $global-button-cursor: auto;
 $global-color-pick-contrast-tolerance: 0;
+$global-borders: 2px solid $black;
 $print-transparent-backgrounds: true;
 
 @include add-foundation-colors;
