@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="79.87709mm"
+   height="26.230507mm"
+   viewBox="0 0 79.87709 26.230507"
+   version="1.1"
+   id="svg6585"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="simple-logo-ink.svg">
+  <defs
+     id="defs6579">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient7136">
+      <stop
+         style="stop-color:#078aff;stop-opacity:1"
+         offset="0"
+         id="stop7132" />
+      <stop
+         id="stop7140"
+         offset="0.59320652"
+         style="stop-color:#bbdfff;stop-opacity:0.98265898" />
+      <stop
+         style="stop-color:#078aff;stop-opacity:1"
+         offset="1"
+         id="stop7134" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7136"
+       id="linearGradient7138"
+       x1="103.4333"
+       y1="43.62849"
+       x2="101.82969"
+       y2="31.868607"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter7561">
+      <feFlood
+         flood-opacity="0.698039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood7551" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite7553" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="0.1"
+         result="blur"
+         id="feGaussianBlur7555" />
+      <feOffset
+         dx="0.7"
+         dy="1.1"
+         result="offset"
+         id="feOffset7557" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite7559" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#fbf8ef"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="158.10348"
+     inkscape:cy="104.19656"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer6"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="690"
+     inkscape:window-x="0"
+     inkscape:window-y="17"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata6582">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:none"
+     transform="translate(-58.485074,-50.306094)">
+    <rect
+       style="opacity:1;fill:url(#linearGradient7138);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+       id="rect7130"
+       width="94.613411"
+       height="25.925144"
+       x="54.522984"
+       y="13.694301" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="Calque 2"
+     transform="translate(-58.485074,-50.306094)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot7147"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333397px;line-height:1.25;font-family:Xolonium;-inkscape-font-specification:'Xolonium, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.41372761;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter7561)"
+       transform="matrix(1.5987774,-0.1875129,-1.0659146,1.7237934,-195.3816,1.818387)"><flowRegion
+         id="flowRegion7149"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333397px;font-family:Xolonium;-inkscape-font-specification:'Xolonium, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.41372761;stroke-miterlimit:4;stroke-dasharray:none"><rect
+           id="rect7151"
+           width="357.59399"
+           height="97.984802"
+           x="206.07112"
+           y="51.757988"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333397px;font-family:Xolonium;-inkscape-font-specification:'Xolonium, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.41372761;stroke-miterlimit:4;stroke-dasharray:none" /></flowRegion><flowPara
+         id="flowPara7153"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Anonymous Pro';-inkscape-font-specification:'Anonymous Pro';stroke-width:0.41372761;stroke-miterlimit:4;stroke-dasharray:none">GG-CV</flowPara></flowRoot>  </g>
+</svg>

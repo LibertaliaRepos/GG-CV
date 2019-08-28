@@ -1,0 +1,47 @@
+$content-default-padding: 1%;
+
+#content {
+  #contentHead {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+
+    #pageMenu, h1 { width: 100%; }
+
+    h1 {
+      padding: 0 $content-default-padding;
+    }
+
+    #pageMenu {
+
+      // Future menu SVG
+      img {
+        display: block;
+        width: 100%;
+        max-height: 25px;
+      }
+      // Future menu SVG
+    }
+  }
+
+  .page {
+    padding: 0 $content-default-padding;
+
+    > h2 {
+
+    }
+
+    .innerPage {
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      height: 65vh;
+
+      .explanation, .illustration { width: 45%; }
+    }
+  }
+}
