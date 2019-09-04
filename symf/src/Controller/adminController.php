@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Entity\ContractType;
+use App\Entity\Svg\SvgJson;
+use App\Repository\SkillRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -23,6 +25,8 @@ use App\Form\ProjectType;
 use App\Form\XpProType;
 
 class adminController extends AbstractController {
+
+    public const REPOSITORY_STR = 'Repository';
     
     public function __construct(DetectIE $detectIE) {
         $detectIE->isIE();
@@ -92,6 +96,11 @@ class adminController extends AbstractController {
             
             $em->persist($skillImage);
             $em->flush();
+
+                $this->updateSvgJson(SvgJson::SKILL_TABLE_ID);
+
+                exit;
+
             
             return $this->redirectToRoute('GGCV_admin_skill');
         }
@@ -508,7 +517,12 @@ class adminController extends AbstractController {
     private function generateUniqueFileName() {
         return md5(uniqid());
     }
-    
+
+    /**
+     * @param array $files
+     * @param array $mimeTypes
+     * @return bool
+     */
     private function testMimeType(array $files, array $mimeTypes) {
         foreach ($files as $file) {
             if (!in_array($file->getMimeType(), $mimeTypes)) {
@@ -517,6 +531,36 @@ class adminController extends AbstractController {
         }
         
         return true;
+    }
+
+    private function updateSvgJson(int $id_table) {
+
+        if (! in_array($id_table, SvgJson::ALLOWED_TABLE_ID))
+            throw new \Exception('La table d\'id ' . $id_table . ' n\'existe pas');
+
+        switch ($id_table) {
+            case SvgJson::SKILL_TABLE_ID:       $model = Skill::class;      break;
+            case SvgJson::PROJECT_TABLE_ID:     $model = Project::class;    break;
+            case SvgJson::XPPRO_TABLE_ID:       $model = XpPro::class;      break;
+        }
+
+        var_dump($model);
+
+        $em = $this->getDoctrine()->getManager();
+        $currentTitles = $this->getDoctrine()->getRepository($model)->getAllTitles();
+
+        /** @var SvgJson $titlesSVG_table */
+        $titlesSVG_table = (empty($titles = $em->getRepository(SvgJson::class)->find($id_table))) ? new SvgJson() : $titles;
+
+        var_dump($currentTitles, $titlesSVG_table);
+
+        $em->persist($titlesSVG_table);
+
+        if ($titlesSVG_table !== $currentTitles) {
+            $titlesSVG_table->setJsonStr($currentTitles);
+
+            $em->flush();
+        }
     }
     
 }

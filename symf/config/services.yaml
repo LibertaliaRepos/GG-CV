@@ -39,4 +39,4 @@ services:
 
     XpProType.service:
         class: App\Form\XpProType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ['@doctrine.orm.entity_manager']
