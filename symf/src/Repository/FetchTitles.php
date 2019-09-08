@@ -8,11 +8,21 @@
 
 namespace App\Repository;
 
+use App\Service\JsonSerializer;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 interface FetchTitles
 {
-    public const JSON_SERIALIZATION = 'json';
+    /**
+     * FetchTitles constructor.
+     * @param RegistryInterface $registry
+     * @param JsonSerializer $serializer
+     */
+    public function __construct(RegistryInterface $registry, JsonSerializer $serializer);
 
+    /**
+     * @return string|null
+     */
     public function getAllTitles(): ?string;
 
 }

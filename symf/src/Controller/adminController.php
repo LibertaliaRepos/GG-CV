@@ -4,6 +4,10 @@ namespace App\Controller;
 use App\Entity\ContractType;
 use App\Entity\Svg\SvgJson;
 use App\Repository\SkillRepository;
+use App\Service\JsonSerializer;
+use App\Service\menuGenerator;
+use Doctrine\ORM\Id\AssignedGenerator;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -27,11 +31,47 @@ use App\Form\XpProType;
 class adminController extends AbstractController {
 
     public const REPOSITORY_STR = 'Repository';
+
+    /** @var menuGenerator $menuGenerator */
+    private $menuGenerator;
+    /** @var JsonSerializer $jsonSerializer */
+    private $jsonSerializer;
     
-    public function __construct(DetectIE $detectIE) {
+    public function __construct(DetectIE $detectIE, menuGenerator $mg, JsonSerializer $jsonSerializer) {
         $detectIE->isIE();
+
+        $this->setMenuGenerator($mg);
+        $this->setJsonSerializer($jsonSerializer);
     }
-    
+
+    /**
+     * @return menuGenerator
+     */
+    public function getMenuGenerator(): menuGenerator {
+        return $this->menuGenerator;
+    }
+
+    /**
+     * @param menuGenerator $menuGenerator
+     */
+    private function setMenuGenerator(menuGenerator $menuGenerator): void {
+        $this->menuGenerator = $menuGenerator;
+    }
+
+    /**
+     * @return JsonSerializer
+     */
+    public function getJsonSerializer(): JsonSerializer {
+        return $this->jsonSerializer;
+    }
+
+    /**
+     * @param JsonSerializer $jsonSerializer
+     */
+    private function setJsonSerializer(JsonSerializer $jsonSerializer): void {
+        $this->jsonSerializer = $jsonSerializer;
+    }
+
     /**
      * @Route("/admin/skill", name="GGCV_admin_skill")
      */
@@ -97,9 +137,7 @@ class adminController extends AbstractController {
             $em->persist($skillImage);
             $em->flush();
 
-                $this->updateSvgJson(SvgJson::SKILL_TABLE_ID);
-
-                exit;
+            $this->updateSvgJson(SvgJson::SKILL_TABLE_ID);
 
             
             return $this->redirectToRoute('GGCV_admin_skill');
@@ -544,23 +582,23 @@ class adminController extends AbstractController {
             case SvgJson::XPPRO_TABLE_ID:       $model = XpPro::class;      break;
         }
 
-        var_dump($model);
-
         $em = $this->getDoctrine()->getManager();
         $currentTitles = $this->getDoctrine()->getRepository($model)->getAllTitles();
 
         /** @var SvgJson $titlesSVG_table */
-        $titlesSVG_table = (empty($titles = $em->getRepository(SvgJson::class)->find($id_table))) ? new SvgJson() : $titles;
+        $titlesSVG_table = (empty($titles = $em->getRepository(SvgJson::class)->findOneBy(['id_svg_json' => $id_table]))) ? new SvgJson() : $titles;
 
-        var_dump($currentTitles, $titlesSVG_table);
 
         $em->persist($titlesSVG_table);
 
         if ($titlesSVG_table !== $currentTitles) {
+            $titlesSVG_table->setIdSvgJson($id_table);
             $titlesSVG_table->setJsonStr($currentTitles);
+            $titlesSVG_table->setScript($this->menuGenerator->buildTitleSvg($this->getJsonSerializer()->deserialize($currentTitles)));
 
             $em->flush();
         }
     }
+
     
 }

@@ -40,3 +40,11 @@ services:
     XpProType.service:
         class: App\Form\XpProType
         arguments: ['@doctrine.orm.entity_manager']
+
+    Skill.repo:
+        class: 'App\Repository\SkillRepository'
+        arguments: ['@App\Service\JsonSerializer']
+
+    MenuGenerator.serv:
+        class: App\Service\menuGenerator
+        arguments: ['@Twig\Environment', '@App\Service\JsonSerializer']

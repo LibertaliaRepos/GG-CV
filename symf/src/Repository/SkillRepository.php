@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Skill;
+use App\Service\JsonSerializer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -18,27 +19,32 @@ use Symfony\Component\Serializer\Serializer;
 class SkillRepository extends ServiceEntityRepository implements FetchTitles
 {
 
-    /** @var Serializer $serializer */
+    /** @var JsonSerializer $serializer */
     private $serializer;
 
-    public function __construct(RegistryInterface $registry)
+    /**
+     * SkillRepository constructor.
+     * @param RegistryInterface $registry
+     * @param JsonSerializer $serializer
+     */
+    public function __construct(RegistryInterface $registry, JsonSerializer $serializer)
     {
         parent::__construct($registry, Skill::class);
 
-        $this->setSerializer(new Serializer([new ObjectNormalizer()],[new JsonEncoder()]));
+        $this->setSerializer($serializer);
     }
 
     /**
-     * @return Serializer
+     * @return JsonSerializer
      */
     public function getSerializer() {
         return $this->serializer;
     }
 
     /**
-     * @param Serializer $serializer
+     * @param JsonSerializer $serializer
      */
-    private function setSerializer(Serializer $serializer): void {
+    private function setSerializer(JsonSerializer $serializer): void {
         $this->serializer = $serializer;
     }
 
@@ -49,15 +55,16 @@ class SkillRepository extends ServiceEntityRepository implements FetchTitles
     public function getAllTitles(): ?string {
 
         $conn = $this->getEntityManager()->getConnection();
-        $query = 'SELECT title FROM skill';
+        $query = 'SELECT title, anchor FROM skill';
         $stmt = $conn->query($query);
 
         $titles = [];
 
         foreach ($stmt->fetchAll() as $key => $value) {
-            $titles['titles-' . $key] = $value['title'];
+            $index = 'titles-' . $key;
+            $titles[$index] = $value;
         }
 
-        return $this->getSerializer()->serialize($titles, self::JSON_SERIALIZATION);
+        return $this->getSerializer()->serialize($titles);
     }
 }
