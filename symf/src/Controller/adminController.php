@@ -107,14 +107,14 @@ class adminController extends AbstractController {
             
             try {
                 $file = $file->move(
-                    $this->getParameter('skill_dir'),
+                    $this->getParameter('skill_dir_new'),
                     $filename
                     );
             } catch (FileException $e) {
                 throw new \Exception($e->getMessage());
             }
             
-            Image::convertSVG($this->getParameter('skill_dir').'/'.$filename);
+            Image::convertSVG($this->getParameter('skill_dir_new').'/'.$filename);
             
             $order = $this->getDoctrine()->getRepository(Skill_Image::class)->getMaxOrder();
             

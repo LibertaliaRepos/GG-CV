@@ -1,0 +1,20 @@
+{% extends 'new_base.html.twig' %}
+
+{% block title %} Compétances {% endblock %}
+
+{% block content %}
+    <header id="contentHead">
+
+        <h1>Compétances</h1>
+
+        <nav id="pageMenu">
+            {{ pageMenu.script|raw }}
+        </nav>
+
+    </header>
+
+    {% for skillImage in skillImages %}
+        {{ include('skill/skill.html.twig', { 'skillImage': skillImage }) }}
+    {% endfor %}
+{% endblock %}
+

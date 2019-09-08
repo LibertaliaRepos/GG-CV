@@ -4,6 +4,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         skill_dir: 'uploads/skill'
+        skill_dir_new: 'uploads/_new/skill'
         project_dir: 'uploads/project'
         xppro_dir: 'uploads/xppro'
         contractTypeHref: '/_design/xpproTypes'

@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr'
     skill_dir: '%kernel.project_dir%/public/uploads/skill'
+    skill_dir_new: '%kernel.project_dir%/public/uploads/_new/skill'
     project_dir: '%kernel.project_dir%/public/uploads/project'
     xppro_dir: '%kernel.project_dir%/public/uploads/xppro'
     froala_uploads: '%kernel.project_dir%/public/uploads/contact'

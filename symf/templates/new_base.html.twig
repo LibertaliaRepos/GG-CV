@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <title>{% block title %} GG-CV {% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('stylesheets/_new/css/app.css') }}">
+    </head>
+
+    <body id="layout">
+        {% block body %}
+
+            <header id="globalHead">
+                <a id="globalLogo" href=""><img src="{{ asset('stylesheets/_new/img/gilles-logo/simple-logo-web.svg') }}" alt="" /></a>
+                <nav id="globalMenu">
+                    <ul class="menu">
+                        <li><a href="#">Compétances</a></li>
+                        <li><a href="#">Projets</a></li>
+                        <li><a href="#">Expériences pro</a></li>
+                        <li><a href="#">Contcat</a></li>
+                    </ul>
+                </nav>
+                <div id="blankDiv" aria-hidden="true"></div>
+            </header>
+
+            <article id="content">
+
+                {% block content %}
+
+                {% endblock %}
+
+            </article>
+
+        {% endblock %}
+
+        {% block javascripts %}
+            {#<script src="{{ asset('stylesheets/_new/node_modules/jquery/dist/jquery.js') }}"></script>#}
+            <script src="{{ asset('stylesheets/_new/node_modules/what-input/dist/what-input.js') }}"></script>
+            <script src="{{ asset('stylesheets/_new/node_modules/foundation-sites/dist/js/foundation.js') }}"></script>
+            <script src="{{ asset('stylesheets/_new/js/app.js') }}"></script>
+        {% endblock %}
+
+        {% block dump %}{% endblock %}
+    </body>
+</html>
