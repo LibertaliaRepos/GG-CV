@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+                    <title>Title</title>
+</head>
+<body>
+
+
+
+<svg id="pageMenu" xmlns="http://www.w3.org/2000/svg" width="2000" height="30">
+    <rect x="0" y="2" width="100%" height="25" fill="#FFF" />
+    <line x1="0" y1="2" x2="100%" y2="2" stroke-width="4" stroke="#000" />
+    <line x1="0" y1="26" x2="100%" y2="26" stroke-width="4" stroke="#000" />
+
+    
+        <a xlink:href="#servSide">
+
+            <polygon points="-4,2 150,2 145,25 -4,25 " fill="#FFF" stroke="#000" stroke-width="2" />
+            <text x="6" y="21" fill="#000" font-size="1.3rem" font-family="anonymous">Côté Serveur</text>
+
+        </a>
+
+    
+        <a xlink:href="#supSide">
+
+            <polygon points="150,2 293,2 288,25 145,25 " fill="#FFF" stroke="#000" stroke-width="2" />
+            <text x="160" y="21" fill="#000" font-size="1.3rem" font-family="anonymous">Côté client</text>
+
+        </a>
+
+    </svg>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+    $('#pageMenu a').each(function () {
+
+        $(this).mouseover(function () {
+           $(this).children('polygon').attr('fill', '#000');
+           $(this).children('text').attr('fill', '#FFF');
+        });
+
+        $(this).mouseleave(function () {
+            $(this).children('polygon').attr('fill', '#FFF');
+            $(this).children('text').attr('fill', '#000');
+        });
+    });
+</script>
+
+</body>
+</html>
