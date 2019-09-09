@@ -72,9 +72,9 @@ class SvgJson {
     }
 
     /**
-     * @return array|null
+     * @return string|null
      */
-    public function getJson(): ?array {
+    public function getJson(): ?string {
         return $this->json;
     }
 
