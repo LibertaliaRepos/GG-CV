@@ -13,8 +13,10 @@
 
     </header>
 
-    {% for skillImage in skillImages %}
-        {{ include('skill/skill.html.twig', { 'skillImage': skillImage }) }}
-    {% endfor %}
+    <div id="explanationList">
+        {% for skillImage in skillImages %}
+            {{ include('skill/skill.html.twig', { 'skillImage': skillImage }) }}
+        {% endfor %}
+    </div>
 {% endblock %}
 

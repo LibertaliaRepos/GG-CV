@@ -5,9 +5,9 @@
 
     {% for link in links %}
 
-        <a xlink:href="{{ '#' ~ link.href }}">
+        <a xlink:href="{{ '#' ~ link.href }}" data-smooth-scroll>
 
-            <polygon points="{{ link.polygon }}" fill="#FFF" stroke="#000" stroke-width="4" />
+            <polygon points="{{ link.polygon }}" fill="#FFF" stroke="#000" stroke-width="1" />
             <text x="{{ link.text.X }}" y="{{ link.text.Y }}" fill="#000" font-size="1.3rem" font-family="anonymous">{{ link.text.Text }}</text>
 
         </a>
