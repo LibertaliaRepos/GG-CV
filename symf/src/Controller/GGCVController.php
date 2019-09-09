@@ -13,8 +13,6 @@ use App\Service\FileUploader;
 
 class GGCVController extends AbstractController {
     
-    
-    
     public function __construct(DetectIE $detectIE) {
         $detectIE->isIE();
     }
