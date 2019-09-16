@@ -191,6 +191,8 @@ class menuGenerator
             ->addPoint($c)
             ->addPoint($d);
 
+            $polygon->setWidth($b->getX() - $d->getX());
+
             $textX = $a->getX() + self::FIRST_POLYGON_WIDTH;
 
             $text = new Text($this->getOptions()[$index]['title'], $textX, self::TEXT_Y);

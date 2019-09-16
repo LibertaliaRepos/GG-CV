@@ -139,8 +139,6 @@ class UpdateSvg extends Command {
         /** @var SvgJson $titlesSVG_table */
         $titlesSVG_table = $this->getEm()->getRepository(SvgJson::class)->findOneBy(['id_svg_json' => $id_table]);
 
-//        print_r($titlesSVG_table->getJson()); exit;
-
         if (empty($titlesSVG_table))
             throw new \Exception("La table d'id => $id_table est vide");
 

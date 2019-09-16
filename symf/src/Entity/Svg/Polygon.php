@@ -12,6 +12,8 @@ class Polygon {
 
     /** @var array $points */
     private $points;
+    /** @var int $width */
+    private $width;
 
     public function __construct() {
         $this->setPoints([]);
@@ -32,6 +34,24 @@ class Polygon {
         $this->points = $points;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getWidth(): int {
+        return $this->width;
+    }
+
+    /**
+     * @param int $width
+     * @return Polygon
+     */
+    public function setWidth(int $width): Polygon {
+        $this->width = $width;
+        return $this;
+    }
+
+
 
     public function addPoint(Point $point): self {
         $points = $this->getPoints();
