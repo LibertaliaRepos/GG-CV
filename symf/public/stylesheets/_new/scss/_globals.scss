@@ -11,9 +11,15 @@
 
 #layout h2 {
   font-size: 2em;
+  font-family: latinMono;
 }
 
 #layout a {
   font-family: anonymous;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+}
+
+#layout {
+  #globalHead { height: 82px; }
+  #content { height: calc(100vh - 82px); }
 }

@@ -15,7 +15,7 @@
   }
 
   #globalMenu {
-    width: 40%;
+    width: 70%;
     max-width: 500px;
     background-color: $white;
     border: $global-borders;
@@ -35,7 +35,6 @@
         a {
           padding: 2% 3%;
           color: $black;
-          font-size: 1.2rem;
           white-space: nowrap;
           text-decoration: underline;
         }
