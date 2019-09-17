@@ -20,16 +20,7 @@ class newGGCVController extends AbstractController
      * @Route("/new/", name="new_GGCV_index")
      */
     public function index() {
-
-//        var_dump($this->getDoctrine()->getRepository(Skill_Image::class)->findAll()[0]->getImage()->getFilename()); exit;
-
-        return $this->render(
-            '_new/index.html.twig',
-            [
-                'skillImages' => $this->getDoctrine()->getRepository(Skill_Image::class)->findAll(),
-                'pageMenu'    => $this->getDoctrine()->getRepository(SvgJson::class)->FindOneBy(['id_svg_json' => SvgJson::SKILL_TABLE_ID])
-            ]
-        );
+        return $this->render('_new/index.html.twig', ['skillImages' => $this->getDoctrine()->getRepository(Skill_Image::class)->findAll()]);
     }
 
 }

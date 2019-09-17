@@ -1,15 +1,15 @@
-{#<section id="{{ skillImage.skill.anchor }}" class="page" aria-labelledby="{{ 'title-' ~ skillImage.skill.anchor }}">#}
+<section id="{{ skillImage.skill.anchor }}" class="page" aria-labelledby="{{ 'title-' ~ skillImage.skill.anchor }}">
 
-    {#<div class="innerPage">#}
-        {#<div class="explanation">#}
-            {#<h2 id="{{ 'title-' ~ skillImage.skill.anchor }}">{{ skillImage.skill.title }}</h2>#}
+    <div class="innerPage">
+        <div class="explanation">
+            <h2 id="{{ 'title-' ~ skillImage.skill.anchor }}">{{ skillImage.skill.title }}</h2>
 
-            {#{{ skillImage.skill.explanation|raw }}#}
+            {{ skillImage.skill.explanation|raw }}
 
-        {#</div>#}
+        </div>
 
-        {#<div class="illustration">#}
-            {#<img src="{{ asset(skill_dir_new ~ '/' ~ skillImage.image.filename) }}" alt="" />#}
-        {#</div>#}
-    {#</div>#}
-{#</section>#}
+        <div class="illustration">
+            <img src="{{ asset(skill_dir_new ~ '/' ~ skillImage.image.filename) }}" alt="" />
+        </div>
+    </div>
+</section>

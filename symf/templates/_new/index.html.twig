@@ -8,7 +8,7 @@
         <h1>Compétances</h1>
 
         <nav id="pageMenu">
-            {{ pageMenu.script|raw }}
+            {{ include('menu/pageMenu.html.twig', { 'skillImages': skillImages }) }}
         </nav>
 
     </header>
