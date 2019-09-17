@@ -27,6 +27,10 @@ class menuGenerator
 
     public const POLYGON_LESS = 5;
 
+    public const TITLE_LENGTH_STEPS = [1 => 60, 2 => 125, 3 => 170, 4 => 225, 5 => 300];
+
+    public const TITLE_LENGTH_QUOTIEN = 5;
+
     /** @var \Twig_Environment $twig */
     private $twig;
     /** @var array $options */
@@ -147,10 +151,10 @@ class menuGenerator
      */
     private function buildFirstPolygon() {
         $this->setFirstPolygonPoints([
-            'a' => new Point(-4, self::GLOBAL_STROKE_WIDTH),
+            'a' => new Point(0, self::GLOBAL_STROKE_WIDTH),
             'b' => new Point(self::FIRST_POLYGON_WIDTH, self::GLOBAL_STROKE_WIDTH),
             'c' => new Point(self::FIRST_POLYGON_WIDTH, self::MENU_HEIGHT),
-            'd' => new Point(-4, self::MENU_HEIGHT)
+            'd' => new Point(0, self::MENU_HEIGHT)
         ]);
 
         $polygon = new Polygon();
@@ -193,7 +197,9 @@ class menuGenerator
 
             $polygon->setWidth($b->getX() - $d->getX());
 
-            $textX = $a->getX() + self::FIRST_POLYGON_WIDTH;
+//            $textX = $a->getX() + self::FIRST_POLYGON_WIDTH;
+//
+            $textX = (($c->getX() - $a->getX()) / 2) + $a->getX();
 
             $text = new Text($this->getOptions()[$index]['title'], $textX, self::TEXT_Y);
 
@@ -206,7 +212,7 @@ class menuGenerator
     }
 
     private function titleWidth(string $title): int {
-        return strlen($title) * self::FONT_LETTER_PIXEL_UNIT;
+        return self::TITLE_LENGTH_STEPS[ceil(strlen($title) / self::TITLE_LENGTH_QUOTIEN)];
     }
 
     private function debugTemplate($str) {

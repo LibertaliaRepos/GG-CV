@@ -13,16 +13,7 @@ $content-default-padding: 1%;
       padding: 0 $content-default-padding;
     }
 
-    #pageMenu {
-
-      // Future menu SVG
-      img {
-        display: block;
-        width: 100%;
-        max-height: 25px;
-      }
-      // Future menu SVG
-    }
+    @import "pageMenu";
   }
 
   #explanationList {

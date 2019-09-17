@@ -6,10 +6,10 @@
     </g>
     {% for link in links %}
 
-        <a class="svg-link" xlink:href="{{ '#' ~ link.href }}" data-smooth-scroll>
+        <a class="svg-link" xlink:href="{{ '#' ~ link.href }}" data-smooth-scroll data-moved="false">
 
             <polygon points="{{ link.polygon }}" fill="#FFF" stroke="#000" stroke-width="1" data-width="{{ link.polygon.width }}" />
-            <text x="{{ link.text.X }}" y="{{ link.text.Y }}" fill="#000" font-size="1.3rem" font-family="'Space Mono'">{{ link.text.Text }}</text>
+            <text x="{{ link.text.X }}" y="{{ link.text.Y }}" fill="#000" font-size="1.3rem" font-family="'Space Mono'" text-anchor="middle">{{ link.text.Text }}</text>
 
         </a>
 
@@ -39,25 +39,37 @@
             throw {};
     }
 
+    function arrayEqual(array1, array2) {
+        array1.forEach(function (value, index) {
+
+            if ((Array.isArray(value) && !arrayEqual(value, array2[index])) || (!Array.isArray(value) && value != array2[index]))
+                return false;
+        });
+
+        return true;
+    }
+
     var svgMenu = {
         parent : document.querySelector('#pageMenu svg'),
         height : document.querySelector('#pageMenu svg').getAttribute('height'),
         background : document.querySelector('#pageMenu svg g'),
         links : document.querySelectorAll('#pageMenu svg a'),
         linesCount : 1,
+        lines : null,
 
-        recalculate : function () {
+        resizeDown : function () {
             var windowWidth = window.outerWidth;
             var countWidth = 0;
 
-            var currentLine = [];
+            var linesCount = 1;
             var lines = [];
+            var currentLine = [];
 
             svgMenu.links.forEach(function (link, index) {
                 countWidth += link.getBBox().width;
 
-                if (countWidth > (windowWidth * svgMenu.linesCount)) {
-                    svgMenu.linesCount++;
+                if (countWidth > (windowWidth * linesCount)) {
+                    linesCount++;
 
                     lines.push(currentLine);
                     currentLine = [];
@@ -70,62 +82,83 @@
                 }
             });
 
+
+
+            DEBUG(lines, false);
+
             for (var i = 1; i < lines.length; ++i) {
                 lines[i].forEach(function (link) {
-                   svgMenu.parent.removeChild(link);
+                    if (link.dataset.moved == 'false') {
+                        svgMenu.parent.removeChild(link);
+                    }
                 });
 
-                svgMenu.parent.appendChild(svgMenu.requestGroup(i));
+                if (i > svgMenu.linesCount || svgMenu.linesCount == 1)
+                    svgMenu.parent.appendChild(svgMenu.requestGroup(i));
             }
 
+
+            DEBUG(lines, false);
+
+            svgMenu.linesCount = linesCount;
             svgMenu.setHeight(lines.length);
+
+            // if (svgMenu.lines !== null && arrayEqual(svgMenu.lines, lines))
+            //     return;
+            //
+            // svgMenu.lines = lines;
 
             for (var i = 1; i < lines.length; ++i) {
                 lines[i].forEach(function (link, link_index) {
+                    if (link.dataset.moved != 'true') {
 
-                    var polyPoints = link.querySelector('polygon').getAttribute('points').split(' ');
-                    var pointsAttr = '';
-                    var offsetY = null;
-                    var width = null;
+                        var polyPoints = link.querySelector('polygon').getAttribute('points').split(' ');
+                        var pointsAttr = '';
+                        var offsetY = null;
+                        var width = null;
 
-                    polyPoints.forEach(function (point, p_index) {
+                        polyPoints.forEach(function (point, p_index) {
 
-                        if (point) {
-                            var split = point.split(',');
-                            split[1] = parseInt(split.pop()) + parseInt(svgMenu.height);
+                            if (point) {
+                                var split = point.split(',');
+                                split[1] = parseInt(split.pop()) + parseInt(svgMenu.height);
 
-                            if (offsetY == null) {
-                                offsetY = -4 + parseInt(split[0]);
+                                if (offsetY == null) {
+                                    offsetY = -4 + parseInt(split[0]);
 
-                                if (link_index > 0)
-                                    width = parseInt(lines[i][link_index - 1].querySelector('polygon').dataset.width) - 4;
+                                    if (link_index > 0)
+                                        width = parseInt(lines[i][link_index - 1].querySelector('polygon').dataset.width) - 4;
+                                }
+
+                                if (link_index == 0 && (p_index == 0 || p_index == 3)) {
+                                    split[0] = -4;
+                                } else {
+                                    split[0] -= offsetY;
+                                    split[0] += width;
+                                }
+
+
+                                pointsAttr += split.join(',') + ' ';
                             }
 
-                            if (link_index == 0 && (p_index == 0 || p_index == 3)) {
-                                split[0] = -4;
-                            } else {
-                                split[0] -= offsetY;
-                                split[0] += width;
-                            }
+                        });
 
+                        link.querySelector('polygon').setAttribute('points', pointsAttr);
 
-                            pointsAttr += split.join(',') + ' ';
-                        }
+                        var txt = link.querySelector('text');
+                        txt.setAttribute('y', parseInt(txt.getAttribute('y')) + (i * svgMenu.height));
+                        txt.setAttribute('x', parseInt(txt.getAttribute('x')) - offsetY + width);
 
-                    });
-
-                    DEBUG(pointsAttr, false);
-
-                    link.querySelector('polygon').setAttribute('points', pointsAttr);
-
-                    var txt = link.querySelector('text');
-                    txt.setAttribute('y', parseInt(txt.getAttribute('y')) + (i * svgMenu.height));
-                    txt.setAttribute('x', parseInt(txt.getAttribute('x')) - offsetY + width);
-
-                    svgMenu.parent.appendChild(link);
+                        svgMenu.parent.appendChild(link);
+                        link.dataset.moved = true;
+                    }
                 });
             }
 
+        },
+
+        resizeUp : function () {
+            console.log('Up');
         },
 
         requestGroup : function (lineCount) {
@@ -148,5 +181,25 @@
         }
     };
 
-    svgMenu.recalculate();
+    //svgMenu.recalculate();
+</script>
+
+<script>
+    var size = {
+        before : window.outerWidth,
+        now : null
+    };
+
+
+
+    window.addEventListener('resize', function () {
+        size.now = window.outerWidth;
+
+        if (size.now > size.before)
+            svgMenu.resizeUp();
+        else
+            svgMenu.resizeDown();
+
+        size.before = window.outerWidth;
+    }, false);
 </script>
