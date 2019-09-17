@@ -1,5 +1,26 @@
 #pageMenu {
-  svg {
+  border: $global-borders;
+  border-width: $global-border-width 0;
+  background-color: $white;
 
+  ul.menu {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    li {
+      background-color: $white;
+
+      &:hover { filter: invert(100%); }
+
+      a {
+        display: block;
+        font-size: 1.2rem;
+        color: $black;
+        padding: 0 3%;
+      }
+    }
   }
 }

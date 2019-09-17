@@ -99,7 +99,8 @@ $global-flexbox: true;
 $global-prototype-breakpoints: false;
 $global-button-cursor: auto;
 $global-color-pick-contrast-tolerance: 0;
-$global-borders: 2px solid $black;
+$global-border-width: 2px;
+$global-borders: $global-border-width solid $black;
 $print-transparent-backgrounds: true;
 
 @include add-foundation-colors;
