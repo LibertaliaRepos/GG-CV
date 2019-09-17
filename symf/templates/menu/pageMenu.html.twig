@@ -1,7 +1,7 @@
 <ul class="menu">
     {% for skillImage in skillImages %}
 
-        <li><a href="{{ '#' ~  skillImage.skill.anchor }}">{{ skillImage.skill.title }}</a></li>
+        <li><a href="{{ '#' ~  skillImage.skill.anchor }}" data-order="{{ skillImage.order }}">{{ skillImage.skill.title }}</a></li>
 
     {% endfor %}
 </ul>

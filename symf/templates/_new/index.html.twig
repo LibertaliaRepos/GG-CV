@@ -15,7 +15,15 @@
 
     <div id="explanationList">
         {% for skillImage in skillImages %}
-            {{ include('skill/skill.html.twig', { 'skillImage': skillImage }) }}
+
+            {% if loop.first %}
+                {% set active = true %}
+            {% else %}
+                {% set active = false %}
+            {% endif %}
+
+
+            {{ include('skill/skill.html.twig', { 'skillImage': skillImage, 'active': active }) }}
         {% endfor %}
     </div>
 {% endblock %}
