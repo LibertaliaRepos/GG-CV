@@ -13,7 +13,7 @@
     li {
       background-color: $white;
 
-      &:hover { filter: invert(100%); }
+      &:hover, &[data-active='true'] { filter: invert(100%); }
 
       a {
         display: block;

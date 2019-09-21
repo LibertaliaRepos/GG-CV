@@ -5,8 +5,14 @@
 }
 
 @font-face {
-  font-family: 'latinMono';
+  font-family: 'latinMonoCaps';
   src:  url('../fonts/lmmonocaps10-regular.otf') format('opentype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'latinMono';
+  src:  url('../fonts/lmmono10-regular.otf') format('opentype');
   font-weight: bold;
 }
 
