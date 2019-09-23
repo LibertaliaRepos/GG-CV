@@ -14,8 +14,6 @@ class Scroller {
     init() {
         this.showScrollbar();
         this.moveScrollbar();
-
-        this.initScrollbar();
     }
 
     showScrollbar() {
@@ -28,6 +26,9 @@ class Scroller {
         }
 
         this.toScroll = this.requestRealHeight() - this.requestExplanationHeight();
+        $(this.explanation).children().each(function () {
+            $(this).css('transform', '');
+        });
 
         this.listen();
     }
@@ -40,8 +41,6 @@ class Scroller {
             this.scrollDown();
 
         this.moveScrollbar();
-
-        this.scrollbar.position = {top: this.scrollbar.calcPosition(), left: null};
     }
 
     scrollUp() {
@@ -80,49 +79,15 @@ class Scroller {
     }
 
     initScrollbar() {
-        var scroller = this;
-
-        $(this.scrollbar.svg).draggable({
-            start: function(e, ui) {
-            },
-            drag: function (e, ui) {
-
-
-                ui.position.left = null;
-
-                var max = $(scroller.scrollbar.container).outerHeight(false) + $('#globalHead').outerHeight(true) + $('#contentHead h1').outerHeight(true) - scroller.scrollbar.svg[0].getBBox().height ;
-
-                if (ui.position.top < 0)
-                    ui.position.top = 0;
-                else if (ui.position.top > max)
-                    ui.position.top = max;
-
-                var y = (ui.position.top / scroller.scrollbar.height) * 100;
-                $(scroller.scrollbar.svg).attr('y', y + '%');
-
-                // if (y >= 100) {
-                //     y = y * scroller.scrollbar.scale;
-                //     ui.position.top = y
-                // }
-
-
-                // var scrolleY = -(scroller.scrollbar.percent / 100) * scroller.toScroll;
-                //
-                // $(scroller.explanation).children().each(function () {
-                //     $(this).css('transform', 'translateY(' + scrolleY + 'px)');
-                // });
-                // $(scroller.explanation).attr('data-translate', scrolleY);
-            },
-            stop: function (e, ui) {
-            }
-        });
     }
 
     requestRealHeight() {
         var height = 0;
 
         $(this.explanation).children().each(function () {
+            // DEBUG($(this).outerHeight(true), false);
             height += $(this).outerHeight(true);
+            // DEBUG(height, false);
         }) ;
 
         return height;
@@ -166,26 +131,42 @@ class Scrollbar {
     }
 }
 
+var indexes = [];
+var scrollerContainer = [];
+
+function checkIndexes(elem) {
+
+    if (indexes.includes($(elem).attr('id'))) {
+        return indexes.indexOf($(elem).attr('id'));
+    } else {
+        var length = indexes.push($(elem).attr('id'));
+        return length - 1;
+    }
+}
 
 function initScrollbar(e) {
-    var globScroller = new Scroller(
-        $(e.data.active).children('.innerPage').children('.explanation'),
-        new Scrollbar($(e.data.active).children('.innerPage').children('.scrollbar'), $(e.data.active).children('.innerPage').children('.scrollbar').children('.move')),
-        Boolean($(e.data.active).data('active'))
-    );
+    var index = checkIndexes(e.data.active);
 
-    globScroller.init();
+    if (scrollerContainer.indexOf(index) < 0) {
+
+        scrollerContainer[index] = new Scroller(
+            $(e.data.active).children('.innerPage').children('.explanation'),
+            new Scrollbar($(e.data.active).children('.innerPage').children('.scrollbar'), $(e.data.active).children('.innerPage').children('.scrollbar').children('.move')),
+            Boolean($(e.data.active).data('active'))
+        );
+    }
+
+    DEBUG(indexes,false);
+    DEBUG(scrollerContainer, false);
+
+    scrollerContainer[index].init();
 }
 
 $(window).on('load', {active : $('#explanationList .page[data-active="1"]')}, function (e) { initScrollbar(e); });
-// $(window).on('resize', {active : $('#explanationList .page[data-active="1"]')}, function (e) {
-//     // globScroller = null;
-//     initScrollbar(e);
-// });
+$(window).on('resize', {active : $('#explanationList .page[data-active="1"]')}, function (e) { initScrollbar(e); });
 
 $('#pageMenu a').each(function () {
    $(this).on('click', {active : $($(this).attr('href'))}, function (e) {
-       // globScroller = null;
        initScrollbar(e);
 
    });
