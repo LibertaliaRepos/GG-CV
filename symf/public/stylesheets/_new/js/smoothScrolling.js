@@ -1,9 +1,3 @@
-function DEBUG(value, THROW = true) {
-    console.log(value);
-    if (THROW)
-        throw {};
-}
-
 class Slide {
     constructor(link, explanation) {
         this.link = link;
@@ -46,6 +40,19 @@ class Slider {
         $(explanation).effect('slide', {direction: direction});
     }
 
+    activation(link) {
+        this.sliders.forEach(function (slide) {
+
+            var active = (this == $(slide.link).attr('href')) ? true : false;
+
+            $(slide.link).parent().attr('data-active', active);
+
+            $('#explanationList .page').attr('data-active', null);
+            $(this).attr('data-active', '1');
+
+        }, $(link).attr('href'));
+    }
+
     listen() {
         this.sliders.forEach(function (slide) {
             $(slide.link).on('click', {sliders : this}, function (e) {
@@ -53,6 +60,7 @@ class Slider {
                 var slideDirection = (parseInt(e.currentTarget.dataset.order) > e.data.sliders.current) ? 'right' : 'left';
 
                 e.data.sliders.clearAll();
+                e.data.sliders.activation(this);
                 e.data.sliders.slide($($(e.currentTarget).attr('href')), slideDirection);
                 e.data.sliders.current = parseInt(e.currentTarget.dataset.order);
             });
@@ -62,10 +70,6 @@ class Slider {
 
 var sliderContainer = new Slider();
 
-$('#pageMenu a').each(function () {
-    sliderContainer.addSlider(new Slide($(this), $($(this).attr('href'))));
-
-
-});
+$('#pageMenu a').each(function () { sliderContainer.addSlider(new Slide($(this), $($(this).attr('href')))); });
 
 sliderContainer.init();
