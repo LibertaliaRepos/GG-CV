@@ -44,15 +44,23 @@ $content-default-padding: 1%;
         align-items: center;
         height: inherit;
 
+        .scrollbar {
+          display: none;
+          align-self: flex-start;
+        }
+
         .explanation, .illustration {
-          width: 50%;
+          width: 45%;
         }
 
         .explanation {
           height: inherit;
-          overflow-y: scroll;
+          overflow-y: hidden;
+          font-size: 1rem;
 
-          h2 { font-size: 2vw; }
+          h3 {
+            font-family: latinMono;
+          }
         }
 
         .illustration { text-align: center; }
