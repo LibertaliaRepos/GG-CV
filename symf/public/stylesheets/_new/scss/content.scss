@@ -8,7 +8,7 @@ $content-default-padding: 1%;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    height: 70px;
+    //height: 70px;
 
     #pageMenu, h1 { width: 100%; }
 
@@ -55,7 +55,7 @@ $content-default-padding: 1%;
 
         .explanation {
           height: inherit;
-          overflow-y: hidden;
+          overflow-y: scroll;
           font-size: 1rem;
 
           h3 {
