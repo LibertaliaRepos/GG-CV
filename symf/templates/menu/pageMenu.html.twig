@@ -1,5 +1,5 @@
 <ul class="menu">
-    {% for skillImage in skillImages %}
+    {% for obj in objs %}
 
         {% if loop.first %}
             {% set active = 'true' %}
@@ -7,7 +7,17 @@
             {% set active = 'false' %}
         {% endif %}
 
-        <li data-active="{{ active }}"><a href="{{ '#' ~  skillImage.skill.anchor }}" data-order="{{ skillImage.order }}">{{ skillImage.skill.title }}</a></li>
+        {% if type == 'skill' %}
+            {% set href = '#' ~  obj.skill.anchor  %}
+            {% set order = obj.order  %}
+            {% set title = obj.skill.title  %}
+        {% elseif type == 'project' %}
+            {% set href = '#' ~ obj.project.anchor %}
+            {% set order = obj.project.order %}
+            {% set title = obj.project.title %}
+        {% endif %}
+
+        <li data-active="{{ active }}"><a href="{{ href }}" data-order="{{ order }}">{{ title }}</a></li>
 
     {% endfor %}
 </ul>

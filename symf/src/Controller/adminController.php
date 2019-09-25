@@ -107,14 +107,14 @@ class adminController extends AbstractController {
             
             try {
                 $file = $file->move(
-                    $this->getParameter('skill_dir_new'),
+                    $this->getParameter('new_skill_dir'),
                     $filename
                     );
             } catch (FileException $e) {
                 throw new \Exception($e->getMessage());
             }
             
-            Image::convertSVG($this->getParameter('skill_dir_new').'/'.$filename);
+            Image::convertSVG($this->getParameter('new_skill_dir').'/'.$filename);
             
             $order = $this->getDoctrine()->getRepository(Skill_Image::class)->getMaxOrder();
             
@@ -164,7 +164,7 @@ class adminController extends AbstractController {
         $skillForm->setAnchor($skillImage->getSkill()->getAnchor());
         $skillForm->setExplanation($skillImage->getSkill()->getExplanation());
         $skillForm->setOldPicture($skillImage->getImage()->getFilename());
-        $skillForm->setPicture($skillImage->getImage()->getFile($this->getParameter('skill_dir')));
+        $skillForm->setPicture($skillImage->getImage()->getFile($this->getParameter('new_skill_dir')));
         
         $form = $this->createForm(SkillType::class, $skillForm);
         
@@ -181,7 +181,7 @@ class adminController extends AbstractController {
                 
                 try {
                     $file = $file->move(
-                        $this->getParameter('skill_dir'),
+                        $this->getParameter('new_skill_dir'),
                         $filename
                         );
                 } catch (FileException $e) {
@@ -190,9 +190,9 @@ class adminController extends AbstractController {
                 
                 $skillImage->getImage()->setFilename($filename);
                 
-                Image::convertSVG($this->getParameter('skill_dir').'/'.$filename);
-                Image::deleteSVGRelatedFile($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
-                unlink($this->getParameter('skill_dir').'/'.$skillForm->getOldPicture());
+                Image::convertSVG($this->getParameter('new_skill_dir').'/'.$filename);
+                Image::deleteSVGRelatedFile($this->getParameter('new_skill_dir').'/'.$skillForm->getOldPicture());
+                unlink($this->getParameter('new_skill_dir').'/'.$skillForm->getOldPicture());
             }
             
             $skillImage->getSkill()->setTitle($skillForm->getTitle());
@@ -264,7 +264,7 @@ class adminController extends AbstractController {
                     try {
                         
                         $file->move(
-                            $this->getParameter('project_dir'),
+                            $this->getParameter('new_project_dir'),
                             $filename
                             );
                         
@@ -361,7 +361,7 @@ class adminController extends AbstractController {
             if (!empty($formImages) && $this->testMimeType($formImages, array(Image::JPEG_MIME, Image::PNG_MIME))) {
                 foreach ($images as $image) {
                     $em->remove($image);
-                    unlink($this->getParameter('project_dir') .'/'. $image->getFilename());
+                    unlink($this->getParameter('new_project_dir') .'/'. $image->getFilename());
                 }
                 
                 foreach ($formImages as $formImage) {
@@ -369,7 +369,7 @@ class adminController extends AbstractController {
                     try {
                         
                         $formImage->move(
-                            $this->getParameter('project_dir'),
+                            $this->getParameter('new_project_dir'),
                             $filename
                             );
                         

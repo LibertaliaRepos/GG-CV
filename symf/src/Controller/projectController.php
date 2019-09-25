@@ -37,7 +37,7 @@ class projectController extends AbstractController {
         }
         
         foreach ($images as $image) {
-            $image->unlink($this->getParameter('project_dir'));
+            $image->unlink($this->getParameter('new_project_dir'));
         }
         
         return $this->json(array('deleted' => true), Response::HTTP_OK);

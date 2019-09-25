@@ -1,0 +1,34 @@
+{% extends 'new_base.html.twig' %}
+
+{% block title %} Projets {% endblock %}
+
+{% block content %}
+    <header id="contentHead">
+
+        <h1>Projets</h1>
+
+        <nav id="pageMenu">
+            {{ include('menu/pageMenu.html.twig', { 'objs': objs, 'type': type }) }}
+        </nav>
+
+    </header>
+
+    <div id="explanationList">
+        {% for obj in objs %}
+
+            {% set active = false %}
+
+            {% if loop.first %}
+                {% set active = true %}
+            {% endif %}
+
+
+            {{ include('entities/project.html.twig', { 'project': obj, 'active': active }) }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('stylesheets/js/orbit.js') }}"></script>
+{% endblock %}

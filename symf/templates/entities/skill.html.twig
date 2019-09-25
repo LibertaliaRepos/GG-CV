@@ -2,14 +2,11 @@
 
     <div class="innerPage">
         <div class="explanation">
-            {#<h2 id="{{ 'title-' ~ skillImage.skill.anchor }}">{{ skillImage.skill.title }}</h2>#}
-
             {{ skillImage.skill.explanation|raw }}
-
         </div>
 
         <div class="illustration">
-            <img src="{{ asset(skill_dir_new ~ '/' ~ skillImage.image.filename) }}" alt="" />
+            <img src="{{ asset(new_skill_dir ~ '/' ~ skillImage.image.filename) }}" alt="" />
         </div>
     </div>
 </section>

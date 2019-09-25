@@ -4,9 +4,10 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         skill_dir: 'uploads/skill'
-        skill_dir_new: 'uploads/_new/skill'
         project_dir: 'uploads/project'
         xppro_dir: 'uploads/xppro'
+        new_skill_dir: 'uploads/_new/skill'
+        new_project_dir: 'uploads/_new/project'
         contractTypeHref: '/_design/xpproTypes'
         active: null
         froala_key_gt_v28: 'KB2B5A2D3rD1H5D4H3B2B10D6E2D5C5eA-7G-7C6B-21hE4fs=='

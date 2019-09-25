@@ -1,0 +1,44 @@
+<section id="{{ project.project.anchor }}" class="page" aria-labelledby="{{ 'title-' ~ project.project.anchor }}" data-active="{{ active }}">
+
+    <div class="innerPage">
+        <div class="explanation">
+            {{ project.project.explanation|raw }}
+        </div>
+
+        <div class="orbit illustration" role="region" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out; autoPlay:false" data-zoomed="false">
+
+            <div class="orbit-wrapper">
+
+                <div class="orbit-controls">
+                    <button class="orbit-previous"><span class="show-for-sr">Précédente</span>&#9664;&#xFE0E;</button>
+                    <button class="orbit-next"><span class="show-for-sr">Suivante</span>&#9654;&#xFE0E;</button>
+                </div>
+
+                <ul class="orbit-container">
+                    {% for image in project.images %}
+                        <li class="is-active orbit-slide">
+                            <figure class="orbit-figure">
+                                <img src="{{ asset( new_project_dir ~ '/' ~ image.filename) }}" alt="" />
+                            </figure>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+            <nav class="orbit-bullets">
+                {% for image in project.images %}
+                    {% if loop.first %}
+                        <button class="is-active" data-slide="0">
+                            <span class="show-for-sr">First slide details.</span>
+                            <span class="show-for-sr">Current Slide</span>
+                        </button>
+                    {% else %}
+                        <button data-slide="{{ loop.index - 1 }}"><span class="show-for-sr">Second slide details.</span></button>
+                    {% endif %}
+                {% endfor %}
+            </nav>
+
+        </div>
+    </div>
+</section>

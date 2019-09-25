@@ -8,13 +8,13 @@
         <h1>Compétances</h1>
 
         <nav id="pageMenu">
-            {{ include('menu/pageMenu.html.twig', { 'skillImages': skillImages }) }}
+            {{ include('menu/pageMenu.html.twig', { 'objs': objs }) }}
         </nav>
 
     </header>
 
     <div id="explanationList">
-        {% for skillImage in skillImages %}
+        {% for obj in objs %}
 
             {% if loop.first %}
                 {% set active = true %}
@@ -23,7 +23,7 @@
             {% endif %}
 
 
-            {{ include('skill/skill.html.twig', { 'skillImage': skillImage, 'active': active }) }}
+            {{ include('entities/skill.html.twig', { 'skillImage': obj, 'active': active }) }}
         {% endfor %}
     </div>
 {% endblock %}

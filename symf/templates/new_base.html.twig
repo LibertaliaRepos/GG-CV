@@ -17,8 +17,8 @@
                 <a id="globalLogo" href=""><img src="{{ asset('stylesheets/_new/img/gilles-logo/simple-logo-web.svg') }}" alt="" /></a>
                 <nav id="globalMenu">
                     <ul class="menu">
-                        <li><a href="#">Compétances</a></li>
-                        <li><a href="#">Projets</a></li>
+                        <li><a href="{{ path('new_GGCV_index') }}">Compétances</a></li>
+                        <li><a href="{{ path('new_GGCV_projects') }}">Projets</a></li>
                         <li><a href="#">Expériences pro</a></li>
                         <li><a href="#">Contcat</a></li>
                     </ul>
@@ -42,11 +42,8 @@
             <script src="{{ asset('stylesheets/_new/js/debug.js') }}"></script>
             <script src="{{ asset('stylesheets/_new/js/app.js') }}"></script>
             <script src="{{ asset('stylesheets/_new/js/smoothScrolling.js') }}"></script>
-            <script src="{{ asset('stylesheets/_new/js/scrollbar.js') }}"></script>
         {% endblock %}
 
         {% block foundation %}{% endblock %}
-
-        {% block dump %}{% endblock %}
     </body>
 </html>

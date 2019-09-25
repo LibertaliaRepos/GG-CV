@@ -64,6 +64,8 @@ $content-default-padding: 1%;
         }
 
         .illustration { text-align: center; }
+
+        @import "orbit";
       }
     }
   }
