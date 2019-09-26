@@ -2,7 +2,6 @@ $content-default-padding: 1%;
 
 #content {
 
-
   #contentHead {
     display: flex;
     flex-direction: column;
@@ -64,9 +63,9 @@ $content-default-padding: 1%;
         }
 
         .illustration { text-align: center; }
-
-        @import "orbit";
       }
     }
   }
 }
+
+@import "orbit";

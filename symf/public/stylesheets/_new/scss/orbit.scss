@@ -1,39 +1,43 @@
-.illustration.orbit {
-  padding: 0 4%;
-  background-color: rgba($white, 0.7);
-  border: 2px solid transparentize($dark-gray, 0.5);
+#content {
+  #explanationList {
+    .illustration.orbit {
+      padding: 0 4%;
+      background-color: rgba($white, 0.7);
+      border: 2px solid transparentize($dark-gray, 0.5);
 
-  .orbit-wrapper {
-    .orbit-controls {
-      button {
-        color: $black;
-        display: block;
-        background-color: $medium-gray;
-        height: 100%;
-        padding: 0 1%;
+      .orbit-wrapper {
+        .orbit-controls {
+          button {
+            color: $black;
+            display: block;
+            background-color: $medium-gray;
+            height: 100%;
+            padding: 0 1%;
 
-        transition: filter 0.1s ease, box-shadow 0.1s ease;
+            transition: filter 0.1s ease, box-shadow 0.1s ease;
 
 
-        &:hover {
-          cursor: pointer;
-          filter: invert(100%) opacity(64%);
-          box-shadow: 3px 0 2px $white;
+            &:hover {
+              cursor: pointer;
+              filter: invert(100%) opacity(64%);
+              box-shadow: 3px 0 2px $white;
 
-          &:first-child {
-            box-shadow: -3px 0 2px $white;;
+              &:first-child {
+                box-shadow: -3px 0 2px $white;;
+              }
+            }
           }
         }
-      }
-    }
 
-    .orbit-container {
-      .orbit-slide {
-        .orbit-figure {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+        .orbit-container {
+          .orbit-slide {
+            .orbit-figure {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+          }
         }
       }
     }

@@ -28,16 +28,14 @@
     </div>
 {% endblock %}
 
+
+{% block orbit %}
+
+    <div class="orbitZoomed"></div>
+
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
-    {#<script src="{{ asset('stylesheets/_new/js/orbit.js') }}"></script>#}
-
-    <script>
-        $(window).on('load', function() {
-           $('.orbit-slide').each(function() {
-               $(this).css('height', '100%');
-               $(this).children('.orbit-figure').css('height', 'inherit');
-           });
-        });
-    </script>
+    <script src="{{ asset('stylesheets/_new/js/orbit.js') }}"></script>
 {% endblock %}
