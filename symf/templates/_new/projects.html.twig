@@ -31,11 +31,13 @@
 
 {% block orbit %}
 
-    <div class="orbitZoomed"></div>
+    <div id="orbitZoomed" data-open="false" aria-hidden="true"></div>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('stylesheets/_new/js/orbit.js') }}"></script>
+    <script src="{{ asset('stylesheets/_new/js/zoomOrbit.js') }}"></script>
+    <script src="{{ asset('stylesheets/_new/js/projects.js') }}"></script>
 {% endblock %}

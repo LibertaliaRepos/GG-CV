@@ -68,6 +68,8 @@ class Slider {
     }
 }
 
+readURL();
+
 var sliderContainer = new Slider();
 
 $('#pageMenu a').each(function () { sliderContainer.addSlider(new Slide($(this), $($(this).attr('href')))); });

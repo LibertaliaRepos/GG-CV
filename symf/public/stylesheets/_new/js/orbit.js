@@ -1,3 +1,5 @@
+
+
 function initOrbit(ident, container) {
     var explanationHeight; var bulletsHeight; var orbitHeight;
     var currentPage = $(ident);
@@ -19,13 +21,7 @@ class OrbitContainer {
     constructor() {
         this.identContainer = [];
         this.orbitContainer = [];
-        this.opts = {
-            animInFromLeft  : 'fade-in',
-            animInFromRight : 'fade-in',
-            animOutToLeft   : 'fade-out',
-            animOutToRight  : 'fade-out',
-            autoPlay        :  false
-        };
+        this.opts = OrbitContainer.Orbit_Options();
         this.init();
     }
 
@@ -51,9 +47,20 @@ class OrbitContainer {
     createOrbit(ident) {
         return new Foundation.Orbit($(ident).find('.illustration'), this.opts);
     }
+
+    addOrbit(ident, orbit) {
+        var index = (this.identContainer.push(ident)) - 1;
+
+        this.orbitContainer[index] = orbit;
+    }
+
+    static Orbit_Options() {
+        return {
+            animInFromLeft  : 'fade-in',
+            animInFromRight : 'fade-in',
+            animOutToLeft   : 'fade-out',
+            animOutToRight  : 'fade-out',
+            autoPlay        :  false
+        };
+    }
 }
-
-var container = new OrbitContainer();
-
-$(window).on('load', function () {  initOrbit($('#pageMenu li[data-active="true"] a').attr('href'), container);  });
-$('#pageMenu a').each(function () { $(this).on('click', function (e) { initOrbit($(e.currentTarget).attr('href'), container); }); });

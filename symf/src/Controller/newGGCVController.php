@@ -32,7 +32,7 @@ class newGGCVController extends AbstractController
         $imageRepo = $this->getDoctrine()->getRepository(Image::class);
 
         foreach ($projects as $key => $project) {
-            $projects[$key] = ['project' => $project, 'images' => $project->getImages($imageRepo)];
+            $projects[$key] = ['project' => $project, 'images' => $project->getImages($imageRepo), 'orbitID' =>  uniqid('orbit-')];
         }
 
         return $this->render('_new/projects.html.twig', array('objs' => $projects, 'type' => 'project'));

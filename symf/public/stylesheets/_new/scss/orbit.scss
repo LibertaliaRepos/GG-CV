@@ -6,6 +6,10 @@
       border: 2px solid transparentize($dark-gray, 0.5);
 
       .orbit-wrapper {
+        &:hover {
+          cursor: zoom-in;
+        }
+        
         .orbit-controls {
           button {
             color: $black;
@@ -36,10 +40,79 @@
               flex-direction: column;
               justify-content: center;
               align-items: center;
+
+              img {
+                display: block;
+                width: 100%;
+                max-height: 100%;
+              }
             }
           }
         }
       }
     }
   }
+}
+
+#orbitZoomed {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparentize($black, 0.5);
+  z-index: 2000;
+  flex-direction: row;
+  justify-content: center;
+  cursor: zoom-out;
+
+  .orbit {
+    width: 80%;
+    background-color: transparentize($black, 0.3);
+    cursor: initial;
+
+    .orbit-controls {
+      button {
+        color: $white;
+        display: block;
+        background-color: transparentize($white, 0.7);
+        height: 100%;
+        padding: 0 1%;
+
+        transition: filter 0.1s ease, box-shadow 0.1s ease;
+
+
+        &:hover {
+          color: $black;
+          cursor: pointer;
+          filter: invert(100%) opacity(64%);
+          box-shadow: -3px 0 2px $black;
+
+          &:first-child {
+            box-shadow: 3px 0 2px $black;
+          }
+        }
+      }
+    }
+
+    .orbit-container {
+      .orbit-slide {
+        height: 100%;
+        .orbit-figure {
+          height: inherit;
+
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+
+    .orbit-bullets {
+      button:not(.is-active) { background-color: $white; }
+    }
+  }
+
 }
