@@ -23,3 +23,9 @@
   #globalHead { height: 82px; }
   #content { height: calc(100vh - 82px); }
 }
+
+.orbit-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}

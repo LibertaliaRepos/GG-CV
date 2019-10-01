@@ -9,9 +9,14 @@ class Zoom {
 
     zoomIn() {
         this.cleanContainer();
+
         $(this.container).append(this.orbit);
         $(this.container).css('display', 'flex');
         $(this.container).attr('aria-hidden', 'false');
+
+        this.sortOrbit();
+
+        this.zoomInListen();
 
         var orbit = new Foundation.Orbit($(this.orbit), OrbitContainer.Orbit_Options());
 
@@ -21,10 +26,7 @@ class Zoom {
             zoom.resize();
         }, 100);
 
-        this.zoomInListen();
-
         $(this.container).find('.orbit').on('mouseenter', {zoom : this}, function (e) {
-            console.log('enter');
             $(e.data.zoom.container).off('click');
         });
 
@@ -61,6 +63,50 @@ class Zoom {
         $(this.orbit).find('.orbit-container').css('height', cssHeight + 'px');
         $(this.orbit).css('margin-top', padding + 'px');
         $(this.orbit).css('margin-bottom', padding + 'px');
+    }
+
+    sortOrbit() {
+        var activeIndex;
+        var reindexer;
+        var realCounter;
+        var sorted = [];
+        var result = [];
+
+        $(this.reliatifOrbit).find('.orbit-slide').each(function () {
+            var active = ($(this).css('display') != 'none') ? true : false;
+
+            sorted.push(active);
+        });
+
+        activeIndex = sorted.indexOf(true);
+        reindexer = (activeIndex == 1 && sorted.length == 3) ? activeIndex + 1 : activeIndex;
+        realCounter = 0;
+
+        DEBUG(sorted, false);
+
+        for (var i = -activeIndex; i <= sorted.length - (activeIndex + 1); ++i) {
+            if (sorted[realCounter])
+                i = 0;
+
+            sorted[realCounter] = (i < 0)
+                ? sorted.length + i
+                : i
+            ;
+
+            realCounter++;
+        }
+
+        sorted.forEach(function(value, index) {
+            result[index] = $($(this.reliatifOrbit).find('.orbit-slide')[value]).clone();
+            DEBUG(result[index], false);
+        }, this);
+
+        $(this.orbit).find('.orbit-container').empty();
+
+        result.forEach(function (value, index) {
+            $(value).attr('data-slide', '');
+            $(this.orbit).find('.orbit-container').append(result[sorted.indexOf(index)]);
+        }, this);
     }
 
     listen() {

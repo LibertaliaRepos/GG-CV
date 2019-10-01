@@ -1,4 +1,4 @@
-function uniqueId(prefix) { return prefix + '_' + Math.random().toString(36).substr(2, 9); };
+function uniqueId(prefix) { return prefix + '_' + Math.random().toString(36).substr(2, 9); }
 
 
 $(document).foundation();
@@ -19,4 +19,18 @@ function readURL() {
         $(this).attr('data-active', page.link);
         $(href).attr('data-active', page.explanation)
     });
+}
+
+Array.array_flip = function ( trans )  {
+    var key, tmp_ar = {};
+
+    for ( key in trans )  {
+        if ( trans.hasOwnProperty( key ) ) {
+            tmp_ar[trans[key]] = key;
+        }
+    }
+
+    return Object.keys(tmp_ar).map(function(key) {
+            return tmp_ar[key];
+        });
 };
